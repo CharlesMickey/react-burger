@@ -1,0 +1,31 @@
+.header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  max-width: 1280px;
+  min-height: 88px;
+  margin: auto;
+}
+
+.container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.logo {
+  justify-self: center;
+}
+
+.position {
+    display: flex;
+    justify-self: start;
+    text-align: center;
+    align-items: center;
+}
+
+.buttonProfile {
+  justify-self: end;
+}
