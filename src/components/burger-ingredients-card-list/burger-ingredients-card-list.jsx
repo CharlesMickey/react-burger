@@ -18,7 +18,6 @@ function BurgerIngredientsCardList({ title, data }) {
 
 export default BurgerIngredientsCardList;
 
-
 BurgerIngredientsCardList.propTypes = {
-  title: PropTypes.string
-}; 
+  title: PropTypes.string,
+};

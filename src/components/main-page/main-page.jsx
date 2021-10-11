@@ -2,7 +2,7 @@ import React from 'react';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import ConstructorBurger from '../burger-constructor/burger-constructor';
 
-import styleMain from './main-page.module.css'
+import styleMain from './main-page.module.css';
 
 function MainPage({ bun, sauce, main }) {
   return (

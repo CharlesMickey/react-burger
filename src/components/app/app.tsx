@@ -15,8 +15,7 @@ function App() {
   return (
     <div className='app'>
       <AppHeader />
-      <MainPage  bun={bun} main={main} sauce={sauce}/>
-     
+      <MainPage bun={bun} main={main} sauce={sauce} />
     </div>
   );
 }
