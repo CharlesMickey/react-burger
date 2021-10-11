@@ -15,15 +15,17 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+  padding-right: 8px;
   max-height: 464px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 ::-webkit-scrollbar {
   width: 8px;
+  transform: scaleX(-1);
 }
 .list::-webkit-scrollbar-track {
   background: rgba(47, 47, 55, 1);
@@ -39,7 +41,6 @@
 .listItem {
   display: flex;
   align-items: center;
-  margin-right: 16px;
 }
 
 .dragIcon {

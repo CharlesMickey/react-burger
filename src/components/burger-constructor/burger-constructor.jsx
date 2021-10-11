@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   ConstructorElement,
   CurrencyIcon,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { dataPropTypes } from '../../utils/data';
 
 import styleConstructor from './burger-constructor.module.css';
 
@@ -103,3 +105,9 @@ function ConstructorBurger({ bun, sauce, main }) {
 }
 
 export default ConstructorBurger;
+
+ConstructorBurger.propTypes = {
+  bun: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  sauce: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  main: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+};
