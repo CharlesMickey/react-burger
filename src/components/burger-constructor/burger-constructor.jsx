@@ -37,7 +37,7 @@ function ConstructorBurger({ bun, sauce, main }) {
             <ConstructorElement
               text='Краторная булка N-200i (верх)'
               price={50}
-              thumbnail={sauce[0].image}
+              thumbnail={main[0].image}
             />
           </li>
           <li className={styleConstructor.listItem}>
@@ -47,7 +47,7 @@ function ConstructorBurger({ bun, sauce, main }) {
             <ConstructorElement
               text='Краторная булка N-200i (верх)'
               price={50}
-              thumbnail={sauce[0].image}
+              thumbnail={main[2].image}
             />
           </li>
           <li className={styleConstructor.listItem}>
@@ -57,7 +57,7 @@ function ConstructorBurger({ bun, sauce, main }) {
             <ConstructorElement
               text='Краторная булка N-200i (верх)'
               price={50}
-              thumbnail={sauce[0].image}
+              thumbnail={sauce[3].image}
             />
           </li>
           <li className={styleConstructor.listItem}>
@@ -67,7 +67,7 @@ function ConstructorBurger({ bun, sauce, main }) {
             <ConstructorElement
               text='Краторная булка N-200i (верх)'
               price={50}
-              thumbnail={sauce[0].image}
+              thumbnail={sauce[2].image}
             />
           </li>
           <li className={styleConstructor.listItem}>
@@ -77,7 +77,7 @@ function ConstructorBurger({ bun, sauce, main }) {
             <ConstructorElement
               text='Краторная булка N-200i (верх)'
               price={50}
-              thumbnail={sauce[0].image}
+              thumbnail={main[4].image}
             />
           </li>
         </ul>
