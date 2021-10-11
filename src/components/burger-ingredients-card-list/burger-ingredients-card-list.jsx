@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BurgerIngredientsCard from '../burger-ingredients-card/burger-ingredients-card';
 import burgerIngredientsCardList from './burger-ingredients-card-list.module.css';
+import { dataPropTypes } from '../../utils/data';
 
 function BurgerIngredientsCardList({ title, data }) {
   return (
@@ -19,5 +20,6 @@ function BurgerIngredientsCardList({ title, data }) {
 export default BurgerIngredientsCardList;
 
 BurgerIngredientsCardList.propTypes = {
+  data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
   title: PropTypes.string,
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styleIngredients from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -33,7 +33,7 @@ function BurgerIngredients({ bun, sauce, main }) {
   );
 }
 
-export default BurgerIngredients;
+export default memo(BurgerIngredients);
 
 BurgerIngredients.propTypes = {
   bun: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
