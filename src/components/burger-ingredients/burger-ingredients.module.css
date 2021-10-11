@@ -1,7 +1,7 @@
 .section {
   width: 600px;
   height: 100%;
-  margin: 0 auto 0 0;
+  margin: 0 40px 0 0;
   padding-top: 40px;
   padding-left: 20px;
 }
@@ -16,7 +16,7 @@
 }
 
 .scroll {
-  max-height: calc(100vh - 284px);
+  max-height: 756px;
   overflow-y: scroll;
 }
 

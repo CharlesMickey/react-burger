@@ -1,11 +1,12 @@
 import React from 'react';
 
 import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+
 import './app.css';
 
 import { data } from '../../utils/data';
-import ConstructorBurger from '../burger-constructor/burger-constructor';
+
+import MainPage from '../main-page/main-page';
 
 function App() {
   const bun = data.filter((i) => i.type === 'bun');
@@ -14,8 +15,8 @@ function App() {
   return (
     <div className='app'>
       <AppHeader />
-      <BurgerIngredients bun={bun} main={main} sauce={sauce} />
-      <ConstructorBurger bun={bun} main={main} sauce={sauce} />
+      <MainPage  bun={bun} main={main} sauce={sauce}/>
+     
     </div>
   );
 }
