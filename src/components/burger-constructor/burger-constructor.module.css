@@ -1,0 +1,54 @@
+.constructor {
+  max-width: 600px;
+  height: 100%;
+  padding-top: 100px;
+}
+.constructorElement {
+  display: flex;
+  padding-bottom: 40px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  padding-right: 8px;
+  max-height: 464px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  transform: scaleX(-1);
+}
+.list::-webkit-scrollbar-track {
+  background: rgba(47, 47, 55, 1);
+  height: 492px;
+  margin-bottom: 0;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(133, 133, 173, 1);
+  border: 3px solid rgba(133, 133, 173, 1);
+  min-height: 150px;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+}
+
+.dragIcon {
+  margin: 0 13.5px 0 21.5px;
+}
+
+.containerButton {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

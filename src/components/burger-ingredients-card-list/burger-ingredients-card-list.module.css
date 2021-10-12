@@ -1,0 +1,8 @@
+.list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 24px 0 8px 16px;
+  margin: 0 8px 0 0;
+}

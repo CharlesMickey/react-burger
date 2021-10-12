@@ -1,0 +1,35 @@
+.section {
+  width: 600px;
+  height: 100%;
+  margin: 0 40px 0 0;
+  padding-top: 40px;
+  padding-left: 20px;
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+.tab {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.scroll {
+  max-height: 756px;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(47, 47, 55, 1);
+  height: 492px;
+  margin-bottom: 52px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(133, 133, 173, 1);
+  border: 3px solid rgba(133, 133, 173, 1);
+  min-height: 150px;
+}
