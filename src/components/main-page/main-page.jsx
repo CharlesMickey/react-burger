@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import ConstructorBurger from '../burger-constructor/burger-constructor';
 import PropTypes from 'prop-types';
-import { dataPropTypes } from '../../utils/data';
+import { dataPropTypes } from '../../utils/constants';
 import styleMain from './main-page.module.css';
 
 function MainPage({ bun, sauce, main }) {
@@ -14,7 +14,7 @@ function MainPage({ bun, sauce, main }) {
   );
 }
 
-export default memo(MainPage)
+export default memo(MainPage);
 
 BurgerIngredients.propTypes = {
   bun: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,

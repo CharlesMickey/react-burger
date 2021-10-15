@@ -4,11 +4,9 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleBurgerIngredientsCard from './burger-ingredients-card.module.css';
-import { dataPropTypes } from '../../utils/data';
+import { dataPropTypes } from '../../utils/constants';
 
 function BurgerIngredientsCard({ card }) {
-  
-  
   return (
     <li className={`mb-10 ${styleBurgerIngredientsCard.item}`}>
       <img src={card.image} alt={card.name} />
@@ -22,7 +20,7 @@ function BurgerIngredientsCard({ card }) {
   );
 }
 
-export default memo(BurgerIngredientsCard)
+export default memo(BurgerIngredientsCard);
 
 BurgerIngredientsCard.propTypes = {
   card: dataPropTypes.isRequired,
