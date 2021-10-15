@@ -229,3 +229,5 @@ export const dataPropTypes = PropTypes.shape({
   __v: PropTypes.number.isRequired,
   _id: PropTypes.string.isRequired,
 });
+
+export const BASE_URL = 'https://norma.nomoreparties.space/api';

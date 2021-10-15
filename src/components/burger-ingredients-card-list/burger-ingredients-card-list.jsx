@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BurgerIngredientsCard from '../burger-ingredients-card/burger-ingredients-card';
 import burgerIngredientsCardList from './burger-ingredients-card-list.module.css';
-import { dataPropTypes } from '../../utils/data';
+import { dataPropTypes } from '../../utils/constants';
 
 function BurgerIngredientsCardList({ title, data }) {
   return (

@@ -6,11 +6,14 @@ import {
   CurrencyIcon,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { dataPropTypes } from '../../utils/data';
+import { dataPropTypes } from '../../utils/constants';
+
+import { data } from '../../utils/constants';
 
 import styleConstructor from './burger-constructor.module.css';
 
-function ConstructorBurger({ bun, sauce, main }) {
+function ConstructorBurger() {
+  console.log(data[1].image);
   return (
     <section className={styleConstructor.constructor}>
       <div className={styleConstructor.constructorElement}>
@@ -19,7 +22,7 @@ function ConstructorBurger({ bun, sauce, main }) {
           isLocked={true}
           text='Краторная булка N-200i (верх)'
           price={200}
-          thumbnail={bun[0].image}
+          thumbnail={data[0].image}
         />
         <ul className={styleConstructor.list}>
           <li className={styleConstructor.listItem}>
@@ -29,7 +32,7 @@ function ConstructorBurger({ bun, sauce, main }) {
             <ConstructorElement
               text='Краторная булка N-200i (верх)'
               price={50}
-              thumbnail={sauce[0].image}
+              thumbnail={data[1].image}
             />
           </li>
           <li className={styleConstructor.listItem}>
@@ -39,7 +42,7 @@ function ConstructorBurger({ bun, sauce, main }) {
             <ConstructorElement
               text='Краторная булка N-200i (верх)'
               price={50}
-              thumbnail={main[0].image}
+              thumbnail={data[8].image}
             />
           </li>
           <li className={styleConstructor.listItem}>
@@ -49,7 +52,7 @@ function ConstructorBurger({ bun, sauce, main }) {
             <ConstructorElement
               text='Краторная булка N-200i (верх)'
               price={50}
-              thumbnail={main[2].image}
+              thumbnail={data[7].image}
             />
           </li>
           <li className={styleConstructor.listItem}>
@@ -59,7 +62,7 @@ function ConstructorBurger({ bun, sauce, main }) {
             <ConstructorElement
               text='Краторная булка N-200i (верх)'
               price={50}
-              thumbnail={sauce[3].image}
+              thumbnail={data[3].image}
             />
           </li>
           <li className={styleConstructor.listItem}>
@@ -69,7 +72,7 @@ function ConstructorBurger({ bun, sauce, main }) {
             <ConstructorElement
               text='Краторная булка N-200i (верх)'
               price={50}
-              thumbnail={sauce[2].image}
+              thumbnail={data[2].image}
             />
           </li>
           <li className={styleConstructor.listItem}>
@@ -79,7 +82,7 @@ function ConstructorBurger({ bun, sauce, main }) {
             <ConstructorElement
               text='Краторная булка N-200i (верх)'
               price={50}
-              thumbnail={main[4].image}
+              thumbnail={data[4].image}
             />
           </li>
         </ul>
@@ -88,7 +91,7 @@ function ConstructorBurger({ bun, sauce, main }) {
           isLocked={true}
           text='Краторная булка N-200i (низ)'
           price={200}
-          thumbnail={bun[0].image}
+          thumbnail={data[0].image}
         />
       </div>
       <div className={styleConstructor.containerButton}>
