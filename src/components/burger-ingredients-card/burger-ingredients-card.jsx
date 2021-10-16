@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 import {
   Counter,
   CurrencyIcon,
@@ -31,4 +32,6 @@ export default memo(BurgerIngredientsCard);
 
 BurgerIngredientsCard.propTypes = {
   card: dataPropTypes.isRequired,
+  open: PropTypes.func.isRequired,
+  onCardClick: PropTypes.func.isRequired,
 };

@@ -1,9 +1,11 @@
+import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import ReactDOM from 'react-dom';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import styleModal from './modal.module.css';
 import { modalRoot } from '../../utils/constants';
+
 function Modal({ title, closePopup, isOpen, children }) {
   return ReactDOM.createPortal(
     <ModalOverlay isOpen={isOpen}>
@@ -22,3 +24,10 @@ function Modal({ title, closePopup, isOpen, children }) {
 }
 
 export default Modal;
+
+Modal.propTypes = {
+  title: PropTypes.string.isRequired,
+  closePopup: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  children: PropTypes.element.isRequired,
+};

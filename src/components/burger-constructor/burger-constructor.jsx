@@ -6,7 +6,6 @@ import {
   CurrencyIcon,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { dataPropTypes } from '../../utils/constants';
 
 import { data } from '../../utils/constants';
 
@@ -109,7 +108,5 @@ function ConstructorBurger({ open }) {
 export default ConstructorBurger;
 
 ConstructorBurger.propTypes = {
-  bun: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-  sauce: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-  main: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  open: PropTypes.func.isRequired,
 };

@@ -25,9 +25,24 @@ function BurgerIngredients({ onCardClick, open, bun, sauce, main }) {
         </Tab>
       </div>
       <div className={styleIngredients.scroll}>
-        <BurgerIngredientsCardList onCardClick={onCardClick} open={open} data={bun} title='Булки' />
-        <BurgerIngredientsCardList onCardClick={onCardClick} open={open} data={sauce} title='Соусы' />
-        <BurgerIngredientsCardList onCardClick={onCardClick} open={open} data={main} title='Начинки' />
+        <BurgerIngredientsCardList
+          onCardClick={onCardClick}
+          open={open}
+          data={bun}
+          title='Булки'
+        />
+        <BurgerIngredientsCardList
+          onCardClick={onCardClick}
+          open={open}
+          data={sauce}
+          title='Соусы'
+        />
+        <BurgerIngredientsCardList
+          onCardClick={onCardClick}
+          open={open}
+          data={main}
+          title='Начинки'
+        />
       </div>
     </section>
   );
@@ -39,4 +54,6 @@ BurgerIngredients.propTypes = {
   bun: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
   sauce: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
   main: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  open: PropTypes.func.isRequired,
+  onCardClick: PropTypes.func.isRequired,
 };

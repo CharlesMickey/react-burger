@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styleOverlay from './modal-overlay.module.css';
 
 function ModalOverlay({ isOpen, children }) {
@@ -14,3 +15,8 @@ function ModalOverlay({ isOpen, children }) {
 }
 
 export default ModalOverlay;
+
+ModalOverlay.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  children: PropTypes.element.isRequired,
+};

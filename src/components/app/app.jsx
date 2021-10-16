@@ -16,24 +16,24 @@ function App() {
 
   const [selectedCard, setSelectedCard] = React.useState(null);
 
-  function closeAllPopups() {
+  const closeAllPopups = React.useCallback(() => {
     setIsOrderDetailsOpen(false);
     setIsIngredientDetails(false);
-  }
+  }, []);
 
-  function handleOrderDetailsClick() {
+  const handleOrderDetailsClick = React.useCallback(() => {
     setIsOrderDetailsOpen(true);
-  }
+  }, []);
 
-  function handleIngredientDetailsClick() {
+  const handleIngredientDetailsClick = React.useCallback(() => {
     setIsIngredientDetails(true);
-  }
+  }, []);
 
-  function handleCardClick(card) {
+  const handleCardClick = React.useCallback((card) => {
     setSelectedCard(card);
-  }
+  }, []);
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     api
       .getData()
       .then((res) => {
@@ -42,9 +42,20 @@ function App() {
       .catch((err) => console.log(`${err}`));
   }, []);
 
-  const bun = allIngredients.filter((i) => i.type === 'bun');
-  const main = allIngredients.filter((i) => i.type === 'main');
-  const sauce = allIngredients.filter((i) => i.type === 'sauce');
+  const bun = React.useMemo(
+    () => allIngredients.filter((i) => i.type === 'bun'),
+    [allIngredients]
+  );
+
+  const main = React.useMemo(
+    () => allIngredients.filter((i) => i.type === 'main'),
+    [allIngredients]
+  );
+
+  const sauce = React.useMemo(
+    () => allIngredients.filter((i) => i.type === 'sauce'),
+    [allIngredients]
+  );
 
   function closePopupClickOnOverlay(e) {
     if (e.target.matches('.popup')) {

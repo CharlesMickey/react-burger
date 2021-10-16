@@ -34,8 +34,11 @@ function MainPage({
 
 export default memo(MainPage);
 
-BurgerIngredients.propTypes = {
+MainPage.propTypes = {
   bun: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
   sauce: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
   main: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  onCardClick: PropTypes.func.isRequired,
+  openIngredientDetails: PropTypes.func.isRequired,
+  openOrderDetails: PropTypes.func.isRequired,
 };

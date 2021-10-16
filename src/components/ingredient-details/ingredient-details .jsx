@@ -1,8 +1,9 @@
 import React, { memo } from 'react';
 import { MESSAGE } from '../../utils/constants';
+import { dataPropTypes } from '../../utils/constants';
 import styleIngredientDetails from './ingredient-details.module.css';
+
 function IngredientDetails({ card }) {
-  console.log(card);
   return (
     card && (
       <section className={styleIngredientDetails.section}>
@@ -50,3 +51,7 @@ function IngredientDetails({ card }) {
 }
 
 export default memo(IngredientDetails);
+
+IngredientDetails.propTypes = {
+  card: dataPropTypes,
+};
