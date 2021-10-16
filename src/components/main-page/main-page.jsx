@@ -5,11 +5,29 @@ import PropTypes from 'prop-types';
 import { dataPropTypes } from '../../utils/constants';
 import styleMain from './main-page.module.css';
 
-function MainPage({ bun, sauce, main }) {
+function MainPage({
+  onCardClick,
+  openIngredientDetails,
+  openOrderDetails,
+  bun,
+  sauce,
+  main,
+}) {
   return (
     <main className={styleMain.main}>
-      <BurgerIngredients bun={bun} main={main} sauce={sauce} />
-      <ConstructorBurger bun={bun} main={main} sauce={sauce} />
+      <BurgerIngredients
+        open={openIngredientDetails}
+        onCardClick={onCardClick}
+        bun={bun}
+        main={main}
+        sauce={sauce}
+      />
+      <ConstructorBurger
+        open={openOrderDetails}
+        bun={bun}
+        main={main}
+        sauce={sauce}
+      />
     </main>
   );
 }

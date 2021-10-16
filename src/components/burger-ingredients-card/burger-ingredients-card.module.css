@@ -7,6 +7,7 @@
   flex-direction: column;
   text-align: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .item:nth-child(even) {

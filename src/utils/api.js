@@ -8,8 +8,6 @@ export const checkResponse = (response) => {
       );
 };
 
-console.log(`${BASE_URL}/ingredients`);
-
 export const getData = () => {
   return fetch(`${BASE_URL}/ingredients`, {
     method: 'GET',

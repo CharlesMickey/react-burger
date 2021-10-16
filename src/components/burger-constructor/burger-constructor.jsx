@@ -12,8 +12,7 @@ import { data } from '../../utils/constants';
 
 import styleConstructor from './burger-constructor.module.css';
 
-function ConstructorBurger() {
-  console.log(data[1].image);
+function ConstructorBurger({ open }) {
   return (
     <section className={styleConstructor.constructor}>
       <div className={styleConstructor.constructorElement}>
@@ -99,7 +98,7 @@ function ConstructorBurger() {
           <span className='mr-2 text text_type_digits-medium'>610</span>
           <CurrencyIcon type='primary' />
         </div>
-        <Button type='primary' size='large'>
+        <Button onClick={open} type='primary' size='large'>
           Оформить заказ
         </Button>
       </div>

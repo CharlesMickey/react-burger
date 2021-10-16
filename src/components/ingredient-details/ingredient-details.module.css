@@ -1,0 +1,22 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1px;
+}
+
+.img {
+  width: 480px;
+  height: 240px;
+}
+
+.ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  color: rgba(133, 133, 173, 1);
+  list-style-type: none;
+  gap: 20px;
+}

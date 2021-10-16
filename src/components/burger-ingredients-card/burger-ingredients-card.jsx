@@ -6,9 +6,16 @@ import {
 import styleBurgerIngredientsCard from './burger-ingredients-card.module.css';
 import { dataPropTypes } from '../../utils/constants';
 
-function BurgerIngredientsCard({ card }) {
+function BurgerIngredientsCard({ onCardClick, open, card }) {
+  function handleCardClick() {
+    onCardClick(card);
+    open();
+  }
   return (
-    <li className={`mb-10 ${styleBurgerIngredientsCard.item}`}>
+    <li
+      onClick={handleCardClick}
+      className={`mb-10 ${styleBurgerIngredientsCard.item}`}
+    >
       <img src={card.image} alt={card.name} />
       <Counter count={1} size='default' />
       <div className={styleBurgerIngredientsCard.container}>

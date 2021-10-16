@@ -5,7 +5,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientsCardList from '../burger-ingredients-card-list/burger-ingredients-card-list';
 import { dataPropTypes } from '../../utils/constants';
 
-function BurgerIngredients({ bun, sauce, main }) {
+function BurgerIngredients({ onCardClick, open, bun, sauce, main }) {
   const [current, setCurrent] = React.useState('one');
 
   return (
@@ -25,9 +25,9 @@ function BurgerIngredients({ bun, sauce, main }) {
         </Tab>
       </div>
       <div className={styleIngredients.scroll}>
-        <BurgerIngredientsCardList data={bun} title='Булки' />
-        <BurgerIngredientsCardList data={sauce} title='Соусы' />
-        <BurgerIngredientsCardList data={main} title='Начинки' />
+        <BurgerIngredientsCardList onCardClick={onCardClick} open={open} data={bun} title='Булки' />
+        <BurgerIngredientsCardList onCardClick={onCardClick} open={open} data={sauce} title='Соусы' />
+        <BurgerIngredientsCardList onCardClick={onCardClick} open={open} data={main} title='Начинки' />
       </div>
     </section>
   );

@@ -1,0 +1,28 @@
+.modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(28, 28, 33, 1);
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  box-sizing: border-box;
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04),
+    0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04),
+    0px 0px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 40px;
+  z-index: 2;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  width: 580px;
+  height: 64px;
+}
+
+.closeIcon {
+  position: absolute;
+  cursor: pointer;
+  top: 60px;
+  right: 40px;
+}
