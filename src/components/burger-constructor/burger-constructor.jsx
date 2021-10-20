@@ -11,17 +11,32 @@ import styleConstructor from './burger-constructor.module.css';
 import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
 
 function ConstructorBurger({ isLoading, open }) {
-  const ingredients = React.useContext(BurgerConstructorContext);
+  const { allIngredients, getOrderNumber } = React.useContext(
+    BurgerConstructorContext
+  );
 
   const bun = React.useMemo(
-    () => ingredients.find((item) => item.type === 'bun'),
-    [ingredients]
+    () =>
+      allIngredients.find((item) => {
+        return item.type === 'bun';
+      }),
+    [allIngredients]
   );
 
   const otherIngredients = React.useMemo(
-    () => ingredients.filter((item) => item.type !== 'bun'),
-    [ingredients]
+    () => allIngredients.filter((item) => item.type !== 'bun'),
+    [allIngredients]
   );
+
+  function handleClick() {
+    const id = otherIngredients
+      .map((item) => {
+        return item._id;
+      })
+      .concat(bun._id);
+    open();
+    getOrderNumber(id);
+  }
 
   return isLoading ? (
     ''
@@ -32,7 +47,7 @@ function ConstructorBurger({ isLoading, open }) {
           type='top'
           isLocked={true}
           text={`${bun.name} (верх)`}
-          price={bun.price || ''}
+          price={bun.price}
           thumbnail={bun.image}
         />
 
@@ -70,7 +85,7 @@ function ConstructorBurger({ isLoading, open }) {
           </span>
           <CurrencyIcon type='primary' />
         </div>
-        <Button onClick={open} type='primary' size='large'>
+        <Button onClick={handleClick} type='primary' size='large'>
           Оформить заказ
         </Button>
       </div>
