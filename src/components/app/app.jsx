@@ -8,12 +8,13 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details ';
 import { MESSAGE } from '../../utils/constants';
+import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
 
 function App() {
   const [allIngredients, setAllIngredients] = React.useState([]);
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = React.useState(false);
   const [isIngredientDetails, setIsIngredientDetails] = React.useState(false);
-
+  const [isLoading, setIsLoading] = React.useState(true);
   const [selectedCard, setSelectedCard] = React.useState(null);
 
   const closeAllPopups = React.useCallback(() => {
@@ -33,13 +34,14 @@ function App() {
     setSelectedCard(card);
   }, []);
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     api
       .getData()
       .then((res) => {
         return setAllIngredients(res.data);
       })
-      .catch((err) => console.log(`${err}`));
+      .catch((err) => console.log(`${err}`))
+      .finally(() => setIsLoading(false))
   }, []);
 
   const bun = React.useMemo(
@@ -70,6 +72,7 @@ function App() {
   }
 
   return (
+    <BurgerConstructorContext.Provider value={allIngredients}>
     <div
       tabIndex='0'
       onKeyDown={closePopupEsc}
@@ -78,6 +81,7 @@ function App() {
     >
       <AppHeader />
       <MainPage
+      isLoading={isLoading}
         openOrderDetails={handleOrderDetailsClick}
         openIngredientDetails={handleIngredientDetailsClick}
         onCardClick={handleCardClick}
@@ -100,6 +104,7 @@ function App() {
         <IngredientDetails card={selectedCard} />
       </Modal>
     </div>
+    </BurgerConstructorContext.Provider>
   );
 }
 

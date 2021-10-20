@@ -6,6 +6,7 @@ import { dataPropTypes } from '../../utils/constants';
 import styleMain from './main-page.module.css';
 
 function MainPage({
+  isLoading,
   onCardClick,
   openIngredientDetails,
   openOrderDetails,
@@ -23,10 +24,8 @@ function MainPage({
         sauce={sauce}
       />
       <ConstructorBurger
+      isLoading={isLoading}
         open={openOrderDetails}
-        bun={bun}
-        main={main}
-        sauce={sauce}
       />
     </main>
   );
