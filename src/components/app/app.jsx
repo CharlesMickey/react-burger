@@ -12,7 +12,7 @@ import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContex
 
 function App() {
   const [allIngredients, setAllIngredients] = React.useState([]);
-  const [orderNumber, setOrderNumber] = React.useState(0);
+  const [orderNumber, setOrderNumber] = React.useState(null);
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = React.useState(false);
   const [isIngredientDetails, setIsIngredientDetails] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
