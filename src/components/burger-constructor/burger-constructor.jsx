@@ -7,97 +7,85 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { data } from '../../utils/constants';
-
 import styleConstructor from './burger-constructor.module.css';
+import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
 
-function ConstructorBurger({ open }) {
-  return (
+function ConstructorBurger({ isLoading, open }) {
+  const { allIngredients, getOrderNumber } = React.useContext(
+    BurgerConstructorContext
+  );
+
+  const bun = React.useMemo(
+    () =>
+      allIngredients.find((item) => {
+        return item.type === 'bun';
+      }),
+    [allIngredients]
+  );
+
+  const otherIngredients = React.useMemo(
+    () => allIngredients.filter((item) => item.type !== 'bun'),
+    [allIngredients]
+  );
+
+  function handleClick() {
+    const id = otherIngredients
+      .map((item) => {
+        return item._id;
+      })
+      .concat(bun._id);
+    open();
+    getOrderNumber(id);
+  }
+
+  return isLoading ? (
+    ''
+  ) : (
     <section className={styleConstructor.constructor}>
       <div className={styleConstructor.constructorElement}>
         <ConstructorElement
           type='top'
           isLocked={true}
-          text='Краторная булка N-200i (верх)'
-          price={200}
-          thumbnail={data[0].image}
+          text={`${bun.name} (верх)`}
+          price={bun.price}
+          thumbnail={bun.image}
         />
+
         <ul className={styleConstructor.list}>
-          <li className={styleConstructor.listItem}>
-            <div className={styleConstructor.dragIcon}>
-              <DragIcon type='primary' />
-            </div>
-            <ConstructorElement
-              text='Краторная булка N-200i (верх)'
-              price={50}
-              thumbnail={data[1].image}
-            />
-          </li>
-          <li className={styleConstructor.listItem}>
-            <div className={styleConstructor.dragIcon}>
-              <DragIcon type='primary' />
-            </div>
-            <ConstructorElement
-              text='Краторная булка N-200i (верх)'
-              price={50}
-              thumbnail={data[8].image}
-            />
-          </li>
-          <li className={styleConstructor.listItem}>
-            <div className={styleConstructor.dragIcon}>
-              <DragIcon type='primary' />
-            </div>
-            <ConstructorElement
-              text='Краторная булка N-200i (верх)'
-              price={50}
-              thumbnail={data[7].image}
-            />
-          </li>
-          <li className={styleConstructor.listItem}>
-            <div className={styleConstructor.dragIcon}>
-              <DragIcon type='primary' />
-            </div>
-            <ConstructorElement
-              text='Краторная булка N-200i (верх)'
-              price={50}
-              thumbnail={data[3].image}
-            />
-          </li>
-          <li className={styleConstructor.listItem}>
-            <div className={styleConstructor.dragIcon}>
-              <DragIcon type='primary' />
-            </div>
-            <ConstructorElement
-              text='Краторная булка N-200i (верх)'
-              price={50}
-              thumbnail={data[2].image}
-            />
-          </li>
-          <li className={styleConstructor.listItem}>
-            <div className={styleConstructor.dragIcon}>
-              <DragIcon type='primary' />
-            </div>
-            <ConstructorElement
-              text='Краторная булка N-200i (верх)'
-              price={50}
-              thumbnail={data[4].image}
-            />
-          </li>
+          {otherIngredients.map((ingredient) => {
+            return (
+              <li key={ingredient._id} className={styleConstructor.listItem}>
+                <div className={styleConstructor.dragIcon}>
+                  <DragIcon type='primary' />
+                </div>
+                <ConstructorElement
+                  text={ingredient.name}
+                  price={ingredient.price}
+                  thumbnail={ingredient.image}
+                />
+              </li>
+            );
+          })}
         </ul>
         <ConstructorElement
           type='bottom'
           isLocked={true}
-          text='Краторная булка N-200i (низ)'
-          price={200}
-          thumbnail={data[0].image}
+          text={`${bun.name} (низ)`}
+          price={bun.price}
+          thumbnail={bun.image}
         />
       </div>
       <div className={styleConstructor.containerButton}>
         <div className='mr-10'>
-          <span className='mr-2 text text_type_digits-medium'>610</span>
+          <span className='mr-2 text text_type_digits-medium'>
+            {bun.price * 2 +
+              otherIngredients.reduce((previousValue, currentValue) => {
+                return previousValue + currentValue.price;
+              }, 0)}
+          </span>
           <CurrencyIcon type='primary' />
         </div>
-        <Button onClick={open} type='primary' size='large'>
+        <Button onClick={handleClick} type='primary' size='large'>
           Оформить заказ
         </Button>
       </div>
@@ -109,4 +97,5 @@ export default ConstructorBurger;
 
 ConstructorBurger.propTypes = {
   open: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
