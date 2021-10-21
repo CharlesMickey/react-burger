@@ -83,9 +83,6 @@ function App() {
           openOrderDetails={handleOrderDetailsClick}
           openIngredientDetails={handleIngredientDetailsClick}
           onCardClick={handleCardClick}
-          // bun={bun}
-          // main={main}
-          // sauce={sauce}
         />
         <Modal
           isOpen={isOrderDetailsOpen}
