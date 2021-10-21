@@ -3,10 +3,26 @@ import PropTypes from 'prop-types';
 import styleIngredients from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientsCardList from '../burger-ingredients-card-list/burger-ingredients-card-list';
-import { dataPropTypes } from '../../utils/constants';
+import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
 
-function BurgerIngredients({ onCardClick, open, bun, sauce, main }) {
+function BurgerIngredients({ onCardClick, open }) {
+  const { allIngredients } = React.useContext(BurgerConstructorContext);
   const [current, setCurrent] = React.useState('one');
+
+  const bun = React.useMemo(
+    () => allIngredients.filter((i) => i.type === 'bun'),
+    [allIngredients]
+  );
+
+  const main = React.useMemo(
+    () => allIngredients.filter((i) => i.type === 'main'),
+    [allIngredients]
+  );
+
+  const sauce = React.useMemo(
+    () => allIngredients.filter((i) => i.type === 'sauce'),
+    [allIngredients]
+  );
 
   return (
     <section className={styleIngredients.section}>
@@ -51,9 +67,6 @@ function BurgerIngredients({ onCardClick, open, bun, sauce, main }) {
 export default memo(BurgerIngredients);
 
 BurgerIngredients.propTypes = {
-  bun: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-  sauce: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-  main: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
   open: PropTypes.func.isRequired,
   onCardClick: PropTypes.func.isRequired,
 };

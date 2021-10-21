@@ -54,20 +54,6 @@ function App() {
       .catch((err) => console.log(`${err}`));
   }
 
-  const bun = React.useMemo(
-    () => allIngredients.filter((i) => i.type === 'bun'),
-    [allIngredients]
-  );
-
-  const main = React.useMemo(
-    () => allIngredients.filter((i) => i.type === 'main'),
-    [allIngredients]
-  );
-
-  const sauce = React.useMemo(
-    () => allIngredients.filter((i) => i.type === 'sauce'),
-    [allIngredients]
-  );
 
   function closePopupClickOnOverlay(e) {
     if (e.target.matches('.popup')) {
@@ -97,9 +83,9 @@ function App() {
           openOrderDetails={handleOrderDetailsClick}
           openIngredientDetails={handleIngredientDetailsClick}
           onCardClick={handleCardClick}
-          bun={bun}
-          main={main}
-          sauce={sauce}
+          // bun={bun}
+          // main={main}
+          // sauce={sauce}
         />
         <Modal
           isOpen={isOrderDetailsOpen}
