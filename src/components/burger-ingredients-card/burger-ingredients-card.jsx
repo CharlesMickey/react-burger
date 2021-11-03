@@ -6,10 +6,14 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleBurgerIngredientsCard from './burger-ingredients-card.module.css';
 import { dataPropTypes } from '../../utils/constants';
+import { getViewedIngredient } from '../../services/actions/ingredients';
+import { useDispatch } from 'react-redux';
 
-function BurgerIngredientsCard({ onCardClick, open, card }) {
+function BurgerIngredientsCard({  open, card }) {
+  const dispatch = useDispatch();
+  
   function handleCardClick() {
-    onCardClick(card);
+    dispatch(getViewedIngredient(card));
     open();
   }
   return (
@@ -33,5 +37,4 @@ export default memo(BurgerIngredientsCard);
 BurgerIngredientsCard.propTypes = {
   card: dataPropTypes.isRequired,
   open: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired,
 };

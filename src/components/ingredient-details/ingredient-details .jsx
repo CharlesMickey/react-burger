@@ -1,14 +1,15 @@
 import React, { memo } from 'react';
 import { MESSAGE } from '../../utils/constants';
-import { dataPropTypes } from '../../utils/constants';
 import styleIngredientDetails from './ingredient-details.module.css';
+import {  useSelector } from 'react-redux';
 
-function IngredientDetails({ card }) {
+function IngredientDetails() {
+  const  card  = useSelector((store) => store.ingredients.viewedIngredient);
   return (
     card && (
       <section className={styleIngredientDetails.section}>
         <img
-          src={card.image_large}
+          src={card.image_large }
           alt={card.name}
           className={styleIngredientDetails.img}
         />
@@ -52,6 +53,4 @@ function IngredientDetails({ card }) {
 
 export default memo(IngredientDetails);
 
-IngredientDetails.propTypes = {
-  card: dataPropTypes,
-};
+

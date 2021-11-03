@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
 import AppHeader from '../app-header/app-header';
-import * as api from '../../utils/api';
+import { getOrderOfNumber } from '../../utils/api';
 import MainPage from '../main-page/main-page';
 import styleApp from './app.module.css';
 import Modal from '../modal/modal';
@@ -9,19 +9,22 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details ';
 import { MESSAGE } from '../../utils/constants';
 import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
+import { getViewedIngredient } from '../../services/actions/ingredients';
+import { DEL_VIEWED_INGREDIENT } from '../../services/actions/actions-type';
+import { useDispatch } from 'react-redux';
 
 function App() {
-  const [allIngredients, setAllIngredients] = React.useState([]);
+  const dispatch = useDispatch()
   const [orderNumber, setOrderNumber] = React.useState(null);
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = React.useState(false);
   const [isIngredientDetails, setIsIngredientDetails] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [selectedCard, setSelectedCard] = React.useState(null);
+
 
   const closeAllPopups = React.useCallback(() => {
+    dispatch({type: DEL_VIEWED_INGREDIENT})
     setIsOrderDetailsOpen(false);
     setIsIngredientDetails(false);
-  }, []);
+  }, [dispatch]);
 
   const handleOrderDetailsClick = React.useCallback(() => {
     setIsOrderDetailsOpen(true);
@@ -31,29 +34,14 @@ function App() {
     setIsIngredientDetails(true);
   }, []);
 
-  const handleCardClick = React.useCallback((card) => {
-    setSelectedCard(card);
-  }, []);
-
-  React.useLayoutEffect(() => {
-    api
-      .getData()
-      .then((res) => {
-        return setAllIngredients(res.data);
-      })
-      .catch((err) => console.log(`${err}`))
-      .finally(() => setIsLoading(false));
-  }, []);
 
   function getOrderNumber(ingredients) {
-    api
-      .getOrderNumber(ingredients)
+    getOrderOfNumber(ingredients)
       .then(({ order }) => {
         setOrderNumber(order.number);
       })
       .catch((err) => console.log(`${err}`));
   }
-
 
   function closePopupClickOnOverlay(e) {
     if (e.target.matches('.popup')) {
@@ -69,7 +57,7 @@ function App() {
 
   return (
     <BurgerConstructorContext.Provider
-      value={{ getOrderNumber, allIngredients }}
+      value={{ getOrderNumber }}
     >
       <div
         tabIndex='0'
@@ -79,10 +67,9 @@ function App() {
       >
         <AppHeader />
         <MainPage
-          isLoading={isLoading}
+          
           openOrderDetails={handleOrderDetailsClick}
           openIngredientDetails={handleIngredientDetailsClick}
-          onCardClick={handleCardClick}
         />
         <Modal
           isOpen={isOrderDetailsOpen}
@@ -96,7 +83,7 @@ function App() {
           closePopup={closeAllPopups}
           title={MESSAGE.TITLE}
         >
-          <IngredientDetails card={selectedCard} />
+          <IngredientDetails  />
         </Modal>
       </div>
     </BurgerConstructorContext.Provider>

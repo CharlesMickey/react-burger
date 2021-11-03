@@ -23,7 +23,7 @@ export const getData = () => {
   });
 };
 
-export const getOrderNumber = (ingredients) => {
+export const getOrderOfNumber = (ingredients) => {
   return fetch(`${BASE_URL}/orders`, {
     headers,
     method: 'POST',

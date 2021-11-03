@@ -1,13 +1,20 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styleIngredients from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientsCardList from '../burger-ingredients-card-list/burger-ingredients-card-list';
-import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { getItems } from '../../services/actions/ingredients';
 
-function BurgerIngredients({ onCardClick, open }) {
-  const { allIngredients } = React.useContext(BurgerConstructorContext);
+function BurgerIngredients({  open }) {
   const [current, setCurrent] = React.useState('one');
+
+  const dispatch = useDispatch();
+  const  allIngredients  = useSelector((store) => store.ingredients.allIngredients);
+
+  useEffect(() => {
+    dispatch(getItems());
+  }, [dispatch]);
 
   const bun = React.useMemo(
     () => allIngredients.filter((i) => i.type === 'bun'),
@@ -42,19 +49,16 @@ function BurgerIngredients({ onCardClick, open }) {
       </div>
       <div className={styleIngredients.scroll}>
         <BurgerIngredientsCardList
-          onCardClick={onCardClick}
           open={open}
           data={bun}
           title='Булки'
         />
         <BurgerIngredientsCardList
-          onCardClick={onCardClick}
           open={open}
           data={sauce}
           title='Соусы'
         />
         <BurgerIngredientsCardList
-          onCardClick={onCardClick}
           open={open}
           data={main}
           title='Начинки'
@@ -68,5 +72,4 @@ export default memo(BurgerIngredients);
 
 BurgerIngredients.propTypes = {
   open: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired,
 };

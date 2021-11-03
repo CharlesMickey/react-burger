@@ -9,11 +9,14 @@ import {
 
 import styleConstructor from './burger-constructor.module.css';
 import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
+import { useSelector } from 'react-redux';
 
-function ConstructorBurger({ isLoading, open }) {
-  const { allIngredients, getOrderNumber } = React.useContext(
+function ConstructorBurger({  open }) {
+  const  allIngredients  = useSelector((state) => state.ingredients.allIngredients);
+  const {  getOrderNumber } = React.useContext(
     BurgerConstructorContext
   );
+
 
   const bun = React.useMemo(
     () =>
@@ -38,7 +41,7 @@ function ConstructorBurger({ isLoading, open }) {
     getOrderNumber(id);
   }
 
-  return isLoading ? (
+  return allIngredients.length === 0 ? (
     ''
   ) : (
     <section className={styleConstructor.constructor}>
@@ -97,5 +100,4 @@ export default ConstructorBurger;
 
 ConstructorBurger.propTypes = {
   open: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
 };
