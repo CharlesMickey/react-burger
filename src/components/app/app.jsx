@@ -9,7 +9,6 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details ';
 import { MESSAGE } from '../../utils/constants';
 import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
-import { getViewedIngredient } from '../../services/actions/ingredients';
 import { DEL_VIEWED_INGREDIENT } from '../../services/actions/actions-type';
 import { useDispatch } from 'react-redux';
 

@@ -9,30 +9,50 @@ import {
 
 import styleConstructor from './burger-constructor.module.css';
 import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useDrop } from 'react-dnd';
+import {
+  ADD_INGREDIENT_CONSTRUCTOR,
+  DEL_INGREDIENT_CONSTRUCTOR,
+  INCREASE_INGREDIENTS,
+  REDUCE_INGREDIENTS,
+} from '../../services/actions/actions-type';
 
-function ConstructorBurger({  open }) {
-  const  allIngredients  = useSelector((state) => state.ingredients.allIngredients);
-  const {  getOrderNumber } = React.useContext(
-    BurgerConstructorContext
+function ConstructorBurger({ open }) {
+  const { bun, ingredient } = useSelector(
+    (store) => store.ingredients.ingredientsConstructor
   );
+  const dispatch = useDispatch();
 
+  const [{ canDrop, isOver }, drop] = useDrop(() => ({
+    accept: 'item',
+    drop: (item) => {
+      const itemWithId = { ...item, uniqueId: Math.random() };
+      dispatch({
+        type: ADD_INGREDIENT_CONSTRUCTOR,
+        item: itemWithId,
+      });
+      dispatch({
+        type: INCREASE_INGREDIENTS,
+        id: itemWithId._id,
+        typeForCount: itemWithId.type,
+      });
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  }));
 
-  const bun = React.useMemo(
-    () =>
-      allIngredients.find((item) => {
-        return item.type === 'bun';
-      }),
-    [allIngredients]
-  );
+  const isActive = canDrop && isOver;
 
-  const otherIngredients = React.useMemo(
-    () => allIngredients.filter((item) => item.type !== 'bun'),
-    [allIngredients]
-  );
+  const backgroundColor =
+    (isActive && 'rgba(45, 45, 55, 1)') || (canDrop && 'rgba(30, 30, 55, 1)');
+
+  const { getOrderNumber } = React.useContext(BurgerConstructorContext);
 
   function handleClick() {
-    const id = otherIngredients
+    const id = ingredient
       .map((item) => {
         return item._id;
       })
@@ -41,23 +61,29 @@ function ConstructorBurger({  open }) {
     getOrderNumber(id);
   }
 
-  return allIngredients.length === 0 ? (
-    ''
-  ) : (
-    <section className={styleConstructor.constructor}>
-      <div className={styleConstructor.constructorElement}>
-        <ConstructorElement
-          type='top'
-          isLocked={true}
-          text={`${bun.name} (верх)`}
-          price={bun.price}
-          thumbnail={bun.image}
-        />
+  return (
+    <section ref={drop} className={styleConstructor.constructor}>
+      <div
+        style={{ backgroundColor }}
+        className={styleConstructor.constructorElement}
+      >
+        {bun && (
+          <ConstructorElement
+            type='top'
+            isLocked={true}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        )}
 
         <ul className={styleConstructor.list}>
-          {otherIngredients.map((ingredient) => {
+          {ingredient.map((ingredient) => {
             return (
-              <li key={ingredient._id} className={styleConstructor.listItem}>
+              <li
+                key={ingredient.uniqueId}
+                className={styleConstructor.listItem}
+              >
                 <div className={styleConstructor.dragIcon}>
                   <DragIcon type='primary' />
                 </div>
@@ -65,33 +91,48 @@ function ConstructorBurger({  open }) {
                   text={ingredient.name}
                   price={ingredient.price}
                   thumbnail={ingredient.image}
+                  handleClose={() => {
+                    dispatch({
+                      type: DEL_INGREDIENT_CONSTRUCTOR,
+                      id: ingredient.uniqueId,
+                    });
+                    dispatch({
+                      type: REDUCE_INGREDIENTS,
+                      id: ingredient._id,
+                      typeForCount: ingredient.type
+                    });
+                  }}
                 />
               </li>
             );
           })}
         </ul>
-        <ConstructorElement
-          type='bottom'
-          isLocked={true}
-          text={`${bun.name} (низ)`}
-          price={bun.price}
-          thumbnail={bun.image}
-        />
+        {bun && (
+          <ConstructorElement
+            type='bottom'
+            isLocked={true}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        )}
       </div>
-      <div className={styleConstructor.containerButton}>
-        <div className='mr-10'>
-          <span className='mr-2 text text_type_digits-medium'>
-            {bun.price * 2 +
-              otherIngredients.reduce((previousValue, currentValue) => {
-                return previousValue + currentValue.price;
-              }, 0)}
-          </span>
-          <CurrencyIcon type='primary' />
+      {bun && (
+        <div className={styleConstructor.containerButton}>
+          <div className='mr-10'>
+            <span className='mr-2 text text_type_digits-medium'>
+              {bun.price * 2 +
+                ingredient.reduce((previousValue, currentValue) => {
+                  return previousValue + currentValue.price;
+                }, 0)}
+            </span>
+            <CurrencyIcon type='primary' />
+          </div>
+          <Button onClick={handleClick} type='primary' size='large'>
+            Оформить заказ
+          </Button>
         </div>
-        <Button onClick={handleClick} type='primary' size='large'>
-          Оформить заказ
-        </Button>
-      </div>
+      )}
     </section>
   );
 }

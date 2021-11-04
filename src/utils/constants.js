@@ -28,3 +28,5 @@ export const MESSAGE = {
     CARBOHYDRATES: 'Углеводы, г',
   },
 };
+
+export const QUANTITY_BUNS = 2
