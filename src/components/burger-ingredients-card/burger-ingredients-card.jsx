@@ -25,7 +25,7 @@ function BurgerIngredientsCard({ open, card }) {
   });
 
   const quantity =
-    bun && card.type === 'bun' && bun._id === card._id
+    bun && bun._id === card._id
       ? QUANTITY_BUNS
       : counter[card._id];
 
