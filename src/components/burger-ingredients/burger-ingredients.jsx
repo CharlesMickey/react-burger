@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import styleIngredients from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientsCardList from '../burger-ingredients-card-list/burger-ingredients-card-list';
@@ -7,7 +7,12 @@ import { getItems } from '../../services/actions/ingredients';
 import { ingredientSelectors } from '../../services/selectors';
 
 function BurgerIngredients() {
-  const [current, setCurrent] = React.useState('one');
+  const topRef = useRef(null);
+  const bunRef = useRef(null);
+  const sauceRef = useRef(null);
+  const mainRef = useRef(null);
+
+  const [current, setCurrent] = React.useState('bun');
 
   const dispatch = useDispatch();
   const allIngredients = useSelector(ingredientSelectors.allIngredients);
@@ -31,26 +36,70 @@ function BurgerIngredients() {
     [allIngredients]
   );
 
+  const onScroll = () => {
+    const bunYDistance = Math.abs(
+      topRef.current.getBoundingClientRect().y -
+        bunRef.current.getBoundingClientRect().y
+    );
+    const sauceYDistance = Math.abs(
+      topRef.current.getBoundingClientRect().y -
+        sauceRef.current.getBoundingClientRect().y
+    );
+    const mainYDistance = Math.abs(
+      topRef.current.getBoundingClientRect().y -
+        mainRef.current.getBoundingClientRect().y
+    );
+    const activeTabDistance = Math.min(
+      bunYDistance,
+      sauceYDistance,
+      mainYDistance
+    );
+    activeTabDistance === sauceYDistance
+      ? setCurrent('sauce')
+      : activeTabDistance === mainYDistance
+      ? setCurrent('main')
+      : setCurrent('bun');
+  };
+
   return (
     <section className={styleIngredients.section}>
       <h1 className={`text text_type_main-large ${styleIngredients.title}`}>
         Собeрите бургер
       </h1>
       <div className={styleIngredients.tab}>
-        <Tab value='one' active={current === 'one'} onClick={setCurrent}>
+        <Tab value='bun' active={current === 'bun'} onClick={setCurrent}>
           Булки
         </Tab>
-        <Tab value='two' active={current === 'two'} onClick={setCurrent}>
+        <Tab value='sauce' active={current === 'sauce'} onClick={setCurrent}>
           Соусы
         </Tab>
-        <Tab value='three' active={current === 'three'} onClick={setCurrent}>
+        <Tab value='main' active={current === 'main'} onClick={setCurrent}>
           Начинки
         </Tab>
       </div>
-      <div className={styleIngredients.scroll}>
-        <BurgerIngredientsCardList data={bun} title='Булки' />
-        <BurgerIngredientsCardList data={sauce} title='Соусы' />
-        <BurgerIngredientsCardList data={main} title='Начинки' />
+      <div
+        ref={topRef}
+        onScroll={onScroll}
+        className={styleIngredients.scroll}
+      >
+        <BurgerIngredientsCardList
+          ref={bunRef}
+          id='bun'
+          data={bun}
+          title='Булки'
+        />
+        <BurgerIngredientsCardList
+          ref={sauceRef}
+          id='sauce'
+          data={sauce}
+          title='Соусы'
+        />
+        <BurgerIngredientsCardList
+          ref={mainRef}
+          id='main'
+          data={main}
+          title='Начинки'
+        />
       </div>
     </section>
   );

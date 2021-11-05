@@ -1,12 +1,12 @@
-import React, { memo } from 'react';
+import React, { forwardRef, memo } from 'react';
 import PropTypes from 'prop-types';
 import BurgerIngredientsCard from '../burger-ingredients-card/burger-ingredients-card';
 import burgerIngredientsCardList from './burger-ingredients-card-list.module.css';
 import { dataPropTypes } from '../../utils/constants';
 
-function BurgerIngredientsCardList({ title, data }) {
+const BurgerIngredientsCardList = forwardRef(( { title, data }, ref) => {
   return (
-    <section>
+    <section ref={ref}>
       <h2 className='mt-0 text text_type_main-medium'>{title}</h2>
       <ul className={burgerIngredientsCardList.list}>
         {data.map((item) => (
@@ -15,7 +15,7 @@ function BurgerIngredientsCardList({ title, data }) {
       </ul>
     </section>
   );
-}
+});
 
 export default memo(BurgerIngredientsCardList);
 
