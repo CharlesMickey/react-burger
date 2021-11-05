@@ -29,4 +29,4 @@ export const MESSAGE = {
   },
 };
 
-export const QUANTITY_BUNS = 2
+export const QUANTITY_BUNS = 2;

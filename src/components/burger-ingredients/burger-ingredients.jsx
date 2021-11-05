@@ -5,12 +5,13 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientsCardList from '../burger-ingredients-card-list/burger-ingredients-card-list';
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../services/actions/ingredients';
+import { ingredientSelectors } from '../../services/selectors';
 
 function BurgerIngredients({  open }) {
   const [current, setCurrent] = React.useState('one');
 
   const dispatch = useDispatch();
-  const  allIngredients  = useSelector((store) => store.ingredients.allIngredients);
+  const  allIngredients  = useSelector(ingredientSelectors.allIngredients);
 
   useEffect(() => {
     dispatch(getItems());

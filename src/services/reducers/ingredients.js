@@ -1,15 +1,15 @@
 import {
   GET_ITEMS_REQUEST,
   GET_ITEMS_SUCCESS,
-  GET_ITEMS_FAILED,
+  GET_ITEMS_ERROR,
   GET_VIEWED_INGREDIENT,
   DEL_VIEWED_INGREDIENT,
   ADD_INGREDIENT_CONSTRUCTOR,
   DEL_INGREDIENT_CONSTRUCTOR,
   INCREASE_INGREDIENTS,
   REDUCE_INGREDIENTS,
+  DRAG_CONSTRUCTOR_INGREDIENT,
 } from '../actions/actions-type';
-
 const initialIngredientState = {
   allIngredients: [],
   itemsRequest: false,
@@ -22,6 +22,8 @@ const initialIngredientState = {
     ingredient: [],
     counter: {},
   },
+  
+  order: {},
 };
 
 export const ingredientReducer = (state = initialIngredientState, action) => {
@@ -40,7 +42,7 @@ export const ingredientReducer = (state = initialIngredientState, action) => {
         itemsRequest: false,
       };
     }
-    case GET_ITEMS_FAILED: {
+    case GET_ITEMS_ERROR: {
       return { ...state, itemsFailed: true, itemsRequest: false };
     }
 
@@ -89,7 +91,7 @@ export const ingredientReducer = (state = initialIngredientState, action) => {
     }
 
     case INCREASE_INGREDIENTS: {
-      if (action.typeForcounter !== 'bun') {
+      if (action.typeForCounter !== 'bun') {
         return {
           ...state,
           ingredientsConstructor: {
@@ -108,7 +110,7 @@ export const ingredientReducer = (state = initialIngredientState, action) => {
     }
 
     case REDUCE_INGREDIENTS: {
-      if (action.typeForcounter !== 'bun') {
+      if (action.typeForCounter !== 'bun') {
         return {
           ...state,
           ingredientsConstructor: {
@@ -120,6 +122,19 @@ export const ingredientReducer = (state = initialIngredientState, action) => {
           },
         };
       } else return state;
+    }
+
+    case DRAG_CONSTRUCTOR_INGREDIENT: {
+      const newListIngredients = [...state.ingredientsConstructor.ingredient];
+      const dragIngredient = newListIngredients.splice(action.dragIndex, 1)[0];
+      newListIngredients.splice(action.hoverIndex, 0, dragIngredient);
+      return {
+        ...state,
+        ingredientsConstructor: {
+          ...state.ingredientsConstructor,
+          ingredient: newListIngredients,
+        },
+      };
     }
 
     default:

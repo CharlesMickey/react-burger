@@ -1,0 +1,9 @@
+.listItem {
+  display: flex;
+  align-items: center;
+  cursor: move;
+}
+
+.dragIcon {
+  margin: 0 13.5px 0 21.5px;
+}

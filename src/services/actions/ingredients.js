@@ -1,7 +1,7 @@
 import {
   GET_ITEMS_REQUEST,
   GET_ITEMS_SUCCESS,
-  GET_ITEMS_FAILED,
+  GET_ITEMS_ERROR,
   GET_VIEWED_INGREDIENT,
 } from './actions-type';
 import { getData } from '../../utils/api';
@@ -28,7 +28,7 @@ export function getItems() {
         });
       } else {
         dispatch({
-          type: GET_ITEMS_FAILED,
+          type: GET_ITEMS_ERROR,
         });
       }
     });

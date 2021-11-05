@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
   ConstructorElement,
   CurrencyIcon,
-  DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styleConstructor from './burger-constructor.module.css';
@@ -13,19 +12,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import {
   ADD_INGREDIENT_CONSTRUCTOR,
-  DEL_INGREDIENT_CONSTRUCTOR,
   INCREASE_INGREDIENTS,
-  REDUCE_INGREDIENTS,
 } from '../../services/actions/actions-type';
+import { ingredientSelectors } from '../../services/selectors';
+import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
+import { DRAG_CONSTRUCTOR_INGREDIENT } from '../../services/actions';
 
 function ConstructorBurger({ open }) {
   const { bun, ingredient } = useSelector(
-    (store) => store.ingredients.ingredientsConstructor
+    ingredientSelectors.ingredientsConstructor
   );
   const dispatch = useDispatch();
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
-    accept: 'item',
+    accept: 'ingredient-menu',
     drop: (item) => {
       const itemWithId = { ...item, uniqueId: Math.random() };
       dispatch({
@@ -35,7 +35,7 @@ function ConstructorBurger({ open }) {
       dispatch({
         type: INCREASE_INGREDIENTS,
         id: itemWithId._id,
-        typeForCount: itemWithId.type,
+        typeForCounter: itemWithId.type,
       });
     },
     collect: (monitor) => ({
@@ -51,6 +51,17 @@ function ConstructorBurger({ open }) {
 
   const { getOrderNumber } = React.useContext(BurgerConstructorContext);
 
+  const moveItem = useCallback(
+    (dragIndex, hoverIndex) => {
+      dispatch({
+        type: DRAG_CONSTRUCTOR_INGREDIENT,
+        dragIndex: dragIndex,
+        hoverIndex: hoverIndex,
+      });
+    },
+    [dispatch]
+  );
+
   function handleClick() {
     const id = ingredient
       .map((item) => {
@@ -62,8 +73,9 @@ function ConstructorBurger({ open }) {
   }
 
   return (
-    <section ref={drop} className={styleConstructor.constructor}>
+    <section className={styleConstructor.constructor}>
       <div
+        ref={drop}
         style={{ backgroundColor }}
         className={styleConstructor.constructorElement}
       >
@@ -78,32 +90,15 @@ function ConstructorBurger({ open }) {
         )}
 
         <ul className={styleConstructor.list}>
-          {ingredient.map((ingredient) => {
+          {ingredient.map((ingredient, index) => {
             return (
-              <li
+              <ConstructorIngredient
+                moveItem={moveItem}
+                id={ingredient._id}
+                index={index}
+                ingredient={ingredient}
                 key={ingredient.uniqueId}
-                className={styleConstructor.listItem}
-              >
-                <div className={styleConstructor.dragIcon}>
-                  <DragIcon type='primary' />
-                </div>
-                <ConstructorElement
-                  text={ingredient.name}
-                  price={ingredient.price}
-                  thumbnail={ingredient.image}
-                  handleClose={() => {
-                    dispatch({
-                      type: DEL_INGREDIENT_CONSTRUCTOR,
-                      id: ingredient.uniqueId,
-                    });
-                    dispatch({
-                      type: REDUCE_INGREDIENTS,
-                      id: ingredient._id,
-                      typeForCount: ingredient.type
-                    });
-                  }}
-                />
-              </li>
+              />
             );
           })}
         </ul>

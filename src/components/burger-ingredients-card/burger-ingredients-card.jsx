@@ -9,15 +9,16 @@ import { dataPropTypes, QUANTITY_BUNS } from '../../utils/constants';
 import { getViewedIngredient } from '../../services/actions/ingredients';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
+import { ingredientSelectors } from '../../services/selectors';
 
 function BurgerIngredientsCard({ open, card }) {
   const dispatch = useDispatch();
   const { counter, bun } = useSelector(
-    (store) => store.ingredients.ingredientsConstructor
+    ingredientSelectors.ingredientsConstructor
   );
 
   const [{ isDrag }, drag] = useDrag({
-    type: 'item',
+    type: 'ingredient-menu',
     item: () => card,
     collect: (monitor) => ({
       isDrag: monitor.isDragging(),
@@ -25,9 +26,7 @@ function BurgerIngredientsCard({ open, card }) {
   });
 
   const quantity =
-    bun && bun._id === card._id
-      ? QUANTITY_BUNS
-      : counter[card._id];
+    bun && bun._id === card._id ? QUANTITY_BUNS : counter[card._id];
 
   const opacity = isDrag ? 0.5 : 1;
 

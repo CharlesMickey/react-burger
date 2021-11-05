@@ -1,10 +1,11 @@
-import React, { memo } from 'react';
+import  { memo } from 'react';
 import { MESSAGE } from '../../utils/constants';
 import styleIngredientDetails from './ingredient-details.module.css';
 import {  useSelector } from 'react-redux';
+import { ingredientSelectors } from '../../services/selectors';
 
 function IngredientDetails() {
-  const  card  = useSelector((store) => store.ingredients.viewedIngredient);
+  const  card  = useSelector(ingredientSelectors.viewedIngredient);
   return (
     card && (
       <section className={styleIngredientDetails.section}>
