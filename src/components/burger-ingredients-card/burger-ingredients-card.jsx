@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
 import {
   Counter,
   CurrencyIcon,
@@ -10,8 +9,9 @@ import { getViewedIngredient } from '../../services/actions/ingredients';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { ingredientSelectors } from '../../services/selectors';
+import { INGREDIENT_DETAILS_OPEN } from '../../services/actions';
 
-function BurgerIngredientsCard({ open, card }) {
+function BurgerIngredientsCard({ card }) {
   const dispatch = useDispatch();
   const { counter, bun } = useSelector(
     ingredientSelectors.ingredientsConstructor
@@ -32,7 +32,7 @@ function BurgerIngredientsCard({ open, card }) {
 
   function handleCardClick() {
     dispatch(getViewedIngredient(card));
-    open();
+    dispatch({ type: INGREDIENT_DETAILS_OPEN });
   }
   return (
     <li
@@ -56,5 +56,4 @@ export default memo(BurgerIngredientsCard);
 
 BurgerIngredientsCard.propTypes = {
   card: dataPropTypes.isRequired,
-  open: PropTypes.func.isRequired,
 };

@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
 import {
   Button,
   ConstructorElement,
@@ -7,18 +6,19 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styleConstructor from './burger-constructor.module.css';
-import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import {
   ADD_INGREDIENT_CONSTRUCTOR,
   INCREASE_INGREDIENTS,
-} from '../../services/actions/actions-type';
+  ORDER_DETAILS_OPEN,
+} from '../../services/actions';
 import { ingredientSelectors } from '../../services/selectors';
 import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
 import { DRAG_CONSTRUCTOR_INGREDIENT } from '../../services/actions';
+import { getOrder } from '../../services/actions/ingredients';
 
-function ConstructorBurger({ open }) {
+function ConstructorBurger() {
   const { bun, ingredient } = useSelector(
     ingredientSelectors.ingredientsConstructor
   );
@@ -49,8 +49,6 @@ function ConstructorBurger({ open }) {
   const backgroundColor =
     (isActive && 'rgba(45, 45, 55, 1)') || (canDrop && 'rgba(30, 30, 55, 1)');
 
-  const { getOrderNumber } = React.useContext(BurgerConstructorContext);
-
   const moveItem = useCallback(
     (dragIndex, hoverIndex) => {
       dispatch({
@@ -68,8 +66,8 @@ function ConstructorBurger({ open }) {
         return item._id;
       })
       .concat(bun._id);
-    open();
-    getOrderNumber(id);
+    dispatch({ type: ORDER_DETAILS_OPEN });
+    dispatch(getOrder(id));
   }
 
   return (
@@ -133,7 +131,3 @@ function ConstructorBurger({ open }) {
 }
 
 export default ConstructorBurger;
-
-ConstructorBurger.propTypes = {
-  open: PropTypes.func.isRequired,
-};

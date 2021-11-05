@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-
 import ReactDOM from 'react-dom';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import styleModal from './modal.module.css';
 import { modalRoot } from '../../utils/constants';
 
-function Modal({ title, closePopup, isOpen, children }) {
+function Modal({ title, closePopup, children }) {
   return ReactDOM.createPortal(
-    <ModalOverlay isOpen={isOpen}>
+    <ModalOverlay>
       <div id='modal' className={`${styleModal.modal} pt-10 pl-10 pb-15 pr-10`}>
         <h2 className={`text text_type_main-large ${styleModal.title}`}>
           {title}
@@ -28,6 +27,5 @@ export default Modal;
 Modal.propTypes = {
   title: PropTypes.string.isRequired,
   closePopup: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired,
   children: PropTypes.element.isRequired,
 };

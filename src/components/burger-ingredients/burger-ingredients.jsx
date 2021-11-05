@@ -1,5 +1,4 @@
 import React, { memo, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import styleIngredients from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientsCardList from '../burger-ingredients-card-list/burger-ingredients-card-list';
@@ -7,11 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../services/actions/ingredients';
 import { ingredientSelectors } from '../../services/selectors';
 
-function BurgerIngredients({  open }) {
+function BurgerIngredients() {
   const [current, setCurrent] = React.useState('one');
 
   const dispatch = useDispatch();
-  const  allIngredients  = useSelector(ingredientSelectors.allIngredients);
+  const allIngredients = useSelector(ingredientSelectors.allIngredients);
 
   useEffect(() => {
     dispatch(getItems());
@@ -49,28 +48,12 @@ function BurgerIngredients({  open }) {
         </Tab>
       </div>
       <div className={styleIngredients.scroll}>
-        <BurgerIngredientsCardList
-          open={open}
-          data={bun}
-          title='Булки'
-        />
-        <BurgerIngredientsCardList
-          open={open}
-          data={sauce}
-          title='Соусы'
-        />
-        <BurgerIngredientsCardList
-          open={open}
-          data={main}
-          title='Начинки'
-        />
+        <BurgerIngredientsCardList data={bun} title='Булки' />
+        <BurgerIngredientsCardList data={sauce} title='Соусы' />
+        <BurgerIngredientsCardList data={main} title='Начинки' />
       </div>
     </section>
   );
 }
 
 export default memo(BurgerIngredients);
-
-BurgerIngredients.propTypes = {
-  open: PropTypes.func.isRequired,
-};

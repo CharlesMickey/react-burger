@@ -1,46 +1,29 @@
 import React, { memo } from 'react';
 
 import AppHeader from '../app-header/app-header';
-import { getOrderOfNumber } from '../../utils/api';
 import MainPage from '../main-page/main-page';
 import styleApp from './app.module.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details ';
 import { MESSAGE } from '../../utils/constants';
-import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
-import { DEL_VIEWED_INGREDIENT } from '../../services/actions/actions-type';
-import { useDispatch } from 'react-redux';
+import {
+  DEL_VIEWED_INGREDIENT,
+  CLEAR_ORDER_NUMBER,
+} from '../../services/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { modalSelectors } from '../../services/selectors';
 
 function App() {
-  const dispatch = useDispatch()
-  const [orderNumber, setOrderNumber] = React.useState(null);
-  const [isOrderDetailsOpen, setIsOrderDetailsOpen] = React.useState(false);
-  const [isIngredientDetails, setIsIngredientDetails] = React.useState(false);
-
-
+  const dispatch = useDispatch();
+  const orderModal = useSelector(modalSelectors.orderModalOpen);
+  const ingredientDetailsModal = useSelector(
+    modalSelectors.ingredientModalOpen
+  );
   const closeAllPopups = React.useCallback(() => {
-    dispatch({type: DEL_VIEWED_INGREDIENT})
-    setIsOrderDetailsOpen(false);
-    setIsIngredientDetails(false);
+    dispatch({ type: DEL_VIEWED_INGREDIENT });
+    dispatch({ type: CLEAR_ORDER_NUMBER });
   }, [dispatch]);
-
-  const handleOrderDetailsClick = React.useCallback(() => {
-    setIsOrderDetailsOpen(true);
-  }, []);
-
-  const handleIngredientDetailsClick = React.useCallback(() => {
-    setIsIngredientDetails(true);
-  }, []);
-
-
-  function getOrderNumber(ingredients) {
-    getOrderOfNumber(ingredients)
-      .then(({ order }) => {
-        setOrderNumber(order.number);
-      })
-      .catch((err) => console.log(`${err}`));
-  }
 
   function closePopupClickOnOverlay(e) {
     if (e.target.matches('.popup')) {
@@ -55,37 +38,25 @@ function App() {
   }
 
   return (
-    <BurgerConstructorContext.Provider
-      value={{ getOrderNumber }}
+    <div
+      tabIndex='0'
+      onKeyDown={closePopupEsc}
+      onClick={closePopupClickOnOverlay}
+      className={styleApp.app}
     >
-      <div
-        tabIndex='0'
-        onKeyDown={closePopupEsc}
-        onClick={closePopupClickOnOverlay}
-        className={styleApp.app}
-      >
-        <AppHeader />
-        <MainPage
-          
-          openOrderDetails={handleOrderDetailsClick}
-          openIngredientDetails={handleIngredientDetailsClick}
-        />
-        <Modal
-          isOpen={isOrderDetailsOpen}
-          closePopup={closeAllPopups}
-          title={MESSAGE.EMPTY_TITLE}
-        >
-          <OrderDetails orderNumber={orderNumber} />
+      <AppHeader />
+      <MainPage />
+      {orderModal && (
+        <Modal closePopup={closeAllPopups} title={MESSAGE.EMPTY_TITLE}>
+          <OrderDetails />
         </Modal>
-        <Modal
-          isOpen={isIngredientDetails}
-          closePopup={closeAllPopups}
-          title={MESSAGE.TITLE}
-        >
-          <IngredientDetails  />
+      )}
+      {ingredientDetailsModal && (
+        <Modal closePopup={closeAllPopups} title={MESSAGE.TITLE}>
+          <IngredientDetails />
         </Modal>
-      </div>
-    </BurgerConstructorContext.Provider>
+      )}
+    </div>
   );
 }
 
