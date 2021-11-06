@@ -16,12 +16,13 @@ import {
 import { ingredientSelectors } from '../../services/selectors';
 import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
 import { DRAG_CONSTRUCTOR_INGREDIENT } from '../../services/actions';
-import { getOrder } from '../../services/actions/ingredients';
+import { getOrder } from '../../services/actions/order';
 
 function ConstructorBurger() {
   const { bun, ingredient } = useSelector(
     ingredientSelectors.ingredientsConstructor
   );
+  const price = useSelector(ingredientSelectors.price);
   const dispatch = useDispatch();
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -113,12 +114,7 @@ function ConstructorBurger() {
       {bun && (
         <div className={styleConstructor.containerButton}>
           <div className='mr-10'>
-            <span className='mr-2 text text_type_digits-medium'>
-              {bun.price * 2 +
-                ingredient.reduce((previousValue, currentValue) => {
-                  return previousValue + currentValue.price;
-                }, 0)}
-            </span>
+            <span className='mr-2 text text_type_digits-medium'>{price}</span>
             <CurrencyIcon type='primary' />
           </div>
           <Button onClick={handleClick} type='primary' size='large'>

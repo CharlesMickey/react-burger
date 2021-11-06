@@ -1,9 +1,8 @@
-import React, { memo, useEffect, useRef } from 'react';
+import React, { memo, useRef } from 'react';
 import styleIngredients from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientsCardList from '../burger-ingredients-card-list/burger-ingredients-card-list';
-import { useDispatch, useSelector } from 'react-redux';
-import { getItems } from '../../services/actions/ingredients';
+import { useSelector } from 'react-redux';
 import { ingredientSelectors } from '../../services/selectors';
 
 function BurgerIngredients() {
@@ -13,13 +12,7 @@ function BurgerIngredients() {
   const mainRef = useRef(null);
 
   const [current, setCurrent] = React.useState('bun');
-
-  const dispatch = useDispatch();
   const allIngredients = useSelector(ingredientSelectors.allIngredients);
-
-  useEffect(() => {
-    dispatch(getItems());
-  }, [dispatch]);
 
   const bun = React.useMemo(
     () => allIngredients.filter((i) => i.type === 'bun'),

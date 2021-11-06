@@ -4,7 +4,7 @@ import BurgerIngredientsCard from '../burger-ingredients-card/burger-ingredients
 import burgerIngredientsCardList from './burger-ingredients-card-list.module.css';
 import { dataPropTypes } from '../../utils/constants';
 
-const BurgerIngredientsCardList = forwardRef(( { title, data }, ref) => {
+const BurgerIngredientsCardList = forwardRef(({ title, data }, ref) => {
   return (
     <section ref={ref}>
       <h2 className='mt-0 text text_type_main-medium'>{title}</h2>
@@ -22,5 +22,4 @@ export default memo(BurgerIngredientsCardList);
 BurgerIngredientsCardList.propTypes = {
   data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
   title: PropTypes.string,
-  // open: PropTypes.func.isRequired,
 };

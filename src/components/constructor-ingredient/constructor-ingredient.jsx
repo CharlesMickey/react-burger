@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import {
   DEL_INGREDIENT_CONSTRUCTOR,
   REDUCE_INGREDIENTS,
-} from '../../services/actions/actions-type';
+} from '../../services/actions/actions-ingredients-type';
 import styleConstructor from './constructor-ingredient.module.css';
 
 const ConstructorIngredient = ({ ingredient, index, id, moveItem }) => {
