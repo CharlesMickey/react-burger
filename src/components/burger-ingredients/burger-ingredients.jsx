@@ -37,28 +37,28 @@ function BurgerIngredients() {
   );
 
   const onScroll = () => {
+    const topDistance = topRef.current.getBoundingClientRect().y;
     const bunYDistance = Math.abs(
-      topRef.current.getBoundingClientRect().y -
-        bunRef.current.getBoundingClientRect().y
+      topDistance - bunRef.current.getBoundingClientRect().y
     );
     const sauceYDistance = Math.abs(
-      topRef.current.getBoundingClientRect().y -
-        sauceRef.current.getBoundingClientRect().y
+      topDistance - sauceRef.current.getBoundingClientRect().y
     );
     const mainYDistance = Math.abs(
-      topRef.current.getBoundingClientRect().y -
-        mainRef.current.getBoundingClientRect().y
+      topDistance - mainRef.current.getBoundingClientRect().y
     );
-    const activeTabDistance = Math.min(
+    const minTabDistance = Math.min(
       bunYDistance,
       sauceYDistance,
       mainYDistance
     );
-    activeTabDistance === sauceYDistance
-      ? setCurrent('sauce')
-      : activeTabDistance === mainYDistance
-      ? setCurrent('main')
-      : setCurrent('bun');
+    const activeTab =
+      minTabDistance === sauceYDistance
+        ? 'sauce'
+        : minTabDistance === mainYDistance
+        ? 'main'
+        : 'bun';
+    setCurrent(activeTab);
   };
 
   const handleClick = (current) => {
