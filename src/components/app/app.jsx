@@ -10,6 +10,10 @@ import { MESSAGE } from '../../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { modalSelectors } from '../../services/selectors';
 import { getItems } from '../../services/actions/ingredients';
+import {
+  CLEAR_ORDER_NUMBER,
+  DEL_VIEWED_INGREDIENT,
+} from '../../services/actions';
 
 function App() {
   const dispatch = useDispatch();
@@ -17,6 +21,11 @@ function App() {
   const ingredientDetailsModal = useSelector(
     modalSelectors.ingredientModalOpen
   );
+
+  const closeAllPopups = React.useCallback(() => {
+    dispatch({ type: DEL_VIEWED_INGREDIENT });
+    dispatch({ type: CLEAR_ORDER_NUMBER });
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getItems());
@@ -27,12 +36,12 @@ function App() {
       <AppHeader />
       <MainPage />
       {orderModal && (
-        <Modal title={MESSAGE.EMPTY_TITLE}>
+        <Modal close={closeAllPopups} title={MESSAGE.EMPTY_TITLE}>
           <OrderDetails />
         </Modal>
       )}
       {ingredientDetailsModal && (
-        <Modal title={MESSAGE.TITLE}>
+        <Modal close={closeAllPopups} title={MESSAGE.TITLE}>
           <IngredientDetails />
         </Modal>
       )}
