@@ -1,105 +1,51 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 
 import AppHeader from '../app-header/app-header';
-import * as api from '../../utils/api';
 import MainPage from '../main-page/main-page';
 import styleApp from './app.module.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details ';
 import { MESSAGE } from '../../utils/constants';
-import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { modalSelectors } from '../../services/selectors';
+import { getItems } from '../../services/actions/ingredients';
+import {
+  CLEAR_ORDER_NUMBER,
+  DEL_VIEWED_INGREDIENT,
+} from '../../services/actions';
 
 function App() {
-  const [allIngredients, setAllIngredients] = React.useState([]);
-  const [orderNumber, setOrderNumber] = React.useState(null);
-  const [isOrderDetailsOpen, setIsOrderDetailsOpen] = React.useState(false);
-  const [isIngredientDetails, setIsIngredientDetails] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [selectedCard, setSelectedCard] = React.useState(null);
+  const dispatch = useDispatch();
+  const orderModal = useSelector(modalSelectors.orderModalOpen);
+  const ingredientDetailsModal = useSelector(
+    modalSelectors.ingredientModalOpen
+  );
 
   const closeAllPopups = React.useCallback(() => {
-    setIsOrderDetailsOpen(false);
-    setIsIngredientDetails(false);
-  }, []);
+    dispatch({ type: DEL_VIEWED_INGREDIENT });
+    dispatch({ type: CLEAR_ORDER_NUMBER });
+  }, [dispatch]);
 
-  const handleOrderDetailsClick = React.useCallback(() => {
-    setIsOrderDetailsOpen(true);
-  }, []);
-
-  const handleIngredientDetailsClick = React.useCallback(() => {
-    setIsIngredientDetails(true);
-  }, []);
-
-  const handleCardClick = React.useCallback((card) => {
-    setSelectedCard(card);
-  }, []);
-
-  React.useLayoutEffect(() => {
-    api
-      .getData()
-      .then((res) => {
-        return setAllIngredients(res.data);
-      })
-      .catch((err) => console.log(`${err}`))
-      .finally(() => setIsLoading(false));
-  }, []);
-
-  function getOrderNumber(ingredients) {
-    api
-      .getOrderNumber(ingredients)
-      .then(({ order }) => {
-        setOrderNumber(order.number);
-      })
-      .catch((err) => console.log(`${err}`));
-  }
-
-
-  function closePopupClickOnOverlay(e) {
-    if (e.target.matches('.popup')) {
-      closeAllPopups();
-    }
-  }
-
-  function closePopupEsc(e) {
-    if (e.key === 'Escape') {
-      closeAllPopups();
-    }
-  }
+  useEffect(() => {
+    dispatch(getItems());
+  }, [dispatch]);
 
   return (
-    <BurgerConstructorContext.Provider
-      value={{ getOrderNumber, allIngredients }}
-    >
-      <div
-        tabIndex='0'
-        onKeyDown={closePopupEsc}
-        onClick={closePopupClickOnOverlay}
-        className={styleApp.app}
-      >
-        <AppHeader />
-        <MainPage
-          isLoading={isLoading}
-          openOrderDetails={handleOrderDetailsClick}
-          openIngredientDetails={handleIngredientDetailsClick}
-          onCardClick={handleCardClick}
-        />
-        <Modal
-          isOpen={isOrderDetailsOpen}
-          closePopup={closeAllPopups}
-          title={MESSAGE.EMPTY_TITLE}
-        >
-          <OrderDetails orderNumber={orderNumber} />
+    <div className={styleApp.app}>
+      <AppHeader />
+      <MainPage />
+      {orderModal && (
+        <Modal close={closeAllPopups} title={MESSAGE.EMPTY_TITLE}>
+          <OrderDetails />
         </Modal>
-        <Modal
-          isOpen={isIngredientDetails}
-          closePopup={closeAllPopups}
-          title={MESSAGE.TITLE}
-        >
-          <IngredientDetails card={selectedCard} />
+      )}
+      {ingredientDetailsModal && (
+        <Modal close={closeAllPopups} title={MESSAGE.TITLE}>
+          <IngredientDetails />
         </Modal>
-      </div>
-    </BurgerConstructorContext.Provider>
+      )}
+    </div>
   );
 }
 

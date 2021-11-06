@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styleOverlay from './modal-overlay.module.css';
 
-function ModalOverlay({ isOpen, children }) {
+function ModalOverlay({ children, closeAllPopups }) {
+  function closePopupClickOnOverlay(e) {
+    if (e.target.matches('.popup')) {
+      closeAllPopups();
+    }
+  }
+
+  function closePopupEsc(e) {
+    if (e.key === 'Escape') {
+      closeAllPopups();
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', closePopupEsc);
+    return () => document.removeEventListener('keydown', closePopupEsc);
+  });
+
   return (
     <div
-      className={`popup ${styleOverlay.overlay} ${
-        isOpen ? styleOverlay.popup_opened : ''
-      }`}
+      onClick={closePopupClickOnOverlay}
+      className={`popup ${styleOverlay.overlay} ${styleOverlay.popup_opened}`}
     >
       {children}
     </div>
@@ -17,6 +33,6 @@ function ModalOverlay({ isOpen, children }) {
 export default ModalOverlay;
 
 ModalOverlay.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   children: PropTypes.element.isRequired,
+  closeAllPopups: PropTypes.func.isRequired,
 };

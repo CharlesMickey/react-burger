@@ -1,9 +1,10 @@
 .constructor {
-  max-width: 600px;
+  width: 600px;
   height: 100%;
   padding-top: 100px;
 }
 .constructorElement {
+  border-radius: 50px;
   display: flex;
   padding-bottom: 40px;
   flex-direction: column;
@@ -13,6 +14,7 @@
 
 .list {
   list-style-type: none;
+  min-height: 300px;
   margin: 0;
   padding: 0;
   padding-right: 8px;
@@ -36,15 +38,6 @@
   background: rgba(133, 133, 173, 1);
   border: 3px solid rgba(133, 133, 173, 1);
   min-height: 150px;
-}
-
-.listItem {
-  display: flex;
-  align-items: center;
-}
-
-.dragIcon {
-  margin: 0 13.5px 0 21.5px;
 }
 
 .containerButton {
