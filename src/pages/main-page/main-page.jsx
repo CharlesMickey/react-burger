@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import ConstructorBurger from '../burger-constructor/burger-constructor';
+import BurgerIngredients from '../../components/burger-ingredients/burger-ingredients';
+import ConstructorBurger from '../../components/burger-constructor/burger-constructor';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import styleMain from './main-page.module.css';

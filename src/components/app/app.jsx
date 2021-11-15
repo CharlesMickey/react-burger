@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react';
-
+import { Route, Switch } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
-import MainPage from '../main-page/main-page';
+import MainPage from '../../pages/main-page/main-page';
 import styleApp from './app.module.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
@@ -14,6 +14,8 @@ import {
   CLEAR_ORDER_NUMBER,
   DEL_VIEWED_INGREDIENT,
 } from '../../services/actions';
+import { Login } from '../../pages/login/login';
+import { Register } from '../../pages/register/register';
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +36,17 @@ function App() {
   return (
     <div className={styleApp.app}>
       <AppHeader />
-      <MainPage />
+      <Switch>
+        <Route path='/login' exact={true}>
+          <Login />
+        </Route>
+        <Route path='/register' exact={true}>
+          <Register />
+        </Route>
+        <Route path='/' exact={true}>
+          <MainPage />
+        </Route>
+      </Switch>
       {orderModal && (
         <Modal close={closeAllPopups} title={MESSAGE.EMPTY_TITLE}>
           <OrderDetails />
