@@ -51,7 +51,7 @@ export const Login = () => {
         </span>
         <span className='text text_type_main-default text_color_inactive'>
           Забыли пароль?{' '}
-          <Link to='/' className={styleLogin.link}>
+          <Link to='/forgot-password' className={styleLogin.link}>
             Восстановить пароль
           </Link>
         </span>
