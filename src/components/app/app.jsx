@@ -18,6 +18,7 @@ import { Login } from '../../pages/login/login';
 import { Register } from '../../pages/register/register';
 import { ForgotPassword } from '../../pages/forgot-password/forgot-password';
 import { ResetPassword } from '../../pages/reset-password/reset-password';
+import { Profile } from '../../pages/profile/profile';
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +54,9 @@ function App() {
         </Route>
         <Route path='/' exact={true}>
           <MainPage />
+        </Route>
+        <Route path='/profile' exact={false}>
+          <Profile />
         </Route>
       </Switch>
       {orderModal && (
