@@ -15,15 +15,26 @@
   justify-items: center;
 }
 
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #8585ad;
+}
+
+.active_link {
+  color: #f2f2f3;
+}
+
 .logo {
   justify-self: center;
 }
 
 .position {
-    display: flex;
-    justify-self: start;
-    text-align: center;
-    align-items: center;
+  display: flex;
+  justify-self: start;
+  text-align: center;
+  align-items: center;
 }
 
 .buttonProfile {

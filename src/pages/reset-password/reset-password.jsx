@@ -9,7 +9,8 @@ import styleReset from './reset-password.module.css';
 
 export const ResetPassword = () => {
   const [inputValue, setInputValue] = useState({
-    email: '',
+    password: '',
+    cod: '',
   });
 
   const handleChange = (e) => {
@@ -42,7 +43,7 @@ export const ResetPassword = () => {
           size={'default'}
         />
         <Button type='primary' size='medium'>
-          Восстановить
+          Сохранить
         </Button>
       </form>
       <div className={styleReset.text}>
