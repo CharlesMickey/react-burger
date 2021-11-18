@@ -43,7 +43,7 @@ function AppHeader() {
           activeClassName={styleHeader.active_link}
         >
           <ProfileIcon
-            type={pathname === '/profile' ? 'primary' : 'secondary'}
+            type={pathname === '/profile' || pathname === '/profile/orders' ? 'primary' : 'secondary'}
           />
           <span className='ml-3'>Личный кабинет</span>
         </NavLink>

@@ -5,11 +5,3 @@
   width: 480px;
   gap: 24px;
 }
-
-.text {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin-top: 80px;
-  gap: 16px;
-}

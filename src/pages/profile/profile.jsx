@@ -14,7 +14,7 @@ export const Profile = () => {
         <Route path='/profile' exact>
           <ProfileUserForm />
         </Route>
-        <Route path='/profile/:id' exact>
+        <Route path='/profile/orders' exact>
           <ProfileUserForm />
         </Route>
         <Route path='/profile' exact>

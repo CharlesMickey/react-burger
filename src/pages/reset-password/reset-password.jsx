@@ -6,12 +6,16 @@ import {
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleReset from './reset-password.module.css';
+import { savePassword } from '../../services/actions/auth';
+import { useDispatch } from 'react-redux';
 
 export const ResetPassword = () => {
   const [inputValue, setInputValue] = useState({
     password: '',
-    cod: '',
+    token: '',
   });
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const target = e.target;
@@ -22,6 +26,7 @@ export const ResetPassword = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(savePassword(inputValue));
   };
 
   return (
@@ -37,12 +42,12 @@ export const ResetPassword = () => {
         <Input
           placeholder='Введите код из письма'
           type='text'
-          name='cod'
-          value={inputValue.cod || ''}
+          name='token'
+          value={inputValue.token || ''}
           onChange={handleChange}
           size={'default'}
         />
-        <Button type='primary' size='medium'>
+        <Button  type='primary' size='medium'>
           Сохранить
         </Button>
       </form>

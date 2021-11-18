@@ -5,11 +5,15 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleForgot from './forgot-password.module.css';
+import { useDispatch } from 'react-redux';
+import { forgotPassword } from '../../services/actions/auth';
 
 export const ForgotPassword = () => {
   const [inputValue, setInputValue] = useState({
     email: '',
   });
+
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     const target = e.target;
@@ -22,6 +26,10 @@ export const ForgotPassword = () => {
     e.preventDefault();
   };
 
+  const handleClick = (inputValue) => {
+    dispatch(forgotPassword(inputValue))
+  }
+
   return (
     <section className={styleForgot.container}>
       <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
@@ -33,7 +41,7 @@ export const ForgotPassword = () => {
           value={inputValue.email || ''}
           onChange={handleChange}
         />
-        <Button type='primary' size='medium'>
+      <Button onClick={handleClick}  type='primary' size='medium'>
           Восстановить
         </Button>
       </form>

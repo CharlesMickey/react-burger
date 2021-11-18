@@ -20,7 +20,7 @@ export const ProfileNavigation = () => {
           <NavLink
             className={`text text_type_main-medium  ${styleProfileNavigation.link}`}
             activeClassName={styleProfileNavigation.active_link}
-            to='/profile/:id'
+            to='/profile/orders'
             exact
           >
             История заказов
