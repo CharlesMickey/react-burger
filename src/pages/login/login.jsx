@@ -6,10 +6,12 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleLogin from './login.module.css';
+import { authorize } from '../../services/actions/auth';
+import { useDispatch } from 'react-redux';
 
 export const Login = () => {
   const [inputValue, setInputValue] = useState({ email: '', password: '' });
-
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     const target = e.target;
     const name = target.name;
@@ -19,8 +21,8 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(authorize(inputValue));
   };
-
   return (
     <section className={styleLogin.container}>
       <h2 className='text text_type_main-medium mb-6'>Вход</h2>

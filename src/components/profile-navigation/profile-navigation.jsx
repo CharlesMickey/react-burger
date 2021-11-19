@@ -1,8 +1,15 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { NavLink, useLocation } from 'react-router-dom';
+import { logout } from '../../services/actions/auth';
 import styleProfileNavigation from './profile-navigation.module.css';
 
 export const ProfileNavigation = () => {
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(logout());
+  };
+  const { pathname } = useLocation();
   return (
     <div className={styleProfileNavigation.container}>
       <ul className={styleProfileNavigation.list}>
@@ -18,7 +25,7 @@ export const ProfileNavigation = () => {
         </li>
         <li className={styleProfileNavigation.listItem}>
           <NavLink
-            className={`text text_type_main-medium  ${styleProfileNavigation.link}`}
+            className={`text text_type_main-medium ${styleProfileNavigation.link}`}
             activeClassName={styleProfileNavigation.active_link}
             to='/profile/orders'
             exact
@@ -28,7 +35,8 @@ export const ProfileNavigation = () => {
         </li>
         <li className={styleProfileNavigation.listItem}>
           <NavLink
-            className={`text text_type_main-medium  ${styleProfileNavigation.link}`}
+            onClick={handleClick}
+            className={`text text_type_main-medium ${styleProfileNavigation.link}`}
             activeClassName={styleProfileNavigation.active_link}
             to='/login'
             exact
@@ -37,9 +45,11 @@ export const ProfileNavigation = () => {
           </NavLink>
         </li>
       </ul>
-      <span className={`text text_type_main-default text_color_inactive`}>
-        В этом разделе вы можете изменить свои персональные данные{' '}
-      </span>
+      {pathname === '/profile' && (
+        <span className={`text text_type_main-default text_color_inactive`}>
+          В этом разделе вы можете изменить свои персональные данные{' '}
+        </span>
+      )}
     </div>
   );
 };

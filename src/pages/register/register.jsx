@@ -6,6 +6,8 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleRegister from './register.module.css';
+import { useDispatch } from 'react-redux';
+import { registerAction } from '../../services/actions/auth';
 
 export const Register = () => {
   const [inputValue, setInputValue] = useState({
@@ -13,6 +15,8 @@ export const Register = () => {
     email: '',
     password: '',
   });
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const target = e.target;
@@ -23,6 +27,9 @@ export const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(inputValue)
+    dispatch(registerAction(inputValue))
+
   };
 
   return (

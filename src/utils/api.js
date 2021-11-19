@@ -1,4 +1,5 @@
 import { BASE_URL } from './constants';
+import { getCookie } from './function';
 
 export const checkResponse = (response) => {
   return response.ok
@@ -31,7 +32,90 @@ export const getOrderOfNumber = (ingredients) => {
   });
 };
 
-export const getCodeChangePassword = ({email}) => {
+export const register = ({ email, password, name }) => {
+  return fetch(`${BASE_URL}/auth/register`, {
+    headers,
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify({ email, password, name }),
+  }).then((res) => checkResponse(res));
+};
+
+export const login = ({ email, password }) => {
+  return fetch(`${BASE_URL}/auth/login`, {
+    headers,
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify({ email, password }),
+  }).then((res) => checkResponse(res));
+};
+
+export const logOut = () => {
+  return fetch(`${BASE_URL}/auth/logout`, {
+    headers,
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify({ token: localStorage.refreshToken }),
+  }).then((res) => checkResponse(res));
+};
+
+export const getNewToken = () => {
+  return fetch(`${BASE_URL}/auth/token`, {
+    headers,
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify({ token: localStorage.refreshToken }),
+  }).then((res) => checkResponse(res));
+};
+
+export const getUserInfo = () => {
+  return fetch(`${BASE_URL}/auth/user`, {
+    headers: {
+      headers,
+      Authorization: `Bearer ${getCookie('token')}`,
+    },
+    method: 'GET',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+  }).then((res) => checkResponse(res));
+};
+
+export const updateUserInfo = ({ name, email, password }) => {
+  return fetch(`${BASE_URL}/auth/user`, {
+    headers: {
+      headers,
+      Authorization: `Bearer ${getCookie('token')}`,
+    },
+    method: 'PATCH',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify({ name, email, password }),
+  }).then((res) => checkResponse(res));
+};
+
+export const getCodeChangePassword = ({ email }) => {
   return fetch(`${BASE_URL}/password-reset`, {
     headers,
     method: 'POST',
@@ -45,7 +129,6 @@ export const getCodeChangePassword = ({email}) => {
 };
 
 export const saveNewPassword = ({ password, token }) => {
-  console.log({password, token})
   return fetch(`${BASE_URL}/password-reset/reset`, {
     headers,
     method: 'POST',

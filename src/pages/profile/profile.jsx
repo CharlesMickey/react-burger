@@ -14,10 +14,8 @@ export const Profile = () => {
         <Route path='/profile' exact>
           <ProfileUserForm />
         </Route>
-        <Route path='/profile/orders' exact>
-          <ProfileUserForm />
-        </Route>
-        <Route path='/profile' exact>
+        <Route path='/profile/orders' exact></Route>
+        <Route>
           <ProfileUserForm />
         </Route>
       </Switch>

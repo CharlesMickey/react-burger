@@ -24,11 +24,8 @@ export const ForgotPassword = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  };
-
-  const handleClick = (inputValue) => {
     dispatch(forgotPassword(inputValue))
-  }
+  };
 
   return (
     <section className={styleForgot.container}>
@@ -41,7 +38,7 @@ export const ForgotPassword = () => {
           value={inputValue.email || ''}
           onChange={handleChange}
         />
-      <Button onClick={handleClick}  type='primary' size='medium'>
+      <Button type='primary' size='medium'>
           Восстановить
         </Button>
       </form>
