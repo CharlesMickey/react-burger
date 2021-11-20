@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import {
   Input,
   Button,
@@ -12,9 +12,9 @@ export const ForgotPassword = () => {
   const [inputValue, setInputValue] = useState({
     email: '',
   });
-
-  const dispatch = useDispatch()
-
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const refreshToken = localStorage.refreshToken;
   const handleChange = (e) => {
     const target = e.target;
     const name = target.name;
@@ -22,11 +22,18 @@ export const ForgotPassword = () => {
     setInputValue({ ...inputValue, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(forgotPassword(inputValue))
+  const goResetPassword = () => {
+    history.push('/reset-password');
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(forgotPassword(inputValue, goResetPassword));
+  };
+
+  if (refreshToken) {
+    return <Redirect to='/' />;
+  }
   return (
     <section className={styleForgot.container}>
       <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
@@ -38,7 +45,7 @@ export const ForgotPassword = () => {
           value={inputValue.email || ''}
           onChange={handleChange}
         />
-      <Button type='primary' size='medium'>
+        <Button disabled={!inputValue.email} type='primary' size='medium'>
           Восстановить
         </Button>
       </form>

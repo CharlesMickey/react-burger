@@ -1,13 +1,17 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { logout } from '../../services/actions/auth';
 import styleProfileNavigation from './profile-navigation.module.css';
 
 export const ProfileNavigation = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const goLogin = () => {
+    history.push('/login');
+  };
   const handleClick = () => {
-    dispatch(logout());
+    dispatch(logout(goLogin));
   };
   const { pathname } = useLocation();
   return (

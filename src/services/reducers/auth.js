@@ -50,7 +50,7 @@ const initState = {
 
   forgotRequest: false,
   forgotFailed: false,
-
+  isResetPassword: false,
   resetRequest: false,
   resetFailed: false,
 };
@@ -103,7 +103,7 @@ export const authReducer = (state = initState, action) => {
     case TOKEN_SUCCESS: {
       return {
         ...state,
-        tokenUpdate: true, 
+        tokenUpdate: true,
         tokenRequest: false,
         tokenFailed: false,
       };
@@ -112,7 +112,7 @@ export const authReducer = (state = initState, action) => {
       return {
         ...state,
         tokenRequest: false,
-        tokenUpdate: false, 
+        tokenUpdate: false,
         tokenFailed: true,
       };
     }
@@ -178,12 +178,13 @@ export const authReducer = (state = initState, action) => {
     }
 
     case FORGOT_PASSWORD_REQUEST: {
-      return { ...state, forgotRequest: true };
+      return { ...state, forgotRequest: true, isResetPassword: false };
     }
     case FORGOT_PASSWORD_SUCCESS: {
       return {
         ...state,
         forgotRequest: false,
+        isResetPassword: true,
         forgotFailed: false,
       };
     }
@@ -191,6 +192,7 @@ export const authReducer = (state = initState, action) => {
       return {
         ...state,
         forgotRequest: false,
+        isResetPassword: false, 
         forgotFailed: true,
       };
     }

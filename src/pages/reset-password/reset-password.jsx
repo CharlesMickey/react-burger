@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import {
   Input,
   Button,
@@ -7,7 +7,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleReset from './reset-password.module.css';
 import { savePassword } from '../../services/actions/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelectors } from '../../services/selectors';
 
 export const ResetPassword = () => {
   const [inputValue, setInputValue] = useState({
@@ -16,7 +17,9 @@ export const ResetPassword = () => {
   });
 
   const dispatch = useDispatch();
-
+  const { isResetPassword } = useSelector(userSelectors.authData);
+  const refreshToken = localStorage.refreshToken;
+const history = useHistory()
   const handleChange = (e) => {
     const target = e.target;
     const name = target.name;
@@ -24,10 +27,20 @@ export const ResetPassword = () => {
     setInputValue({ ...inputValue, [name]: value });
   };
 
+  const goMainPage = () => {
+    history.push('/');
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(savePassword(inputValue));
+    dispatch(savePassword(inputValue, goMainPage));
   };
+
+  if (!isResetPassword) {
+    return <Redirect to='/forgot-password' />;
+  } else if (refreshToken) {
+    return <Redirect to='/' />;
+  }
 
   return (
     <section className={styleReset.container}>
@@ -47,7 +60,7 @@ export const ResetPassword = () => {
           onChange={handleChange}
           size={'default'}
         />
-        <Button  type='primary' size='medium'>
+        <Button type='primary' size='medium'>
           Сохранить
         </Button>
       </form>

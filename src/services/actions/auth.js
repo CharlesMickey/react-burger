@@ -36,7 +36,7 @@ import {
 } from '../../utils/api';
 import { getTokens, signOut } from '../../utils/function';
 
-export const logout = () => {
+export const logout = (goLogin) => {
   return function (dispatch) {
     dispatch({ type: LOGOUT_REQUEST });
     logOut()
@@ -44,6 +44,7 @@ export const logout = () => {
         if (res && res.success) {
           signOut();
           dispatch({ type: LOGOUT_SUCCESS });
+          goLogin()
         } else {
           dispatch({ type: LOGOUT_ERROR });
         }
@@ -164,13 +165,14 @@ export const authorize = (email, password) => {
   };
 };
 
-export const forgotPassword = (email) => {
+export const forgotPassword = (email, goResetPassword) => {
   return function (dispatch) {
     dispatch({ type: FORGOT_PASSWORD_REQUEST });
     getCodeChangePassword(email)
       .then((res) => {
         if (res && res.success) {
           dispatch({ type: FORGOT_PASSWORD_SUCCESS });
+          goResetPassword()
         } else {
           dispatch({ type: FORGOT_PASSWORD_ERROR });
         }
@@ -182,13 +184,15 @@ export const forgotPassword = (email) => {
   };
 };
 
-export const savePassword = (password, token) => {
+export const savePassword = (data, goMainPage) => {
+  console.log(data, goMainPage)
   return function (dispatch) {
     dispatch({ type: RESET_PASSWORD_REQUEST });
-    saveNewPassword(password, token)
+    saveNewPassword(data)
       .then((res) => {
         if (res && res.success) {
           dispatch({ type: RESET_PASSWORD_SUCCESS });
+          goMainPage()
         } else {
           dispatch({ type: RESET_PASSWORD_ERROR });
         }
