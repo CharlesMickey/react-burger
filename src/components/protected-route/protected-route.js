@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect, Route, useLocation } from 'react-router-dom';
-import { getNewAccessToken } from '../../../services/actions/auth';
+import { getNewAccessToken } from '../../services/actions/auth';
 
 const ProtectedRoute = ({ children, ...rest }) => {
   const dispatch = useDispatch();
