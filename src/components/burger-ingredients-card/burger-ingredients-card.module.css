@@ -1,19 +1,3 @@
-.item {
-  position: relative;
-  height: 208px;
-  width: 272px;
-  margin: 0 24px 32px 0;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.item:nth-child(even) {
-  margin-right: 0;
-}
-
 .container {
   display: flex;
   gap: 9px;

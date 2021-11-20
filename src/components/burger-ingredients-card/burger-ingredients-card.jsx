@@ -35,11 +35,11 @@ function BurgerIngredientsCard({ card }) {
     dispatch({ type: INGREDIENT_DETAILS_OPEN });
   }
   return (
-    <li
+    <div
       ref={drag}
       style={{ opacity }}
       onClick={handleCardClick}
-      className={`mb-10 ${styleBurgerIngredientsCard.item}`}
+      className={`mb-10 `}
     >
       <img src={card.image} alt={card.name} />
       {quantity ? <Counter count={quantity} size='default' /> : null}
@@ -48,7 +48,7 @@ function BurgerIngredientsCard({ card }) {
         <CurrencyIcon type='primary' />
       </div>
       <p className={`text text_type_main-default`}>{card.name}</p>
-    </li>
+    </div>
   );
 }
 
