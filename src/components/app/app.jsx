@@ -19,7 +19,8 @@ import { Register } from '../../pages/register/register';
 import { ForgotPassword } from '../../pages/forgot-password/forgot-password';
 import { ResetPassword } from '../../pages/reset-password/reset-password';
 import { Profile } from '../../pages/profile/profile';
-import { getUserProfile } from '../../services/actions/auth';
+import ProtectedRoute from '../protected-route/P/protected-route';
+import { Page404 } from '../../pages/404/page-404';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +36,6 @@ function App() {
 
   useEffect(() => {
     dispatch(getItems());
-    dispatch(getUserProfile());
   }, [dispatch]);
 
   return (
@@ -57,8 +57,11 @@ function App() {
         <Route path='/' exact={true}>
           <MainPage />
         </Route>
-        <Route path='/profile' exact={false}>
+        <ProtectedRoute path='/profile' exact={false}>
           <Profile />
+        </ProtectedRoute>
+        <Route>
+          <Page404 />
         </Route>
       </Switch>
       {orderModal && (

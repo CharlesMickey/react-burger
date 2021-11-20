@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import {
   Input,
   PasswordInput,
@@ -7,9 +7,13 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleLogin from './login.module.css';
 import { authorize } from '../../services/actions/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelectors } from '../../services/selectors';
 
 export const Login = () => {
+  const { name } = useSelector(userSelectors.authData);
+  const refreshToken = Boolean(localStorage.refreshToken);
+  const location = useLocation();
   const [inputValue, setInputValue] = useState({ email: '', password: '' });
   const dispatch = useDispatch();
   const handleChange = (e) => {
@@ -23,6 +27,11 @@ export const Login = () => {
     e.preventDefault();
     dispatch(authorize(inputValue));
   };
+
+  if (name && refreshToken) {
+    return <Redirect to={location.state?.from || '/'} />;
+  }
+
   return (
     <section className={styleLogin.container}>
       <h2 className='text text_type_main-medium mb-6'>Вход</h2>

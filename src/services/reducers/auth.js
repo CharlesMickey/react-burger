@@ -36,6 +36,7 @@ const initState = {
   updateUserFailed: false,
 
   tokenRequest: false,
+  tokenUpdate: false,
   tokenFailed: false,
 
   logoutRequest: false,
@@ -102,6 +103,7 @@ export const authReducer = (state = initState, action) => {
     case TOKEN_SUCCESS: {
       return {
         ...state,
+        tokenUpdate: true, 
         tokenRequest: false,
         tokenFailed: false,
       };
@@ -110,6 +112,7 @@ export const authReducer = (state = initState, action) => {
       return {
         ...state,
         tokenRequest: false,
+        tokenUpdate: false, 
         tokenFailed: true,
       };
     }

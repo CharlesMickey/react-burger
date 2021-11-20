@@ -36,6 +36,46 @@ import {
 } from '../../utils/api';
 import { getTokens, signOut } from '../../utils/function';
 
+export const logout = () => {
+  return function (dispatch) {
+    dispatch({ type: LOGOUT_REQUEST });
+    logOut()
+      .then((res) => {
+        if (res && res.success) {
+          signOut();
+          dispatch({ type: LOGOUT_SUCCESS });
+        } else {
+          dispatch({ type: LOGOUT_ERROR });
+        }
+      })
+      .catch((err) => {
+        console.log(err, err.message);
+        dispatch({ type: LOGOUT_ERROR });
+      });
+  };
+};
+
+export const getNewAccessToken = () => {
+  return function (dispatch) {
+    dispatch({ type: TOKEN_REQUEST });
+    getNewToken()
+      .then((res) => {
+        getTokens(res);
+        if (res && res.success) {
+          dispatch({ type: TOKEN_SUCCESS });
+        } else {
+          dispatch({ type: TOKEN_ERROR });
+        }
+      })
+      .catch((err) => {
+        if (err.message === 'Token is invalid') {
+          dispatch(getNewAccessToken());
+        } else console.log(err, err.message);
+        dispatch({ type: TOKEN_ERROR });
+      });
+  };
+};
+
 export const updateUserProfile = ({ name, email, password }) => {
   return function (dispatch) {
     dispatch({ type: USER_UPDATE_REQUEST });
@@ -48,7 +88,14 @@ export const updateUserProfile = ({ name, email, password }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        if (
+          err.message === 'jwt malformed' ||
+          err.message === 'Token is invalid'
+        ) {
+          dispatch(getNewAccessToken());
+          dispatch(updateUserProfile({ name, email, password }));
+        }
+
         dispatch({ type: USER_UPDATE_ERROR });
       });
   };
@@ -67,47 +114,14 @@ export const getUserProfile = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        if (
+          err.message === 'jwt malformed' ||
+          err.message === 'Token is invalid'
+        ) {
+          dispatch(getNewAccessToken());
+          dispatch(getUserProfile());
+        } else console.log(err.message);
         dispatch({ type: USER_ERROR });
-      });
-  };
-};
-
-export const logout = () => {
-  return function (dispatch) {
-    dispatch({ type: LOGOUT_REQUEST });
-    logOut()
-      .then((res) => {
-        if (res && res.success) {
-          signOut();
-          dispatch({ type: LOGOUT_SUCCESS });
-        } else {
-          dispatch({ type: LOGOUT_ERROR });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch({ type: LOGOUT_ERROR });
-      });
-  };
-};
-
-export const getNewAccessToken = () => {
-  return function (dispatch) {
-    dispatch({ type: TOKEN_REQUEST });
-    getNewToken()
-      .then((res) => {
-        getTokens(res);
-        if (res && res.success) {
-          dispatch({ type: TOKEN_SUCCESS });
-        } else {
-          dispatch({ type: TOKEN_ERROR });
-        }
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch({ type: TOKEN_ERROR });
       });
   };
 };
@@ -123,10 +137,9 @@ export const registerAction = (name, email, password) => {
         } else {
           dispatch({ type: REGISTER_ERROR });
         }
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err, err.message);
         dispatch({ type: REGISTER_ERROR });
       });
   };
@@ -145,7 +158,7 @@ export const authorize = (email, password) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err, err.message);
         dispatch({ type: LOGIN_ERROR });
       });
   };
@@ -163,7 +176,7 @@ export const forgotPassword = (email) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err, err.message);
         dispatch({ type: FORGOT_PASSWORD_ERROR });
       });
   };
@@ -181,7 +194,7 @@ export const savePassword = (password, token) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err, err.message);
         dispatch({ type: RESET_PASSWORD_ERROR });
       });
   };
