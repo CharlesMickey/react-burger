@@ -21,6 +21,7 @@ export const modalRoot = document.getElementById('react-modals');
 export const MESSAGE = {
   EMPTY_TITLE: '',
   TITLE: ' Добавить ингредиенты',
+  TITLE_PAGE: 'Детали ингредиента',
   INGREDIENT_DETAILS: {
     CALORIES: 'Калории,ккал',
     PROTEINS: 'Белки, г',

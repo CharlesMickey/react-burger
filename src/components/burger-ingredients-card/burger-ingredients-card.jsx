@@ -9,7 +9,6 @@ import { getViewedIngredient } from '../../services/actions/ingredients';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { ingredientSelectors } from '../../services/selectors';
-import { INGREDIENT_DETAILS_OPEN } from '../../services/actions';
 
 function BurgerIngredientsCard({ card }) {
   const dispatch = useDispatch();
@@ -32,7 +31,6 @@ function BurgerIngredientsCard({ card }) {
 
   function handleCardClick() {
     dispatch(getViewedIngredient(card));
-    dispatch({ type: INGREDIENT_DETAILS_OPEN });
   }
   return (
     <div
