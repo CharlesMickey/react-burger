@@ -36,18 +36,16 @@ import {
 } from '../../utils/api';
 import { getTokens, signOut } from '../../utils/function';
 
-export const updateUserProfile = () => {
+export const updateUserProfile = ({ name, email, password }) => {
   return function (dispatch) {
     dispatch({ type: USER_UPDATE_REQUEST });
-
-    updateUserInfo()
+    updateUserInfo({ name, email, password })
       .then((res) => {
         if (res && res.success) {
           dispatch({ type: USER_UPDATE_SUCCESS, data: res });
         } else {
           dispatch({ type: USER_UPDATE_ERROR });
         }
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -67,7 +65,6 @@ export const getUserProfile = () => {
         } else {
           dispatch({ type: USER_ERROR });
         }
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -87,7 +84,6 @@ export const logout = () => {
         } else {
           dispatch({ type: LOGOUT_ERROR });
         }
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -147,7 +143,6 @@ export const authorize = (email, password) => {
         } else {
           dispatch({ type: LOGIN_ERROR });
         }
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -180,7 +175,6 @@ export const savePassword = (password, token) => {
     saveNewPassword(password, token)
       .then((res) => {
         if (res && res.success) {
-          console.log('Пароль изменен');
           dispatch({ type: RESET_PASSWORD_SUCCESS });
         } else {
           dispatch({ type: RESET_PASSWORD_ERROR });

@@ -101,11 +101,11 @@ export const getUserInfo = () => {
 
 export const updateUserInfo = ({ name, email, password }) => {
   return fetch(`${BASE_URL}/auth/user`, {
+    method: 'PATCH',
     headers: {
-      headers,
+      ...headers,
       Authorization: `Bearer ${getCookie('token')}`,
     },
-    method: 'PATCH',
     mode: 'cors',
     cache: 'no-cache',
     credentials: 'same-origin',
