@@ -127,7 +127,6 @@ function ConstructorBurger() {
           <Button onClick={handleClick} type='primary' size='large'>
             Оформить заказ
           </Button>
-          )
         </div>
       )}
     </section>
