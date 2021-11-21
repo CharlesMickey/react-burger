@@ -6,3 +6,28 @@
   padding: 24px 0 8px 16px;
   margin: 0 8px 0 0;
 }
+
+.item {
+  position: relative;
+  height: 208px;
+  width: 272px;
+  margin: 0 24px 32px 0;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.item:nth-child(even) {
+  margin-right: 0;
+}
+
+.link {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: rgba(242, 242, 243, 1);
+}
+
+

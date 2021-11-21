@@ -20,3 +20,11 @@
   list-style-type: none;
   gap: 20px;
 }
+
+.title {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  margin: 120px 0 1px;
+  height: 64px;
+}

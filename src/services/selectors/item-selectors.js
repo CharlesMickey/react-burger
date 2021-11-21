@@ -15,6 +15,5 @@ export const ingredientSelectors = {
 };
 
 export const modalSelectors = {
-  orderModalOpen: (store) => store.order.orderModalOpen,
-  ingredientModalOpen: (store) => store.ingredients.ingredientModalOpen,
+  orderModalOpen: (store) => store.order.orderModalOpen
 };

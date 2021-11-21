@@ -9,7 +9,6 @@ import { getViewedIngredient } from '../../services/actions/ingredients';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { ingredientSelectors } from '../../services/selectors';
-import { INGREDIENT_DETAILS_OPEN } from '../../services/actions';
 
 function BurgerIngredientsCard({ card }) {
   const dispatch = useDispatch();
@@ -32,14 +31,13 @@ function BurgerIngredientsCard({ card }) {
 
   function handleCardClick() {
     dispatch(getViewedIngredient(card));
-    dispatch({ type: INGREDIENT_DETAILS_OPEN });
   }
   return (
-    <li
+    <div
       ref={drag}
       style={{ opacity }}
       onClick={handleCardClick}
-      className={`mb-10 ${styleBurgerIngredientsCard.item}`}
+      className={`mb-10 `}
     >
       <img src={card.image} alt={card.name} />
       {quantity ? <Counter count={quantity} size='default' /> : null}
@@ -48,7 +46,7 @@ function BurgerIngredientsCard({ card }) {
         <CurrencyIcon type='primary' />
       </div>
       <p className={`text text_type_main-default`}>{card.name}</p>
-    </li>
+    </div>
   );
 }
 

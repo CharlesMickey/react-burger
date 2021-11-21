@@ -17,11 +17,14 @@ import { ingredientSelectors } from '../../services/selectors';
 import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
 import { DRAG_CONSTRUCTOR_INGREDIENT } from '../../services/actions';
 import { getOrder } from '../../services/actions/order';
+import { useHistory } from 'react-router';
 
 function ConstructorBurger() {
+  const history = useHistory();
   const { bun, ingredient } = useSelector(
     ingredientSelectors.ingredientsConstructor
   );
+  const refreshToken = localStorage.refreshToken;
   const price = useSelector(ingredientSelectors.price);
   const dispatch = useDispatch();
 
@@ -67,8 +70,12 @@ function ConstructorBurger() {
         return item._id;
       })
       .concat(bun._id);
-    dispatch({ type: ORDER_DETAILS_OPEN });
-    dispatch(getOrder(id));
+    if (refreshToken) {
+      dispatch({ type: ORDER_DETAILS_OPEN });
+      dispatch(getOrder(id));
+    } else {
+      history.push('/login');
+    }
   }
 
   return (

@@ -9,7 +9,6 @@ import {
   INCREASE_INGREDIENTS,
   REDUCE_INGREDIENTS,
   DRAG_CONSTRUCTOR_INGREDIENT,
-  INGREDIENT_DETAILS_OPEN,
   CLEAR_CONSTRUCTOR_INGREDIENTS,
 } from '../actions';
 const initialIngredientState = {
@@ -18,7 +17,6 @@ const initialIngredientState = {
   itemsFailed: false,
 
   viewedIngredient: null,
-  ingredientModalOpen: false,
   ingredientsConstructor: {
     bun: null,
     ingredient: [],
@@ -146,10 +144,6 @@ export const ingredientReducer = (state = initialIngredientState, action) => {
           ingredient: newListIngredients,
         },
       };
-    }
-
-    case INGREDIENT_DETAILS_OPEN: {
-      return { ...state, ingredientModalOpen: true };
     }
 
     default:
