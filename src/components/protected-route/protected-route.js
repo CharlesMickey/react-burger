@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Redirect, Route, useLocation } from 'react-router-dom';
 import { getNewAccessToken } from '../../services/actions/auth';
@@ -35,7 +35,6 @@ const ProtectedRoute = ({ children, ...rest }) => {
 };
 
 export default ProtectedRoute;
-
 
 ProtectedRoute.propTypes = {
   children: PropTypes.element.isRequired,
