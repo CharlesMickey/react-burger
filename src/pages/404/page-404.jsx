@@ -7,7 +7,7 @@ export const Page404 = () => {
   return (
     <div className={style404.section}>
       <h2 className='text text_type_digits-large'> 404 </h2>
-      <p className='text text_type_main-large'>Кажется такой старницы нет :(</p>
+      <p className='text text_type_main-large'>Кажется такой страницы нет :(</p>
       <Button
         onClick={() => history.replace('/')}
         type='secondary'
