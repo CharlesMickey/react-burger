@@ -90,7 +90,7 @@ export const updateUserProfile = ({ name, email, password }) => {
       })
       .catch((err) => {
         if (
-          err.message === 'jwt malformed' ||
+          err.message === 'jwt expired' ||
           err.message === 'Token is invalid'
         ) {
           dispatch(getNewAccessToken());
@@ -116,7 +116,7 @@ export const getUserProfile = () => {
       })
       .catch((err) => {
         if (
-          err.message === 'jwt malformed' ||
+          err.message === 'jwt expired' ||
           err.message === 'Token is invalid'
         ) {
           dispatch(getNewAccessToken());

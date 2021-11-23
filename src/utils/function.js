@@ -37,7 +37,7 @@ export function getCookie(name) {
 export const getTokens = (res) => {
   const accessToken = res.accessToken.split('Bearer ')[1];
   const refreshToken = res.refreshToken;
-  setCookie('token', accessToken, { 'max-age': 1200 });
+  setCookie('token', accessToken);
   localStorage.setItem('refreshToken', refreshToken);
 };
 
