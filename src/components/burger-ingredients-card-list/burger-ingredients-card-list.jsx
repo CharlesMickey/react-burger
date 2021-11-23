@@ -17,7 +17,7 @@ const BurgerIngredientsCardList = forwardRef(({ title, data }, ref) => {
               className={burgerIngredientsCardList.link}
               to={{
                 pathname: `/ingredients/${item._id}`,
-                state: { background: location }
+                state: { background: location },
               }}
             >
               <BurgerIngredientsCard card={item} />
