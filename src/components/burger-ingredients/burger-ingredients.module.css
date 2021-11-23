@@ -11,8 +11,7 @@
 
 .tab {
   display: flex;
-  justify-content: center;
-  margin-bottom: 40px;
+  padding-bottom: 40px;
 }
 
 .scroll {
