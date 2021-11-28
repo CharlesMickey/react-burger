@@ -4,13 +4,13 @@
 * `JS`
 - * `React`
 - * `API`
-- * `Webpack`
+- * `Redux`
+- * `TypeScript`
 
 * `CSS`
 * `Flexbox`
-* `Grid Layout`
 * `Transition`
-* `Адаптивная верстка`
+
 
 
 ### Для локального запуска: `npm start`
