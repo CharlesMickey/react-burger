@@ -16,18 +16,8 @@
   flex-direction: column;
   text-align: center;
   align-items: center;
-  cursor: pointer;
 }
 
 .item:nth-child(even) {
   margin-right: 0;
 }
-
-.link {
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-  color: rgba(242, 242, 243, 1);
-}
-
-

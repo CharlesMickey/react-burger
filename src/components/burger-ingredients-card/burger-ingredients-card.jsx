@@ -9,6 +9,7 @@ import { getViewedIngredient } from '../../services/actions/ingredients';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { ingredientSelectors } from '../../services/selectors';
+import { Link, useLocation } from 'react-router-dom';
 
 function BurgerIngredientsCard({ card }) {
   const dispatch = useDispatch();
@@ -32,6 +33,9 @@ function BurgerIngredientsCard({ card }) {
   function handleCardClick() {
     dispatch(getViewedIngredient(card));
   }
+
+  const location = useLocation();
+
   return (
     <div
       ref={drag}
@@ -39,13 +43,21 @@ function BurgerIngredientsCard({ card }) {
       onClick={handleCardClick}
       className={`mb-10 `}
     >
-      <img src={card.image} alt={card.name} />
-      {quantity ? <Counter count={quantity} size='default' /> : null}
-      <div className={styleBurgerIngredientsCard.container}>
-        <span className='text text_type_digits-default'>{card.price}</span>
-        <CurrencyIcon type='primary' />
-      </div>
-      <p className={`text text_type_main-default`}>{card.name}</p>
+      <Link
+        className={styleBurgerIngredientsCard.link}
+        to={{
+          pathname: `/ingredients/${card._id}`,
+          state: { background: location },
+        }}
+      >
+        <img src={card.image} alt={card.name} />
+        {quantity ? <Counter count={quantity} size='default' /> : null}
+        <div className={styleBurgerIngredientsCard.container}>
+          <span className='text text_type_digits-default'>{card.price}</span>
+          <CurrencyIcon type='primary' />
+        </div>
+        <p className={`text text_type_main-default`}>{card.name}</p>
+      </Link>
     </div>
   );
 }

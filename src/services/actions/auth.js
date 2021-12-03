@@ -44,7 +44,7 @@ export const logout = (goLogin) => {
         if (res && res.success) {
           signOut();
           dispatch({ type: LOGOUT_SUCCESS });
-          goLogin()
+          goLogin();
         } else {
           dispatch({ type: LOGOUT_ERROR });
         }
@@ -172,7 +172,7 @@ export const forgotPassword = (email, goResetPassword) => {
       .then((res) => {
         if (res && res.success) {
           dispatch({ type: FORGOT_PASSWORD_SUCCESS });
-          goResetPassword()
+          goResetPassword();
         } else {
           dispatch({ type: FORGOT_PASSWORD_ERROR });
         }
@@ -185,14 +185,14 @@ export const forgotPassword = (email, goResetPassword) => {
 };
 
 export const savePassword = (data, goMainPage) => {
-  console.log(data, goMainPage)
+  console.log(data, goMainPage);
   return function (dispatch) {
     dispatch({ type: RESET_PASSWORD_REQUEST });
     saveNewPassword(data)
       .then((res) => {
         if (res && res.success) {
           dispatch({ type: RESET_PASSWORD_SUCCESS });
-          goMainPage()
+          goMainPage();
         } else {
           dispatch({ type: RESET_PASSWORD_ERROR });
         }
