@@ -1,17 +1,20 @@
-import React, { memo } from 'react';
+import React, { FC, memo } from 'react';
 import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleBurgerIngredientsCard from './burger-ingredients-card.module.css';
-import { dataPropTypes, QUANTITY_BUNS } from '../../utils/constants';
+import { QUANTITY_BUNS } from '../../utils/constants';
 import { getViewedIngredient } from '../../services/actions/ingredients';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { ingredientSelectors } from '../../services/selectors';
 import { Link, useLocation } from 'react-router-dom';
+import { ITypeIngredient } from '../../utils/type-constants';
+import { TCard } from './type';
 
-function BurgerIngredientsCard({ card }) {
+const BurgerIngredientsCard: FC<TCard<ITypeIngredient>> = ({ card }) => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const { counter, bun } = useSelector(
     ingredientSelectors.ingredientsConstructor
@@ -33,8 +36,6 @@ function BurgerIngredientsCard({ card }) {
   function handleCardClick() {
     dispatch(getViewedIngredient(card));
   }
-
-  const location = useLocation();
 
   return (
     <div
@@ -60,10 +61,6 @@ function BurgerIngredientsCard({ card }) {
       </Link>
     </div>
   );
-}
+};
 
 export default memo(BurgerIngredientsCard);
-
-BurgerIngredientsCard.propTypes = {
-  card: dataPropTypes.isRequired,
-};

@@ -1,18 +1,21 @@
-import React, { memo, useRef } from 'react';
+import React, { memo, useRef, FC } from 'react';
 import styleIngredients from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientsCardList from '../burger-ingredients-card-list/burger-ingredients-card-list';
 import { useSelector } from 'react-redux';
 import { ingredientSelectors } from '../../services/selectors';
+import { ITypeIngredient } from '../../utils/type-constants';
 
-function BurgerIngredients() {
-  const topRef = useRef(null);
-  const bunRef = useRef(null);
-  const sauceRef = useRef(null);
-  const mainRef = useRef(null);
+const BurgerIngredients: FC = () => {
+  const topRef = useRef<HTMLDivElement>(null);
+  const bunRef = useRef<HTMLDivElement>(null);
+  const sauceRef = useRef<HTMLDivElement>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
 
   const [current, setCurrent] = React.useState('bun');
-  const allIngredients = useSelector(ingredientSelectors.allIngredients);
+  const allIngredients: ITypeIngredient[] = useSelector(
+    ingredientSelectors.allIngredients
+  );
 
   const bun = React.useMemo(
     () => allIngredients.filter((i) => i.type === 'bun'),
@@ -30,34 +33,41 @@ function BurgerIngredients() {
   );
 
   const onScroll = () => {
-    const topDistance = topRef.current.getBoundingClientRect().y;
-    const bunYDistance = Math.abs(
-      topDistance - bunRef.current.getBoundingClientRect().y
-    );
-    const sauceYDistance = Math.abs(
-      topDistance - sauceRef.current.getBoundingClientRect().y
-    );
-    const mainYDistance = Math.abs(
-      topDistance - mainRef.current.getBoundingClientRect().y
-    );
-    const minTabDistance = Math.min(
-      bunYDistance,
-      sauceYDistance,
-      mainYDistance
-    );
-    const activeTab =
-      minTabDistance === sauceYDistance
-        ? 'sauce'
-        : minTabDistance === mainYDistance
-        ? 'main'
-        : 'bun';
-    setCurrent(activeTab);
+    if (
+      sauceRef.current &&
+      mainRef.current &&
+      bunRef.current &&
+      topRef.current
+    ) {
+      const topDistance = topRef?.current?.getBoundingClientRect().y;
+      const bunYDistance = Math.abs(
+        topDistance - bunRef?.current?.getBoundingClientRect().y
+      );
+      const sauceYDistance = Math.abs(
+        topDistance - sauceRef.current.getBoundingClientRect().y
+      );
+      const mainYDistance = Math.abs(
+        topDistance - mainRef.current.getBoundingClientRect().y
+      );
+      const minTabDistance = Math.min(
+        bunYDistance,
+        sauceYDistance,
+        mainYDistance
+      );
+      const activeTab =
+        minTabDistance === sauceYDistance
+          ? 'sauce'
+          : minTabDistance === mainYDistance
+          ? 'main'
+          : 'bun';
+      setCurrent(activeTab);
+    }
   };
 
-  const handleClick = (current) => {
-    if (current === 'bun') bunRef.current.scrollIntoView(true);
-    if (current === 'sauce') sauceRef.current.scrollIntoView(true);
-    if (current === 'main') mainRef.current.scrollIntoView(true);
+  const handleClick: (arg: string) => void = (current) => {
+    if (current === 'bun') bunRef.current?.scrollIntoView(true);
+    if (current === 'sauce') sauceRef.current?.scrollIntoView(true);
+    if (current === 'main') mainRef.current?.scrollIntoView(true);
   };
 
   return (
@@ -98,6 +108,6 @@ function BurgerIngredients() {
       </div>
     </section>
   );
-}
+};
 
 export default memo(BurgerIngredients);

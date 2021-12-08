@@ -1,18 +1,19 @@
-import { memo } from 'react';
-import PropTypes from 'prop-types';
+import { FC, memo } from 'react';
 import { MESSAGE } from '../../utils/constants';
 import styleIngredientDetails from './ingredient-details.module.css';
 import { useSelector } from 'react-redux';
 import { ingredientSelectors } from '../../services/selectors';
 import { useParams } from 'react-router';
+import { TIngredientDetails } from './type';
+import { ITypeIngredient } from '../../utils/type-constants';
 
-function IngredientDetails({ title }) {
-  const { id } = useParams();
-  const card =
+const IngredientDetails: FC<TIngredientDetails> = ({ title }) => {
+  const { id } = useParams<{id: string}>();
+  const card: ITypeIngredient =
     useSelector(ingredientSelectors.viewedIngredient) ||
-    JSON.parse(localStorage.getItem('ingredients')).find((i) => i._id === id);
-
-    console.log(card)
+    JSON.parse(localStorage.getItem('ingredients') as string).find(
+      (i: ITypeIngredient) => i._id === id
+    );
 
   return (
     card && (
@@ -65,10 +66,6 @@ function IngredientDetails({ title }) {
       </section>
     )
   );
-}
+};
 
 export default memo(IngredientDetails);
-
-IngredientDetails.propTypes = {
-  title: PropTypes.string,
-};

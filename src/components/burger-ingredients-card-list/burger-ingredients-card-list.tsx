@@ -1,15 +1,18 @@
 import React, { forwardRef, memo } from 'react';
-import PropTypes from 'prop-types';
 import BurgerIngredientsCard from '../burger-ingredients-card/burger-ingredients-card';
 import burgerIngredientsCardList from './burger-ingredients-card-list.module.css';
-import { dataPropTypes } from '../../utils/constants';
+import { ITypeIngredient } from '../../utils/type-constants';
+import { TRef } from './type';
 
-const BurgerIngredientsCardList = forwardRef(({ title, data }, ref) => {
+const BurgerIngredientsCardList = forwardRef<
+  HTMLDivElement,
+  TRef<ITypeIngredient>
+>(({ title, data }, ref) => {
   return (
     <section ref={ref}>
       <h2 className='mt-0 text text_type_main-medium'>{title}</h2>
       <ul className={burgerIngredientsCardList.list}>
-        {data.map((item) => (
+        {data.map((item: ITypeIngredient) => (
           <li key={item._id} className={burgerIngredientsCardList.item}>
             <BurgerIngredientsCard card={item} />
           </li>
@@ -20,8 +23,3 @@ const BurgerIngredientsCardList = forwardRef(({ title, data }, ref) => {
 });
 
 export default memo(BurgerIngredientsCardList);
-
-BurgerIngredientsCardList.propTypes = {
-  data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-  title: PropTypes.string,
-};

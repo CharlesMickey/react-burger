@@ -5,7 +5,7 @@ import MainPage from '../../pages/main-page/main-page';
 import styleApp from './app.module.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-import IngredientDetails from '../ingredient-details/ingredient-details ';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 import { MESSAGE } from '../../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { modalSelectors } from '../../services/selectors';

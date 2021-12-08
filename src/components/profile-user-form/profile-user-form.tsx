@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, SyntheticEvent } from 'react';
 import {
   Button,
   Input,
@@ -24,18 +24,20 @@ export const ProfileUserForm = () => {
   const defaultEmail = email === inputValue.email ? false : true;
   const defaultPassword = inputValue.password.length === 0 ? false : true;
 
-  const nameRef = useRef(null);
-  const loginRef = useRef(null);
-  const passwordRef = useRef(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const loginRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
-  const handleChange = (e) => {
-    const target = e.target;
+  const handleChange = (e: SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
     const name = target.name;
     const value = target.value;
+    console.log(target);
     setInputValue({ ...inputValue, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent) => {
+    console.log(e);
     e.preventDefault();
     dispatch(updateUserProfile(inputValue));
     setInputValue({
@@ -53,15 +55,15 @@ export const ProfileUserForm = () => {
   }, [name, email]);
 
   const onIconClickName = () => {
-    setTimeout(() => nameRef.current.focus(), 0);
+    setTimeout(() => nameRef?.current?.focus(), 0);
     setInputValue({ ...inputValue, inputName: !inputValue.inputName });
   };
   const onIconClickEmail = () => {
-    setTimeout(() => loginRef.current.focus(), 0);
+    setTimeout(() => loginRef?.current?.focus(), 0);
     setInputValue({ ...inputValue, inputEmail: !inputValue.inputEmail });
   };
   const onIconClickPassword = () => {
-    setTimeout(() => passwordRef.current.focus(), 0);
+    setTimeout(() => passwordRef?.current?.focus(), 0);
     setInputValue({ ...inputValue, inputPassword: !inputValue.inputPassword });
   };
 

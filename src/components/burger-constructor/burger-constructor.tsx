@@ -25,8 +25,8 @@ const ConstructorBurger: FC = () => {
   const { bun, ingredient } = useSelector(
     ingredientSelectors.ingredientsConstructor
   );
-  const refreshToken: string = localStorage.refreshToken;
-  const price: number = useSelector(ingredientSelectors.price);
+  const refreshToken = localStorage.refreshToken;
+  const price = useSelector(ingredientSelectors.price);
   const dispatch = useDispatch();
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -57,7 +57,7 @@ const ConstructorBurger: FC = () => {
     '';
 
   const moveItem = useCallback(
-    (dragIndex: number, hoverIndex: number) => {
+    (dragIndex, hoverIndex) => {
       dispatch({
         type: DRAG_CONSTRUCTOR_INGREDIENT,
         dragIndex: dragIndex,
