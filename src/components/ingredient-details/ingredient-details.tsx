@@ -1,5 +1,5 @@
 import { FC, memo } from 'react';
-import { MESSAGE } from '../../utils/constants';
+import { CONSTANTS } from '../../utils/constants';
 import styleIngredientDetails from './ingredient-details.module.css';
 import { useSelector } from 'react-redux';
 import { ingredientSelectors } from '../../services/selectors';
@@ -34,7 +34,7 @@ const IngredientDetails: FC<TIngredientDetails> = ({ title }) => {
         <ul className={styleIngredientDetails.ul}>
           <li>
             <h5 className='text text_type_main-default'>
-              {MESSAGE.INGREDIENT_DETAILS.CALORIES}
+              {CONSTANTS.INGREDIENT_DETAILS.CALORIES}
             </h5>
             <p className='mt-2 text text_type_digits-default'>
               {card.calories}
@@ -42,7 +42,7 @@ const IngredientDetails: FC<TIngredientDetails> = ({ title }) => {
           </li>
           <li>
             <h5 className='text text_type_main-default'>
-              {MESSAGE.INGREDIENT_DETAILS.PROTEINS}
+              {CONSTANTS.INGREDIENT_DETAILS.PROTEINS}
             </h5>
             <p className='mt-2 text text_type_digits-default'>
               {card.proteins}
@@ -50,13 +50,13 @@ const IngredientDetails: FC<TIngredientDetails> = ({ title }) => {
           </li>
           <li>
             <h5 className='text text_type_main-default'>
-              {MESSAGE.INGREDIENT_DETAILS.FAT}
+              {CONSTANTS.INGREDIENT_DETAILS.FAT}
             </h5>
             <p className='mt-2 text text_type_digits-default'>{card.fat}</p>
           </li>
           <li>
             <h5 className='text text_type_main-default'>
-              {MESSAGE.INGREDIENT_DETAILS.CARBOHYDRATES}
+              {CONSTANTS.INGREDIENT_DETAILS.CARBOHYDRATES}
             </h5>
             <p className='mt-2 text text_type_digits-default'>
               {card.carbohydrates}

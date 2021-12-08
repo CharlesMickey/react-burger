@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import {
   Input,
@@ -7,6 +7,7 @@ import {
 import styleForgot from './forgot-password.module.css';
 import { useDispatch } from 'react-redux';
 import { forgotPassword } from '../../services/actions/auth';
+import { CONSTANTS } from '../../utils/constants';
 
 export const ForgotPassword = () => {
   const [inputValue, setInputValue] = useState({
@@ -15,7 +16,7 @@ export const ForgotPassword = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const refreshToken = localStorage.refreshToken;
-  const handleChange = (e) => {
+  const handleChange = (e: {target: HTMLInputElement}) => {
     const target = e.target;
     const name = target.name;
     const value = target.value;
@@ -26,7 +27,7 @@ export const ForgotPassword = () => {
     history.push('/reset-password');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(forgotPassword(inputValue, goResetPassword));
   };
@@ -36,7 +37,9 @@ export const ForgotPassword = () => {
   }
   return (
     <section className={styleForgot.container}>
-      <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
+      <h2 className='text text_type_main-medium mb-6'>
+        {CONSTANTS.PAGE_FORGOT_PASSWORD.TITLE}
+      </h2>
       <form className={styleForgot.form} onSubmit={handleSubmit}>
         <Input
           placeholder='Укажите e-mail'
@@ -46,14 +49,14 @@ export const ForgotPassword = () => {
           onChange={handleChange}
         />
         <Button disabled={!inputValue.email} type='primary' size='medium'>
-          Восстановить
+          {CONSTANTS.PAGE_FORGOT_PASSWORD.BUTTON_NAME}
         </Button>
       </form>
       <div className={styleForgot.text}>
         <span className='text text_type_main-default text_color_inactive'>
-          Вспомнили пароль?{' '}
+          {CONSTANTS.PAGE_FORGOT_PASSWORD.REMEMBERED_PASSWORD}{' '}
           <Link to='/login' className={styleForgot.link}>
-            Войти
+            {CONSTANTS.PAGE_FORGOT_PASSWORD.ENTER}
           </Link>
         </span>
       </div>
