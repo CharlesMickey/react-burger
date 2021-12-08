@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { Redirect, Route, useLocation } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
+import { RouteProps } from 'react-router-dom';
 import { getNewAccessToken } from '../../services/actions/auth';
 
-const ProtectedRoute = ({ children, ...rest }) => {
+const ProtectedRoute: FC<RouteProps> = ({ children, ...rest }) => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const refreshToken = Boolean(localStorage.refreshToken);
 
   useEffect(() => {
@@ -18,7 +17,7 @@ const ProtectedRoute = ({ children, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={() =>
+      render={({ location }) =>
         refreshToken ? (
           children
         ) : (
@@ -35,7 +34,3 @@ const ProtectedRoute = ({ children, ...rest }) => {
 };
 
 export default ProtectedRoute;
-
-ProtectedRoute.propTypes = {
-  children: PropTypes.element.isRequired,
-};

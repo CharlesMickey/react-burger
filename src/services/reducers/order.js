@@ -36,7 +36,7 @@ export const orderReducer = (state = initialOrderState, action) => {
     }
 
     case CLEAR_ORDER_NUMBER: {
-      return { state };
+      return { state, orderModalOpen: false };
     }
 
     case ORDER_DETAILS_OPEN: {

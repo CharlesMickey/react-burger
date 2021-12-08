@@ -24,9 +24,10 @@ import { Page404 } from '../../pages/404/page-404';
 
 function App() {
   const location = useLocation();
+  
   const history = useHistory();
   const dispatch = useDispatch();
-  const orderModal = useSelector(modalSelectors.orderModalOpen);
+  const orderModal: boolean = useSelector(modalSelectors.orderModalOpen);
 
   const closeAllPopups = React.useCallback(() => {
     dispatch({ type: DEL_VIEWED_INGREDIENT });

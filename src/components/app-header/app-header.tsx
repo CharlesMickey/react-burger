@@ -10,6 +10,7 @@ import {
 
 function AppHeader() {
   const { pathname } = useLocation();
+
   return (
     <header className={styleHeader.header}>
       <div className={styleHeader.container}>

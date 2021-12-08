@@ -12,6 +12,8 @@ function IngredientDetails({ title }) {
     useSelector(ingredientSelectors.viewedIngredient) ||
     JSON.parse(localStorage.getItem('ingredients')).find((i) => i._id === id);
 
+    console.log(card)
+
   return (
     card && (
       <section className={styleIngredientDetails.section}>
