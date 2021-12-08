@@ -1,4 +1,4 @@
-import { ITypeIngredients } from '../../utils/type-constants';
+import { ITypeIngredient } from '../../utils/type-constants';
 
 export const ingredientSelectors = {
   ingredientsConstructor: (store: any) =>
@@ -7,7 +7,7 @@ export const ingredientSelectors = {
     store.ingredients.ingredientsConstructor.bun &&
     store.ingredients.ingredientsConstructor.bun.price * 2 +
       store.ingredients.ingredientsConstructor.ingredient.reduce(
-        (previousValue: number, currentValue: ITypeIngredients) => {
+        (previousValue: number, currentValue: ITypeIngredient): number => {
           return previousValue + currentValue.price;
         },
         0

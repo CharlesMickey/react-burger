@@ -24,7 +24,6 @@ import { Page404 } from '../../pages/404/page-404';
 
 function App() {
   const location = useLocation();
-  
   const history = useHistory();
   const dispatch = useDispatch();
   const orderModal: boolean = useSelector(modalSelectors.orderModalOpen);

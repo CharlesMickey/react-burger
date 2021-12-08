@@ -9,7 +9,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function AppHeader() {
-  const { pathname } = useLocation();
+  const { pathname }= useLocation();
 
   return (
     <header className={styleHeader.header}>

@@ -1,4 +1,4 @@
-export interface ITypeIngredients {
+export interface ITypeIngredient {
     calories: number,
     carbohydrates: number,
     fat: number,
@@ -11,4 +11,5 @@ export interface ITypeIngredients {
     type: string,
     __v: number,
     _id: string,
+    uniqueId?: number
 }
