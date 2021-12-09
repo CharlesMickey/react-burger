@@ -1,16 +1,19 @@
-import { memo } from 'react';
-import PropTypes from 'prop-types';
-import { MESSAGE } from '../../utils/constants';
+import { FC, memo } from 'react';
+import { CONSTANTS } from '../../utils/constants';
 import styleIngredientDetails from './ingredient-details.module.css';
 import { useSelector } from 'react-redux';
 import { ingredientSelectors } from '../../services/selectors';
 import { useParams } from 'react-router';
+import { TIngredientDetails } from './type';
+import { ITypeIngredient } from '../../utils/type-constants';
 
-function IngredientDetails({ title }) {
-  const { id } = useParams();
-  const card =
+const IngredientDetails: FC<TIngredientDetails> = ({ title }) => {
+  const { id } = useParams<{id: string}>();
+  const card: ITypeIngredient =
     useSelector(ingredientSelectors.viewedIngredient) ||
-    JSON.parse(localStorage.getItem('ingredients')).find((i) => i._id === id);
+    JSON.parse(localStorage.getItem('ingredients') as string).find(
+      (i: ITypeIngredient) => i._id === id
+    );
 
   return (
     card && (
@@ -31,7 +34,7 @@ function IngredientDetails({ title }) {
         <ul className={styleIngredientDetails.ul}>
           <li>
             <h5 className='text text_type_main-default'>
-              {MESSAGE.INGREDIENT_DETAILS.CALORIES}
+              {CONSTANTS.INGREDIENT_DETAILS.CALORIES}
             </h5>
             <p className='mt-2 text text_type_digits-default'>
               {card.calories}
@@ -39,7 +42,7 @@ function IngredientDetails({ title }) {
           </li>
           <li>
             <h5 className='text text_type_main-default'>
-              {MESSAGE.INGREDIENT_DETAILS.PROTEINS}
+              {CONSTANTS.INGREDIENT_DETAILS.PROTEINS}
             </h5>
             <p className='mt-2 text text_type_digits-default'>
               {card.proteins}
@@ -47,13 +50,13 @@ function IngredientDetails({ title }) {
           </li>
           <li>
             <h5 className='text text_type_main-default'>
-              {MESSAGE.INGREDIENT_DETAILS.FAT}
+              {CONSTANTS.INGREDIENT_DETAILS.FAT}
             </h5>
             <p className='mt-2 text text_type_digits-default'>{card.fat}</p>
           </li>
           <li>
             <h5 className='text text_type_main-default'>
-              {MESSAGE.INGREDIENT_DETAILS.CARBOHYDRATES}
+              {CONSTANTS.INGREDIENT_DETAILS.CARBOHYDRATES}
             </h5>
             <p className='mt-2 text text_type_digits-default'>
               {card.carbohydrates}
@@ -63,10 +66,6 @@ function IngredientDetails({ title }) {
       </section>
     )
   );
-}
+};
 
 export default memo(IngredientDetails);
-
-IngredientDetails.propTypes = {
-  title: PropTypes.string,
-};

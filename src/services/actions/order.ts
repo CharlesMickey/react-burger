@@ -6,8 +6,8 @@ import {
 } from '.';
 import { getOrderOfNumber } from '../../utils/api';
 
-export function getOrder(listId) {
-  return function (dispatch) {
+export function getOrder(listId: string[]) {
+  return function (dispatch: (arg0: { type: string; orderData?: {name: string, order: {number: number}, success: boolean}; }) => void) {
     dispatch({
       type: GET_ORDER_REQUEST,
     });

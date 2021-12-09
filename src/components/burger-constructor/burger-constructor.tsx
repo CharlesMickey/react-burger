@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, FC } from 'react';
 import {
   Button,
   ConstructorElement,
@@ -18,8 +18,9 @@ import ConstructorIngredient from '../constructor-ingredient/constructor-ingredi
 import { DRAG_CONSTRUCTOR_INGREDIENT } from '../../services/actions';
 import { getOrder } from '../../services/actions/order';
 import { useHistory } from 'react-router';
+import { ITypeIngredient } from '../../utils/type-constants';
 
-function ConstructorBurger() {
+const ConstructorBurger: FC = () => {
   const history = useHistory();
   const { bun, ingredient } = useSelector(
     ingredientSelectors.ingredientsConstructor
@@ -30,7 +31,7 @@ function ConstructorBurger() {
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'ingredient-menu',
-    drop: (item) => {
+    drop: (item: ITypeIngredient) => {
       const itemWithId = { ...item, uniqueId: Math.random() };
       dispatch({
         type: ADD_INGREDIENT_CONSTRUCTOR,
@@ -51,7 +52,9 @@ function ConstructorBurger() {
   const isActive = canDrop && isOver;
 
   const backgroundColor =
-    (isActive && 'rgba(45, 45, 55, 1)') || (canDrop && 'rgba(30, 30, 55, 1)');
+    (isActive && 'rgba(45, 45, 55, 1)') ||
+    (canDrop && 'rgba(30, 30, 55, 1)') ||
+    '';
 
   const moveItem = useCallback(
     (dragIndex, hoverIndex) => {
@@ -65,8 +68,8 @@ function ConstructorBurger() {
   );
 
   function handleClick() {
-    const id = ingredient
-      .map((item) => {
+    const id: string[] = ingredient
+      .map((item: ITypeIngredient) => {
         return item._id;
       })
       .concat(bun._id);
@@ -79,7 +82,7 @@ function ConstructorBurger() {
   }
 
   return (
-    <section className={styleConstructor.constructor}>
+    <section className={styleConstructor.section}>
       <div
         ref={drop}
         style={{ backgroundColor }}
@@ -96,7 +99,7 @@ function ConstructorBurger() {
         )}
 
         <ul className={styleConstructor.list}>
-          {ingredient.map((ingredient, index) => {
+          {ingredient.map((ingredient: ITypeIngredient, index: number) => {
             return (
               <ConstructorIngredient
                 moveItem={moveItem}
@@ -131,6 +134,6 @@ function ConstructorBurger() {
       )}
     </section>
   );
-}
+};
 
 export default ConstructorBurger;

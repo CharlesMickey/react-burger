@@ -1,8 +1,9 @@
-.constructor {
+.section {
   width: 600px;
   height: 100%;
   padding-top: 100px;
 }
+
 .constructorElement {
   border-radius: 50px;
   display: flex;

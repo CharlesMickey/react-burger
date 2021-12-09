@@ -5,8 +5,8 @@ import MainPage from '../../pages/main-page/main-page';
 import styleApp from './app.module.css';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-import IngredientDetails from '../ingredient-details/ingredient-details ';
-import { MESSAGE } from '../../utils/constants';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import { CONSTANTS } from '../../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { modalSelectors } from '../../services/selectors';
 import { getItems } from '../../services/actions/ingredients';
@@ -26,7 +26,7 @@ function App() {
   const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
-  const orderModal = useSelector(modalSelectors.orderModalOpen);
+  const orderModal: boolean = useSelector(modalSelectors.orderModalOpen);
 
   const closeAllPopups = React.useCallback(() => {
     dispatch({ type: DEL_VIEWED_INGREDIENT });
@@ -66,20 +66,20 @@ function App() {
           <Profile />
         </ProtectedRoute>
         <Route path='/ingredients/:id' exact={true}>
-          <IngredientDetails title={MESSAGE.TITLE_PAGE} />
+          <IngredientDetails title={CONSTANTS.TITLE_PAGE} />
         </Route>
         <Route>
           <Page404 />
         </Route>
       </Switch>
       {orderModal && (
-        <Modal close={closeAllPopups} title={MESSAGE.EMPTY_TITLE}>
+        <Modal close={closeAllPopups} title={CONSTANTS.EMPTY_TITLE}>
           <OrderDetails />
         </Modal>
       )}
       {background && (
         <Route path='/ingredients/:id' exact={true}>
-          <Modal close={goBack} title={MESSAGE.TITLE}>
+          <Modal close={goBack} title={CONSTANTS.TITLE}>
             <IngredientDetails />
           </Modal>
         </Route>

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import done from '../../images/done.png';
 import styleOrderDetails from './order-details.module.css';
 import { useSelector } from 'react-redux';
 import { ingredientSelectors } from '../../services/selectors';
 
-function OrderDetails() {
+const OrderDetails: FC = () => {
   const orderNumber = useSelector(ingredientSelectors.orderNumber);
   return (
     <section className={`pr-15 pb-15 pl-15 ${styleOrderDetails.section}`}>

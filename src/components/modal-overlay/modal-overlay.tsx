@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC, SyntheticEvent, useEffect } from 'react';
 import styleOverlay from './modal-overlay.module.css';
+import { TModalOverlay } from './type';
 
-function ModalOverlay({ children, closeAllPopups }) {
-  function closePopupClickOnOverlay(e) {
-    if (e.target.matches('.popup')) {
+const ModalOverlay: FC<TModalOverlay> = ({ children, closeAllPopups }) => {
+  function closePopupClickOnOverlay(e: SyntheticEvent) {
+    const element = e.target as Element;
+    if (element.matches('.popup')) {
       closeAllPopups();
     }
   }
 
-  function closePopupEsc(e) {
+  function closePopupEsc(e: KeyboardEvent) {
     if (e.key === 'Escape') {
       closeAllPopups();
     }
@@ -28,11 +29,6 @@ function ModalOverlay({ children, closeAllPopups }) {
       {children}
     </div>
   );
-}
+};
 
 export default ModalOverlay;
-
-ModalOverlay.propTypes = {
-  children: PropTypes.element.isRequired,
-  closeAllPopups: PropTypes.func.isRequired,
-};

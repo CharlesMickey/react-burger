@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import {
   Input,
@@ -9,6 +9,7 @@ import styleRegister from './register.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerAction } from '../../services/actions/auth';
 import { userSelectors } from '../../services/selectors';
+import { CONSTANTS } from '../../utils/constants';
 
 export const Register = () => {
   const [inputValue, setInputValue] = useState({
@@ -21,14 +22,14 @@ export const Register = () => {
   const refreshToken = localStorage.refreshToken;
   const { logoutRequest } = useSelector(userSelectors.authData);
   const location = useLocation();
-  const handleChange = (e) => {
+  const handleChange = (e: {target: HTMLInputElement}) => {
     const target = e.target;
     const name = target.name;
     const value = target.value;
     setInputValue({ ...inputValue, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(registerAction(inputValue));
   };
@@ -39,7 +40,9 @@ export const Register = () => {
         <Redirect to={location.state?.from || '/'} />
       ) : (
         <section className={styleRegister.container}>
-          <h2 className='text text_type_main-medium mb-6'>Регистрация</h2>
+          <h2 className='text text_type_main-medium mb-6'>
+            {CONSTANTS.PAGE_REGISTER.TITLE}
+          </h2>
           <form className={styleRegister.form} onSubmit={handleSubmit}>
             <Input
               placeholder='Имя'
@@ -56,20 +59,19 @@ export const Register = () => {
               onChange={handleChange}
             />
             <PasswordInput
-              placeholder='Пароль'
               name='password'
               value={inputValue.password || ''}
               onChange={handleChange}
             />
             <Button type='primary' size='medium'>
-              Зарегистрироваться
+              {CONSTANTS.PAGE_REGISTER.BUTTON_NAME}
             </Button>
           </form>
           <div className={styleRegister.text}>
             <span className='text text_type_main-default text_color_inactive'>
-              Уже зарегистрированы?{' '}
+              {CONSTANTS.PAGE_REGISTER.ALREADY_REGISTERED}{' '}
               <Link to='/login' className={styleRegister.link}>
-                Войти
+                {CONSTANTS.PAGE_REGISTER.ENTER}
               </Link>
             </span>
           </div>
