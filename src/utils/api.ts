@@ -1,7 +1,13 @@
+import {
+  TUserDataApi,
+  TResetPasswordDataApi,
+  TLoginDataApi,
+  TNewPasswordApi,
+} from './type-constants';
 import { BASE_URL } from './constants';
 import { getCookie } from './function';
 
-export const checkResponse = (response) => {
+export const checkResponse = (response: Response) => {
   return response.ok
     ? response.json()
     : response.json().then((err) => Promise.reject(err));
@@ -19,7 +25,7 @@ export const getData = async () => {
   return checkResponse(res);
 };
 
-export const getOrderOfNumber = async (ingredients) => {
+export const getOrderOfNumber = async (ingredients: string[]) => {
   const res = await fetch(`${BASE_URL}/orders`, {
     headers,
     method: 'POST',
@@ -28,7 +34,7 @@ export const getOrderOfNumber = async (ingredients) => {
   return checkResponse(res);
 };
 
-export const register = async ({ email, password, name }) => {
+export const register = async ({ email, password, name }: TUserDataApi) => {
   const res = await fetch(`${BASE_URL}/auth/register`, {
     headers,
     method: 'POST',
@@ -42,7 +48,7 @@ export const register = async ({ email, password, name }) => {
   return checkResponse(res);
 };
 
-export const login = async ({ email, password }) => {
+export const login = async ({ email, password }: TLoginDataApi) => {
   const res = await fetch(`${BASE_URL}/auth/login`, {
     headers,
     method: 'POST',
@@ -87,7 +93,7 @@ export const getNewToken = async () => {
 export const getUserInfo = async () => {
   const res = await fetch(`${BASE_URL}/auth/user`, {
     headers: {
-      headers,
+      ...headers,
       Authorization: `Bearer ${getCookie('token')}`,
     },
     method: 'GET',
@@ -100,7 +106,11 @@ export const getUserInfo = async () => {
   return checkResponse(res);
 };
 
-export const updateUserInfo = async ({ name, email, password }) => {
+export const updateUserInfo = async ({
+  name,
+  email,
+  password,
+}: TUserDataApi) => {
   const res = await fetch(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     headers: {
@@ -117,7 +127,9 @@ export const updateUserInfo = async ({ name, email, password }) => {
   return checkResponse(res);
 };
 
-export const getCodeChangePassword = async ({ email }) => {
+export const getCodeChangePassword = async ({
+  email,
+}: TResetPasswordDataApi) => {
   const res = await fetch(`${BASE_URL}/password-reset`, {
     headers,
     method: 'POST',
@@ -131,7 +143,7 @@ export const getCodeChangePassword = async ({ email }) => {
   return checkResponse(res);
 };
 
-export const saveNewPassword = async ({ password, token }) => {
+export const saveNewPassword = async ({ password, token }: TNewPasswordApi) => {
   const res = await fetch(`${BASE_URL}/password-reset/reset`, {
     headers,
     method: 'POST',

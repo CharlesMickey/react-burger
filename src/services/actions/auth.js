@@ -72,6 +72,7 @@ export const getNewAccessToken = () => {
         if (err.message === 'Token is invalid') {
           dispatch(getNewAccessToken());
         } else console.log(err, err.message);
+        signOut();
         dispatch({ type: TOKEN_ERROR });
       });
   };
