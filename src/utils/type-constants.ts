@@ -26,9 +26,9 @@ export type TLoginDataApi = {
 };
 
 export type TNewPasswordApi = {
-    password: string;
-    token: string;
-  };
+  password: string;
+  token: string;
+};
 
 export type TResetPasswordDataApi = {
   email: string;
