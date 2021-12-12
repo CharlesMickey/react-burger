@@ -29,15 +29,13 @@ export const ProfileUserForm = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: SyntheticEvent) => {
-    const target = e.target as HTMLInputElement;
+    const target = e.target as HTMLInputElement
     const name = target.name;
     const value = target.value;
-    console.log(target);
     setInputValue({ ...inputValue, [name]: value });
   };
 
   const handleSubmit = (e: SyntheticEvent) => {
-    console.log(e);
     e.preventDefault();
     dispatch(updateUserProfile(inputValue));
     setInputValue({
