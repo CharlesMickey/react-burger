@@ -11,8 +11,11 @@ export interface ITypeIngredient {
   type: string;
   __v: number;
   _id: string;
-  uniqueId?: number;
 }
+
+export type TIngredientWithUniqueId = ITypeIngredient & {
+  uniqueId: string;
+};
 
 export type TUserDataApi = {
   name: string;
@@ -30,6 +33,5 @@ export type TNewPasswordApi = {
   token: string;
 };
 
-export type TResetPasswordDataApi = {
-  email: string;
-};
+export type TResetPasswordDataApi = string;
+export type TFuncVoid = () => void;

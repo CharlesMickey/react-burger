@@ -6,7 +6,7 @@ import {
 import styleBurgerIngredientsCard from './burger-ingredients-card.module.css';
 import { QUANTITY_BUNS } from '../../utils/constants';
 import { getViewedIngredient } from '../../services/actions/ingredients';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/type/hooks';
 import { useDrag } from 'react-dnd';
 import { ingredientSelectors } from '../../services/selectors';
 import { Link, useLocation } from 'react-router-dom';

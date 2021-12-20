@@ -1,9 +1,10 @@
 import { ITypeIngredient } from '../../utils/type-constants';
+import { RootState } from '../type';
 
 export const ingredientSelectors = {
-  ingredientsConstructor: (store: any) =>
+  ingredientsConstructor: (store: RootState) =>
     store.ingredients.ingredientsConstructor,
-  price: (store: any) =>
+  price: (store: RootState) =>
     store.ingredients.ingredientsConstructor.bun &&
     store.ingredients.ingredientsConstructor.bun.price * 2 +
       store.ingredients.ingredientsConstructor.ingredient.reduce(
@@ -12,11 +13,11 @@ export const ingredientSelectors = {
         },
         0
       ),
-  viewedIngredient: (store: any) => store.ingredients.viewedIngredient,
-  allIngredients: (store: any) => store.ingredients.allIngredients,
-  orderNumber: (store: any) => store.order.orderNumber,
+  viewedIngredient: (store: RootState) => store.ingredients.viewedIngredient,
+  allIngredients: (store: RootState) => store.ingredients.allIngredients,
+  orderNumber: (store: RootState) => store.order.orderNumber,
 };
 
 export const modalSelectors = {
-  orderModalOpen: (store: any) => store.order.orderModalOpen,
+  orderModalOpen: (store: RootState) => store.order.orderModalOpen,
 };

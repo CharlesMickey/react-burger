@@ -1,14 +1,14 @@
 import { FC, memo } from 'react';
 import { CONSTANTS } from '../../utils/constants';
 import styleIngredientDetails from './ingredient-details.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/type/hooks';
 import { ingredientSelectors } from '../../services/selectors';
 import { useParams } from 'react-router';
 import { TIngredientDetails } from './type';
 import { ITypeIngredient } from '../../utils/type-constants';
 
 const IngredientDetails: FC<TIngredientDetails> = ({ title }) => {
-  const { id } = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
   const card: ITypeIngredient =
     useSelector(ingredientSelectors.viewedIngredient) ||
     JSON.parse(localStorage.getItem('ingredients') as string).find(

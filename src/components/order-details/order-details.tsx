@@ -25,6 +25,6 @@ const OrderDetails: FC = () => {
       </span>
     </section>
   );
-}
+};
 
 export default OrderDetails;

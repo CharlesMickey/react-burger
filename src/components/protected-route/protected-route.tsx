@@ -1,5 +1,5 @@
 import React, { useEffect, FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/type/hooks';
 import { Redirect, Route } from 'react-router-dom';
 import { RouteProps } from 'react-router-dom';
 import { getNewAccessToken } from '../../services/actions/auth';

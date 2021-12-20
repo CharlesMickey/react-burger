@@ -1,3 +1,5 @@
+import { TIngredientsCounter } from './../type/data';
+import { TIngredientsActions } from './../actions/ingredients';
 import {
   GET_ITEMS_REQUEST,
   GET_ITEMS_SUCCESS,
@@ -11,11 +13,29 @@ import {
   DRAG_CONSTRUCTOR_INGREDIENT,
   CLEAR_CONSTRUCTOR_INGREDIENTS,
 } from '../actions';
-const initialIngredientState = {
+import {
+  ITypeIngredient,
+  TIngredientWithUniqueId,
+} from '../../utils/type-constants';
+
+type TInitialIngredientState = {
+  allIngredients: ITypeIngredient[];
+  itemsRequest: boolean;
+  itemsFailed: boolean;
+  ingredientModalOpen: boolean;
+  viewedIngredient: ITypeIngredient | null;
+  ingredientsConstructor: {
+    bun: TIngredientWithUniqueId | null;
+    ingredient: TIngredientWithUniqueId[];
+    counter: TIngredientsCounter;
+  };
+};
+
+const initialIngredientState: TInitialIngredientState = {
   allIngredients: [],
   itemsRequest: false,
   itemsFailed: false,
-
+  ingredientModalOpen: false,
   viewedIngredient: null,
   ingredientsConstructor: {
     bun: null,
@@ -24,7 +44,10 @@ const initialIngredientState = {
   },
 };
 
-export const ingredientReducer = (state = initialIngredientState, action) => {
+export const ingredientReducer = (
+  state = initialIngredientState,
+  action: TIngredientsActions
+): TInitialIngredientState => {
   switch (action.type) {
     case GET_ITEMS_REQUEST: {
       return {

@@ -5,6 +5,9 @@ export const CONSTANTS = {
   EMPTY_TITLE: '',
   TITLE: ' Добавить ингредиенты',
   TITLE_PAGE: 'Детали ингредиента',
+  ORDER_INGREDIENTS: {
+    TITLE: 'Лента заказов',
+  },
   INGREDIENT_DETAILS: {
     CALORIES: 'Калории,ккал',
     PROTEINS: 'Белки, г',

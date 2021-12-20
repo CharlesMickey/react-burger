@@ -6,7 +6,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styleConstructor from './burger-constructor.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/type/hooks';
 import { useDrop } from 'react-dnd';
 import {
   ADD_INGREDIENT_CONSTRUCTOR,
@@ -18,7 +18,7 @@ import ConstructorIngredient from '../constructor-ingredient/constructor-ingredi
 import { DRAG_CONSTRUCTOR_INGREDIENT } from '../../services/actions';
 import { getOrder } from '../../services/actions/order';
 import { useHistory } from 'react-router';
-import { ITypeIngredient } from '../../utils/type-constants';
+import { TIngredientWithUniqueId } from '../../utils/type-constants';
 
 const ConstructorBurger: FC = () => {
   const history = useHistory();
@@ -31,7 +31,7 @@ const ConstructorBurger: FC = () => {
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'ingredient-menu',
-    drop: (item: ITypeIngredient) => {
+    drop: (item: TIngredientWithUniqueId) => {
       const itemWithId = { ...item, uniqueId: Math.random() };
       dispatch({
         type: ADD_INGREDIENT_CONSTRUCTOR,
@@ -68,11 +68,14 @@ const ConstructorBurger: FC = () => {
   );
 
   function handleClick() {
-    const id: string[] = ingredient
-      .map((item: ITypeIngredient) => {
-        return item._id;
-      })
-      .concat(bun._id);
+    let id: string[] = [];
+    if (bun !== null) {
+      id = ingredient
+        .map((item: TIngredientWithUniqueId) => {
+          return item._id;
+        })
+        .concat(bun._id);
+    }
     if (refreshToken) {
       dispatch({ type: ORDER_DETAILS_OPEN });
       dispatch(getOrder(id));
@@ -99,17 +102,19 @@ const ConstructorBurger: FC = () => {
         )}
 
         <ul className={styleConstructor.list}>
-          {ingredient.map((ingredient: ITypeIngredient, index: number) => {
-            return (
-              <ConstructorIngredient
-                moveItem={moveItem}
-                id={ingredient._id}
-                index={index}
-                ingredient={ingredient}
-                key={ingredient.uniqueId}
-              />
-            );
-          })}
+          {ingredient.map(
+            (ingredient: TIngredientWithUniqueId, index: number) => {
+              return (
+                <ConstructorIngredient
+                  moveItem={moveItem}
+                  id={ingredient._id}
+                  index={index}
+                  ingredient={ingredient}
+                  key={ingredient.uniqueId}
+                />
+              );
+            }
+          )}
         </ul>
         {bun && (
           <ConstructorElement

@@ -127,9 +127,7 @@ export const updateUserInfo = async ({
   return checkResponse(res);
 };
 
-export const getCodeChangePassword = async ({
-  email,
-}: TResetPasswordDataApi) => {
+export const getCodeChangePassword = async (email: TResetPasswordDataApi) => {
   const res = await fetch(`${BASE_URL}/password-reset`, {
     headers,
     method: 'POST',
@@ -138,7 +136,7 @@ export const getCodeChangePassword = async ({
     credentials: 'same-origin',
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
-    body: JSON.stringify({ email }),
+    body: JSON.stringify(email),
   });
   return checkResponse(res);
 };

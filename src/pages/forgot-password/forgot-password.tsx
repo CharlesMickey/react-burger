@@ -5,9 +5,9 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleForgot from './forgot-password.module.css';
-import { useDispatch } from 'react-redux';
 import { forgotPassword } from '../../services/actions/auth';
 import { CONSTANTS } from '../../utils/constants';
+import { useDispatch } from '../../services/type/hooks';
 
 export const ForgotPassword = () => {
   const [inputValue, setInputValue] = useState({

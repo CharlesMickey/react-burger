@@ -4,7 +4,7 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleProfileForm from './profile-user-form.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector }  from '../../services/type/hooks';
 import { userSelectors } from '../../services/selectors';
 import { updateUserProfile } from '../../services/actions/auth';
 
@@ -40,6 +40,7 @@ export const ProfileUserForm = () => {
     dispatch(updateUserProfile(inputValue));
     setInputValue({
       ...inputValue,
+      password: '',
       inputName: true,
       inputEmail: true,
       inputPassword: true,

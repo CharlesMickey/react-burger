@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import styleProfile from './profile.module.css';
 import { ProfileNavigation } from '../../components/profile-navigation/profile-navigation';
 import { ProfileUserForm } from '../../components/profile-user-form/profile-user-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/type/hooks';
 import { getUserProfile } from '../../services/actions/auth';
 
 export const Profile = () => {

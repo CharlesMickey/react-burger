@@ -6,7 +6,7 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleRegister from './register.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector }  from '../../services/type/hooks';
 import { registerAction } from '../../services/actions/auth';
 import { userSelectors } from '../../services/selectors';
 import { CONSTANTS } from '../../utils/constants';

@@ -1,3 +1,4 @@
+import { TAuthActions } from './../actions/auth';
 import {
   FORGOT_PASSWORD_REQUEST,
   FORGOT_PASSWORD_SUCCESS,
@@ -25,7 +26,37 @@ import {
   USER_ERROR,
 } from '../actions';
 
-const initState = {
+type TInitState = {
+  name: string;
+  email: string;
+
+  userRequest: boolean;
+  userFailed: boolean;
+
+  updateUserRequest: boolean;
+  updateUserFailed: boolean;
+
+  tokenRequest: boolean;
+  tokenUpdate: boolean;
+  tokenFailed: boolean;
+
+  logoutRequest: boolean;
+  logoutFailed: boolean;
+
+  registerRequest: boolean;
+  registerFailed: boolean;
+
+  loginRequest: boolean;
+  loginFailed: boolean;
+
+  forgotRequest: boolean;
+  forgotFailed: boolean;
+  isResetPassword: boolean;
+  resetRequest: boolean;
+  resetFailed: boolean;
+};
+
+const initState: TInitState = {
   name: '',
   email: '',
 
@@ -55,7 +86,7 @@ const initState = {
   resetFailed: false,
 };
 
-export const authReducer = (state = initState, action) => {
+export const authReducer = (state = initState, action: TAuthActions): TInitState => {
   switch (action.type) {
     case USER_UPDATE_REQUEST: {
       return { ...state, updateUserRequest: true };
@@ -192,7 +223,7 @@ export const authReducer = (state = initState, action) => {
       return {
         ...state,
         forgotRequest: false,
-        isResetPassword: false, 
+        isResetPassword: false,
         forgotFailed: true,
       };
     }

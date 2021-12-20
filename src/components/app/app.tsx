@@ -7,7 +7,7 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { CONSTANTS } from '../../utils/constants';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/type/hooks';
 import { modalSelectors } from '../../services/selectors';
 import { getItems } from '../../services/actions/ingredients';
 import {
@@ -21,6 +21,7 @@ import { ResetPassword } from '../../pages/reset-password/reset-password';
 import { Profile } from '../../pages/profile/profile';
 import ProtectedRoute from '../protected-route/protected-route';
 import { Page404 } from '../../pages/404/page-404';
+import FeedPage from '../../pages/feed-page/feed-page';
 
 function App() {
   const location = useLocation();
@@ -61,6 +62,9 @@ function App() {
         </Route>
         <Route path='/' exact={true}>
           <MainPage />
+        </Route>
+        <Route path='/feed' exact={true}>
+          <FeedPage />
         </Route>
         <ProtectedRoute path='/profile' exact={false}>
           <Profile />

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/type/hooks';
 import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { logout } from '../../services/actions/auth';
 import styleProfileNavigation from './profile-navigation.module.css';

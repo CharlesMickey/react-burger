@@ -1,0 +1,11 @@
+.section {
+  min-height: 214px;
+  padding: 24px;
+  margin: 0 0 16px 0;
+}
+
+.orderTime {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
