@@ -19,6 +19,7 @@ const OrderIngredients = () => {
                 name={order.name}
                 ingredients={order.ingredients}
                 createdAt={order.createdAt}
+                status={order.status}
               />
             </li>
           );
@@ -35,12 +36,12 @@ export const ordersAll: any = {
   orders: [
     {
       ingredients: [
-        '60d3b41abdacab0026a733c6',
+        '60d3b41abdacab0026a733c7',
+        '60d3b41abdacab0026a733d2',
+        '60d3b41abdacab0026a733d4',
+        '60d3b41abdacab0026a733cd',
         '60d3b41abdacab0026a733c8',
-        '60d3b41abdacab0026a733c8',
-        '60d3b41abdacab0026a733c8',
-        '60d3b41abdacab0026a733c8',
-        '60d3b41abdacab0026a733c8',
+        '60d3b41abdacab0026a733ca',
         '60d3b41abdacab0026a733c8',
       ],
       _id: '1',

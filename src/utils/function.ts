@@ -60,3 +60,14 @@ export const signOut = () => {
   localStorage.removeItem('refreshToken');
   deleteCookie('token');
 };
+
+export const getOrderStatus = (
+  status: string,
+  style: { [key: string]: string }
+) => {
+  return status === 'done'
+    ? { nameStatus: 'Выполнен', colorStatus: style.doneColor }
+    : status === 'pending'
+    ? { nameStatus: 'Готовится', colorStatus: style.pendingColor }
+    : { nameStatus: 'Отменён', colorStatus: style.cancelledColor };
+};

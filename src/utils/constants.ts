@@ -8,6 +8,13 @@ export const CONSTANTS = {
   ORDER_INGREDIENTS: {
     TITLE: 'Лента заказов',
   },
+  ORDER_BOARD: {
+    READY : 'Готовы:',
+    PREPARING: 'В работе:',
+    ALL_TIME: 'Выполнено за все время:',
+    TODAY: 'Выполнено за сегодня:',
+
+  },
   INGREDIENT_DETAILS: {
     CALORIES: 'Калории,ккал',
     PROTEINS: 'Белки, г',
