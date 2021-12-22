@@ -18,7 +18,9 @@
   margin: 0;
   max-height: 256px;
   min-width: 272px;
-  gap: 8px
+  gap: 8px;
+  column-gap: 10px;
+  overflow: hidden;
 }
 
 .listItem {

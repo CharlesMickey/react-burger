@@ -1,15 +1,11 @@
 import React, { memo } from 'react';
-import styleOrderIngredients from './order-ingredients.module.css';
-import { CONSTANTS } from '../../utils/constants';
 import OrderCardIngredients from '../order-card-ingredients/order-card-ingredients';
+import styleOrdersHistory from './orders-history.module.css';
 
-const OrderIngredients = () => {
+function OrdersHistory() {
   return (
-    <section className={styleOrderIngredients.section}>
-      <h2 className='text text_type_main-large'>
-        {CONSTANTS.ORDER_INGREDIENTS.TITLE}
-      </h2>
-      <ul className={styleOrderIngredients.list}>
+    <section className={styleOrdersHistory.section}>
+      <ul className={styleOrdersHistory.list}>
         {orders.map((order: any) => {
           return (
             <li key={order._id}>
@@ -18,6 +14,7 @@ const OrderIngredients = () => {
                 name={order.name}
                 ingredients={order.ingredients}
                 createdAt={order.createdAt}
+                status={order.status}
               />
             </li>
           );
@@ -25,9 +22,9 @@ const OrderIngredients = () => {
       </ul>
     </section>
   );
-};
+}
 
-export default memo(OrderIngredients);
+export default memo(OrdersHistory);
 
 export const ordersAll: any = {
   success: true,
@@ -53,7 +50,7 @@ export const ordersAll: any = {
       ingredients: ['60d3b41abdacab0026a733c6'],
       name: 'Супер  Бургр',
       _id: '2',
-      status: 'done',
+      status: 'pending',
       number: 3,
       createdAt: '2021-06-23T20:13:23.654Z',
       updatedAt: '2021-06-23T20:13:23.657Z',
@@ -62,7 +59,7 @@ export const ordersAll: any = {
       ingredients: ['60d3b41abdacab0026a733c6', '60d3b41abdacab0026a733c8'],
       name: 'пУПЕР Бургр',
       _id: '5',
-      status: 'done',
+      status: 'гондон',
       number: 331,
       createdAt: '2021-06-23T20:11:01.403Z',
       updatedAt: '2021-06-23T20:11:01.406Z',

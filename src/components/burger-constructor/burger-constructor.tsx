@@ -19,6 +19,7 @@ import { DRAG_CONSTRUCTOR_INGREDIENT } from '../../services/actions';
 import { getOrder } from '../../services/actions/order';
 import { useHistory } from 'react-router';
 import { TIngredientWithUniqueId } from '../../utils/type-constants';
+import OrderPrice from '../order-price/order-price';
 
 const ConstructorBurger: FC = () => {
   const history = useHistory();
@@ -129,8 +130,7 @@ const ConstructorBurger: FC = () => {
       {bun && (
         <div className={styleConstructor.containerButton}>
           <div className='mr-10'>
-            <span className='mr-2 text text_type_digits-medium'>{price}</span>
-            <CurrencyIcon type='primary' />
+            <OrderPrice price={price} />
           </div>
           <Button onClick={handleClick} type='primary' size='large'>
             Оформить заказ

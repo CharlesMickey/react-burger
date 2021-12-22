@@ -1,0 +1,52 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  margin: 50px auto 0;
+  max-width: 640px;
+  max-height: 620px;
+}
+
+.orderNumber {
+  text-align: center;
+}
+
+.doneColor {
+  color: rgba(0, 204, 204, 1);
+}
+
+.pendingColor {
+  color: rgba(242, 242, 243, 1);
+}
+
+.cancelledColor {
+  color: rgb(255, 0, 0);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 40px;
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(47, 47, 55, 1);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(133, 133, 173, 1);
+  border: 3px solid rgba(133, 133, 173, 1);
+  min-height: 50px;
+}
+
+.totalPrice {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

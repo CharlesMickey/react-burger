@@ -1,11 +1,13 @@
 import React, { memo, FC } from 'react';
 import styleOrderCardIngredients from './order-card-ingredients.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { CONSTANTS } from '../../utils/constants';
+// import { CONSTANTS } from '../../utils/constants';
 import { useSelector } from '../../services/type/hooks';
 import { ingredientSelectors } from '../../services/selectors';
-import { getOrderStatus } from '../../utils/function';
+import { getOrderIngredients, getOrderStatus } from '../../utils/function';
 import { ITypeIngredient } from '../../utils/type-constants';
+import OrderTime from '../order-time/order-time';
+import OrderPrice from '../order-price/order-price';
 
 const OrderCardIngredients: FC<any> = ({
   name,
@@ -14,13 +16,13 @@ const OrderCardIngredients: FC<any> = ({
   ingredients,
   status,
 }) => {
-  const allIngredients: any = useSelector(ingredientSelectors.allIngredients);
-  const orderIngredients = ingredients
-    .map((id: string) =>
-      allIngredients.filter((item: ITypeIngredient) => item._id === id)
-    )
-    .flat()
-    .slice(0, 6);
+  const allIngredients: ITypeIngredient[] = useSelector(
+    ingredientSelectors.allIngredients
+  );
+  const orderIngredients = getOrderIngredients(
+    ingredients,
+    allIngredients
+  ).slice(0, 6);
   const countIngredients = ingredients.length - 6;
 
   const orderStatus =
@@ -30,9 +32,7 @@ const OrderCardIngredients: FC<any> = ({
     <section className={styleOrderCardIngredients.section}>
       <div className={styleOrderCardIngredients.orderTime}>
         <span className='text text_type_digits-default'>{`#${number}`}</span>
-        <span className='text text_type_main-default text_color_inactive'>
-          Сегодня, 16:20 i-GMT+3
-        </span>
+        <OrderTime />
       </div>
       <div className='mb-6'>
         <h3 className='text text_type_main-medium'>{name}</h3>
@@ -47,9 +47,13 @@ const OrderCardIngredients: FC<any> = ({
       <div className={styleOrderCardIngredients.containerOrderImg}>
         <ul className={styleOrderCardIngredients.list}>
           {orderIngredients.map((item: ITypeIngredient, index: number) => {
-           const zIndex = 6 - index
+            const zIndex = 6 - index;
             return (
-              <li className={styleOrderCardIngredients.listItem} key={index} style={{zIndex}}>
+              <li
+                className={styleOrderCardIngredients.listItem}
+                key={index}
+                style={{ zIndex }}
+              >
                 <img
                   src={item.image_large}
                   alt={item.name}
@@ -66,8 +70,7 @@ const OrderCardIngredients: FC<any> = ({
           )}
         </ul>
         <div className={styleOrderCardIngredients.containerPrice}>
-          <span className='text text_type_digits-default'>150</span>
-          <CurrencyIcon type='primary' />
+          <OrderPrice price='150' />
         </div>
       </div>
     </section>

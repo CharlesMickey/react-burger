@@ -1,3 +1,5 @@
+import { ITypeIngredient } from './type-constants';
+
 type TSetCookie = {
   expires?: any;
 } & {
@@ -70,4 +72,24 @@ export const getOrderStatus = (
     : status === 'pending'
     ? { nameStatus: 'Готовится', colorStatus: style.pendingColor }
     : { nameStatus: 'Отменён', colorStatus: style.cancelledColor };
+};
+
+export const getOrderIngredients = (
+  ingredients: string[],
+  allIngredients: ITypeIngredient[]
+) => {
+  return ingredients
+    .map((id: string) =>
+      allIngredients.filter((item: ITypeIngredient) => item._id === id)
+    )
+    .flat();
+};
+
+export const getQuantityIngredients = (ingredients: string[]) => {
+  const ingredientsWithCounter = {};
+  ingredients.reduce((acc: any, el: any) => {
+    acc[el] = (acc[el] || 0) + 1;
+    return acc;
+  }, ingredientsWithCounter);
+  return ingredientsWithCounter;
 };

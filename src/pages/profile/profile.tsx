@@ -6,6 +6,7 @@ import { ProfileNavigation } from '../../components/profile-navigation/profile-n
 import { ProfileUserForm } from '../../components/profile-user-form/profile-user-form';
 import { useDispatch } from '../../services/type/hooks';
 import { getUserProfile } from '../../services/actions/auth';
+import OrdersHistory from '../../components/orders-history/orders-history';
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,9 @@ export const Profile = () => {
         <Route path='/profile' exact>
           <ProfileUserForm />
         </Route>
-        <Route path='/profile/orders' exact></Route>
+        <Route path='/profile/orders' exact>
+          <OrdersHistory />
+        </Route>
       </Switch>
     </section>
   );

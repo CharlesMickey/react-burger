@@ -11,6 +11,7 @@ export interface ITypeIngredient {
   type: string;
   __v: number;
   _id: string;
+  count?: number
 }
 
 export type TIngredientWithUniqueId = ITypeIngredient & {

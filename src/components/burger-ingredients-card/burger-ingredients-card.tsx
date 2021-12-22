@@ -12,6 +12,7 @@ import { ingredientSelectors } from '../../services/selectors';
 import { Link, useLocation } from 'react-router-dom';
 import { ITypeIngredient } from '../../utils/type-constants';
 import { TCard } from './type';
+import OrderPrice from '../order-price/order-price';
 
 const BurgerIngredientsCard: FC<TCard<ITypeIngredient>> = ({ card }) => {
   const location = useLocation();
@@ -54,8 +55,7 @@ const BurgerIngredientsCard: FC<TCard<ITypeIngredient>> = ({ card }) => {
         <img src={card.image} alt={card.name} />
         {quantity ? <Counter count={quantity} size='default' /> : null}
         <div className={styleBurgerIngredientsCard.container}>
-          <span className='text text_type_digits-default'>{card.price}</span>
-          <CurrencyIcon type='primary' />
+          <OrderPrice price={card.price} />
         </div>
         <p className={`text text_type_main-default`}>{card.name}</p>
       </Link>

@@ -22,6 +22,7 @@ import { Profile } from '../../pages/profile/profile';
 import ProtectedRoute from '../protected-route/protected-route';
 import { Page404 } from '../../pages/404/page-404';
 import FeedPage from '../../pages/feed-page/feed-page';
+import Order from '../order/order';
 
 function App() {
   const location = useLocation();
@@ -66,9 +67,12 @@ function App() {
         <Route path='/feed' exact={true}>
           <FeedPage />
         </Route>
-        <ProtectedRoute path='/profile' exact={false}>
+        {/* <ProtectedRoute path='/profile' exact={false}>
           <Profile />
-        </ProtectedRoute>
+        </ProtectedRoute> */}
+        <Route path='/profile' exact={false}>
+          <Order />
+        </Route>
         <Route path='/ingredients/:id' exact={true}>
           <IngredientDetails title={CONSTANTS.TITLE_PAGE} />
         </Route>
@@ -78,7 +82,7 @@ function App() {
       </Switch>
       {orderModal && (
         <Modal close={closeAllPopups} title={CONSTANTS.EMPTY_TITLE}>
-          <OrderDetails />
+          <Order />
         </Modal>
       )}
       {background && (

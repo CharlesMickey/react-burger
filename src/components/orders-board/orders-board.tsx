@@ -2,18 +2,23 @@ import React, { memo, FC } from 'react';
 import style from './orders-board.module.css';
 import { CONSTANTS } from '../../utils/constants';
 
-const OrdersBoard: FC<any> = ({}) => {
+const OrdersBoard = () => {
   return (
     <section className={style.section}>
       <div className={style.boardContainer}>
-        <div className='mr-9'> 
+        <div className='mr-9'>
           <h3 className='text text_type_main-medium mb-6'>
             {CONSTANTS.ORDER_BOARD.READY}
           </h3>
           <ul className={style.list}>
-            {arrNum.map((item) => {
+            {arrNum.map((item, index) => {
               return (
-                <li className={`text text_type_digits-default ${style.listItem}`}>{item}</li>
+                <li
+                  key={index}
+                  className={`text text_type_digits-default ${style.listItem}`}
+                >
+                  {item}
+                </li>
               );
             })}
           </ul>
@@ -23,10 +28,11 @@ const OrdersBoard: FC<any> = ({}) => {
             {CONSTANTS.ORDER_BOARD.PREPARING}
           </h3>
           <ul className={style.list}>
-            {' '}
-            {arrGot.map((item) => {
+            {arrGot.map((item, index) => {
               return (
-                <li className={`text text_type_digits-default`}>{item}</li>
+                <li key={index} className={`text text_type_digits-default`}>
+                  {item}
+                </li>
               );
             })}
           </ul>
