@@ -18,6 +18,7 @@ const OrderIngredients = () => {
                 name={order.name}
                 ingredients={order.ingredients}
                 createdAt={order.createdAt}
+                order={order}
               />
             </li>
           );
@@ -89,5 +90,5 @@ export const ordersAll: any = {
   total: 5,
   totalToday: 2,
 };
-
+localStorage.setItem('orders', JSON.stringify(ordersAll.orders))
 export const orders = ordersAll.orders;

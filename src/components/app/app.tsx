@@ -67,12 +67,15 @@ function App() {
         <Route path='/feed' exact={true}>
           <FeedPage />
         </Route>
-        {/* <ProtectedRoute path='/profile' exact={false}>
-          <Profile />
-        </ProtectedRoute> */}
-        <Route path='/profile' exact={false}>
+        <Route path='/feed/:id' exact={true}>
           <Order />
         </Route>
+        <ProtectedRoute path='/profile/orders/:id' exact={true}>
+          <Order />
+        </ProtectedRoute>
+        <ProtectedRoute path='/profile' exact={false}>
+          <Profile />
+        </ProtectedRoute>
         <Route path='/ingredients/:id' exact={true}>
           <IngredientDetails title={CONSTANTS.TITLE_PAGE} />
         </Route>
@@ -82,15 +85,27 @@ function App() {
       </Switch>
       {orderModal && (
         <Modal close={closeAllPopups} title={CONSTANTS.EMPTY_TITLE}>
-          <Order />
+          <OrderDetails />
         </Modal>
       )}
       {background && (
-        <Route path='/ingredients/:id' exact={true}>
-          <Modal close={goBack} title={CONSTANTS.TITLE}>
-            <IngredientDetails />
-          </Modal>
-        </Route>
+        <>
+          <Route path='/ingredients/:id' exact={true}>
+            <Modal close={goBack} title={CONSTANTS.TITLE}>
+              <IngredientDetails />
+            </Modal>
+          </Route>
+          <ProtectedRoute path='/profile/orders/:id' exact={true}>
+            <Modal close={goBack}>
+              <Order />
+            </Modal>
+          </ProtectedRoute>
+          <Route path='/feed/:id' exact={true}>
+            <Modal close={goBack}>
+              <Order />
+            </Modal>
+          </Route>
+        </>
       )}
     </div>
   );

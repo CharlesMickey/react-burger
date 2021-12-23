@@ -1,7 +1,6 @@
 import React, { FC, memo } from 'react';
 import {
   Counter,
-  CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleBurgerIngredientsCard from './burger-ingredients-card.module.css';
 import { QUANTITY_BUNS } from '../../utils/constants';

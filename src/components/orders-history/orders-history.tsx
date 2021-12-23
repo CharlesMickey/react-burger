@@ -15,6 +15,7 @@ function OrdersHistory() {
                 ingredients={order.ingredients}
                 createdAt={order.createdAt}
                 status={order.status}
+                order={order}
               />
             </li>
           );
@@ -86,5 +87,5 @@ export const ordersAll: any = {
   total: 5,
   totalToday: 2,
 };
-
+localStorage.setItem('orders', JSON.stringify(ordersAll.orders))
 export const orders = ordersAll.orders;

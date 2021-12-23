@@ -2,7 +2,6 @@ import React, { useCallback, FC } from 'react';
 import {
   Button,
   ConstructorElement,
-  CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styleConstructor from './burger-constructor.module.css';

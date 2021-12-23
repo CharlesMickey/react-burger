@@ -15,9 +15,11 @@ const Modal: FC<TModal> = ({ close, title, children }) => {
           id='modal'
           className={`${styleModal.modal} pt-10 pl-10 pb-15 pr-10`}
         >
-          <h2 className={`text text_type_main-large ${styleModal.title}`}>
-            {title}
-          </h2>
+          {title && (
+            <h2 className={`text text_type_main-large ${styleModal.title}`}>
+              {title}
+            </h2>
+          )}
           <div onClick={close} className={styleModal.closeIcon}>
             <CloseIcon type={'primary'} />
           </div>

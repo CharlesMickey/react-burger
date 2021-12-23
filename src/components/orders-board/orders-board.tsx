@@ -1,4 +1,4 @@
-import React, { memo, FC } from 'react';
+import React, { memo } from 'react';
 import style from './orders-board.module.css';
 import { CONSTANTS } from '../../utils/constants';
 
