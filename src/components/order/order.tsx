@@ -1,10 +1,18 @@
-import { FC, memo } from 'react';
-import { useParams } from 'react-router-dom';
+import { FC, memo, useEffect } from 'react';
+import { useParams, useRouteMatch } from 'react-router-dom';
+import {
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_CLOSED_AUTH,
+  WS_CONNECTION_START,
+  WS_CONNECTION_START_AUTH,
+} from '../../services/actions';
 import { ingredientSelectors } from '../../services/selectors';
-import { useSelector } from '../../services/type/hooks';
+import { wsSelectors } from '../../services/selectors/wc-selectors';
+import { useDispatch, useSelector } from '../../services/type/hooks';
 import { CONSTANTS } from '../../utils/constants';
 import {
   getOrderIngredients,
+  getOrderPrice,
   getOrderStatus,
   getQuantityIngredients,
 } from '../../utils/function';
@@ -14,17 +22,46 @@ import OrderPrice from '../order-price/order-price';
 import OrderTime from '../order-time/order-time';
 import styleOrder from './order.module.css';
 
+export type TOrder = {
+  ingredients: Array<string>;
+  _id: string;
+  name: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+};
 const Order: FC<any> = () => {
+  const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
-  const order: any = JSON.parse(localStorage.getItem('orders') as string).find(
-    (i: any) => i._id === id
+  const isProfile = !!useRouteMatch(CONSTANTS.PROFILE_ROUTE);
+
+  useEffect(() => {
+    dispatch(
+      isProfile
+        ? { type: WS_CONNECTION_START_AUTH }
+        : { type: WS_CONNECTION_START }
+    );
+    return () => {
+      dispatch(
+        isProfile
+          ? { type: WS_CONNECTION_CLOSED_AUTH }
+          : { type: WS_CONNECTION_CLOSED }
+      );
+    };
+  }, [dispatch, isProfile]);
+
+
+  const { orders } = useSelector(
+    isProfile ? wsSelectors.wsDataAuth : wsSelectors.wsData
   );
+
+  const order = orders.find((i: TOrder) => i._id === id) as TOrder;
 
   const status = getOrderStatus(order.status, styleOrder);
   const allIngredients: ITypeIngredient[] = useSelector(
     ingredientSelectors.allIngredients
   );
-
   const numberOfIngredients = getQuantityIngredients(order.ingredients);
 
   const orderIngredients = getOrderIngredients(
@@ -32,7 +69,11 @@ const Order: FC<any> = () => {
     allIngredients
   );
 
-  const quantity = Object.values(numberOfIngredients);
+  const quantity: Array<number> = Object.values(numberOfIngredients);
+
+  const price = getOrderPrice(
+    getOrderIngredients(order.ingredients, allIngredients)
+  );
 
   return (
     <section className={styleOrder.section}>
@@ -63,8 +104,8 @@ const Order: FC<any> = () => {
         })}
       </ul>
       <div className={styleOrder.totalPrice}>
-        <OrderTime />
-        <OrderPrice price={'5'} />
+        <OrderTime time={order.createdAt}/>
+        <OrderPrice price={price} />
       </div>
     </section>
   );

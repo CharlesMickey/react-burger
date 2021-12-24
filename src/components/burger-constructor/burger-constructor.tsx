@@ -2,6 +2,7 @@ import React, { useCallback, FC } from 'react';
 import {
   Button,
   ConstructorElement,
+  CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styleConstructor from './burger-constructor.module.css';
@@ -18,7 +19,6 @@ import { DRAG_CONSTRUCTOR_INGREDIENT } from '../../services/actions';
 import { getOrder } from '../../services/actions/order';
 import { useHistory } from 'react-router';
 import { TIngredientWithUniqueId } from '../../utils/type-constants';
-import OrderPrice from '../order-price/order-price';
 
 const ConstructorBurger: FC = () => {
   const history = useHistory();
@@ -129,7 +129,8 @@ const ConstructorBurger: FC = () => {
       {bun && (
         <div className={styleConstructor.containerButton}>
           <div className='mr-10'>
-            <OrderPrice price={price} />
+            <span className='mr-2 text text_type_digits-medium'>{price}</span>
+            <CurrencyIcon type='primary' />
           </div>
           <Button onClick={handleClick} type='primary' size='large'>
             Оформить заказ

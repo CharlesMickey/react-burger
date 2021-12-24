@@ -13,7 +13,7 @@ const Modal: FC<TModal> = ({ close, title, children }) => {
       <ModalOverlay closeAllPopups={close}>
         <div
           id='modal'
-          className={`${styleModal.modal} pt-10 pl-10 pb-15 pr-10`}
+          className={`${styleModal.modal} pt-10 pl-10 pb-10 pr-10`}
         >
           {title && (
             <h2 className={`text text_type_main-large ${styleModal.title}`}>

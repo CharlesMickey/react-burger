@@ -1,8 +1,14 @@
 import { FC, memo } from 'react';
+import { ITypeIngredient } from '../../utils/type-constants';
 import OrderPrice from '../order-price/order-price';
 import styleOrderIngredient from './order-ingredient.module.css';
 
-const OrderIngredient: FC<any> = ({ ingredient, quantity }) => {
+type TOrderIngredient = {
+  ingredient: ITypeIngredient;
+  quantity: number;
+};
+
+const OrderIngredient: FC<TOrderIngredient> = ({ ingredient, quantity }) => {
   const ingredientPrice =
     ingredient.type === 'bun'
       ? `2 x ${ingredient.price}`

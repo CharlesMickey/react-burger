@@ -197,9 +197,14 @@ export const getNewAccessToken: AppThunk = () => {
         }
       })
       .catch((err) => {
-        if (err.message === 'Token is invalid') {
+        if (
+          err.message === 'jwt expired' ||
+          err.message === 'Token is invalid' ||
+          err.message === 'jwt malformed'
+        ) {
           dispatch(getNewAccessToken());
         } else console.log(err, err.message);
+        signOut();
         dispatch({ type: TOKEN_ERROR });
       });
   };
@@ -227,7 +232,8 @@ export const updateUserProfile: AppThunk = ({
       .catch((err) => {
         if (
           err.message === 'jwt expired' ||
-          err.message === 'Token is invalid'
+          err.message === 'Token is invalid' ||
+          err.message === 'jwt malformed'
         ) {
           dispatch(getNewAccessToken());
           dispatch(updateUserProfile({ name, email, password }));
@@ -253,7 +259,8 @@ export const getUserProfile: AppThunk = () => {
       .catch((err) => {
         if (
           err.message === 'jwt expired' ||
-          err.message === 'Token is invalid'
+          err.message === 'Token is invalid' ||
+          err.message === 'jwt malformed'
         ) {
           dispatch(getNewAccessToken());
           dispatch(getUserProfile());

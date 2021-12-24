@@ -63,6 +63,10 @@ export const signOut = () => {
   deleteCookie('token');
 };
 
+export const delToken = () => {
+  deleteCookie('token');
+};
+
 export const getOrderStatus = (
   status: string,
   style: { [key: string]: string }
@@ -83,6 +87,14 @@ export const getOrderIngredients = (
       allIngredients.filter((item: ITypeIngredient) => item._id === id)
     )
     .flat();
+};
+
+export const getOrderPrice = (ingredients: ITypeIngredient[]) => {
+  return ingredients.reduce(
+    (acc: number, curr: ITypeIngredient) =>
+      curr.type === 'bun' ? 2 * curr.price + acc : acc + curr.price,
+    0
+  );
 };
 
 export const getQuantityIngredients = (ingredients: string[]) => {

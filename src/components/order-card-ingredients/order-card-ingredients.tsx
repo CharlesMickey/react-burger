@@ -3,7 +3,11 @@ import styleOrderCardIngredients from './order-card-ingredients.module.css';
 // import { CONSTANTS } from '../../utils/constants';
 import { useSelector } from '../../services/type/hooks';
 import { ingredientSelectors } from '../../services/selectors';
-import { getOrderIngredients, getOrderStatus } from '../../utils/function';
+import {
+  getOrderIngredients,
+  getOrderPrice,
+  getOrderStatus,
+} from '../../utils/function';
 import { ITypeIngredient } from '../../utils/type-constants';
 import OrderTime from '../order-time/order-time';
 import OrderPrice from '../order-price/order-price';
@@ -12,7 +16,7 @@ import { Link, useLocation } from 'react-router-dom';
 const OrderCardIngredients: FC<any> = ({
   name,
   number,
-  create,
+  createdAt,
   ingredients,
   status,
   order,
@@ -33,6 +37,11 @@ const OrderCardIngredients: FC<any> = ({
 
   const orderStatus =
     status && getOrderStatus(status, styleOrderCardIngredients);
+
+  const price = getOrderPrice(
+    getOrderIngredients(order.ingredients, allIngredients)
+  );
+
   return (
     <Link
       className={styleOrderCardIngredients.link}
@@ -41,7 +50,7 @@ const OrderCardIngredients: FC<any> = ({
       <section className={styleOrderCardIngredients.section}>
         <div className={styleOrderCardIngredients.orderTime}>
           <span className='text text_type_digits-default'>{`#${number}`}</span>
-          <OrderTime />
+          <OrderTime time={createdAt} />
         </div>
         <div className='mb-6'>
           <h3 className='text text_type_main-medium'>{name}</h3>
@@ -79,7 +88,7 @@ const OrderCardIngredients: FC<any> = ({
             )}
           </ul>
           <div className={styleOrderCardIngredients.containerPrice}>
-            <OrderPrice price='150' />
+            <OrderPrice price={price} />
           </div>
         </div>
       </section>

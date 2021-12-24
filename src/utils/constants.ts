@@ -1,10 +1,13 @@
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
+export const WS_URL_ALL = 'wss://norma.nomoreparties.space/orders/all';
+export const WS_URL_OWNER = 'wss://norma.nomoreparties.space/orders';
 export const modalRoot = document.getElementById('react-modals');
 
 export const CONSTANTS = {
   EMPTY_TITLE: '',
   TITLE: ' Добавить ингредиенты',
   TITLE_PAGE: 'Детали ингредиента',
+  PROFILE_ROUTE: '/profile',
   ORDER: {
     STRUCTURE: 'Состав:',
   },
@@ -12,11 +15,10 @@ export const CONSTANTS = {
     TITLE: 'Лента заказов',
   },
   ORDER_BOARD: {
-    READY : 'Готовы:',
+    READY: 'Готовы:',
     PREPARING: 'В работе:',
     ALL_TIME: 'Выполнено за все время:',
     TODAY: 'Выполнено за сегодня:',
-
   },
   INGREDIENT_DETAILS: {
     CALORIES: 'Калории,ккал',
