@@ -1,43 +1,22 @@
-@keyframes preloader-inside-white {
+@keyframes rotation {
   0% {
-    -webkit-transform: scale(0, 0);
-    -moz-transform: scale(0, 0);
-    -ms-transform: scale(0, 0);
-    -o-transform: scale(0, 0);
-    transform: scale(0, 0);
+    opacity: 1;
+    transform: rotate(0deg) scale(1.5);
+  }
+  33% {
+    opacity: 0.7;
+    transform: rotate(118deg) scale(0.5);
+  }
+  66% {
+    opacity: 0.7;
+    transform:  rotate(216deg) scale(1);
   }
   100% {
-    -webkit-transform: scale(1, 1);
-    -moz-transform: scale(1, 1);
-    -ms-transform: scale(1, 1);
-    -o-transform: scale(1, 1);
-    transform: scale(1, 1);
+    opacity: 1;
+    transform:  rotate(360deg) scale(1.5);
   }
 }
 
-@keyframes preloader-inside-red {
-  0% {
-    -webkit-transform: scale(0, 0);
-    -moz-transform: scale(0, 0);
-    -ms-transform: scale(0, 0);
-    -o-transform: scale(0, 0);
-    transform: scale(0, 0);
-  }
-  30% {
-    -webkit-transform: scale(0, 0);
-    -moz-transform: scale(0, 0);
-    -ms-transform: scale(0, 0);
-    -o-transform: scale(0, 0);
-    transform: scale(0, 0);
-  }
-  100% {
-    -webkit-transform: scale(1, 1);
-    -moz-transform: scale(1, 1);
-    -ms-transform: scale(1, 1);
-    -o-transform: scale(1, 1);
-    transform: scale(1, 1);
-  }
-}
 
 .preloader {
   display: flex;
@@ -56,7 +35,6 @@
   height: 100px;
   position: relative;
   margin: 50px;
-  
 }
 
 .preloader__round {
@@ -66,27 +44,7 @@
   top: 0;
   left: 0;
   background: linear-gradient(63.18deg, #aa00ff 0%, #3434ff 100%);
-  border-radius: 50px;
-}
+  border-radius: 50%;
+  animation: rotation 5s infinite ease-in-out;
 
-.preloader__round::after,
-.preloader__round::before {
-  content: '';
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 50px;
-}
-
-.preloader__round::after {
-  background: linear-gradient(150deg, #1111af  40%, #aa01ff 100%);
-  animation: preloader-inside-white 1.3s ease-in-out infinite;
-}
-
-.preloader__round::before {
-  z-index: 10;
-  background: linear-gradient(37.18deg, #0000fa  10%, #7800b4 100%);
-  animation: preloader-inside-red 1.7s ease-in-out infinite;
 }
