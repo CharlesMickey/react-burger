@@ -4,7 +4,6 @@ import {
   GET_ITEMS_SUCCESS,
   GET_ITEMS_ERROR,
   GET_VIEWED_INGREDIENT,
-  DEL_VIEWED_INGREDIENT,
   ADD_INGREDIENT_CONSTRUCTOR,
   DEL_INGREDIENT_CONSTRUCTOR,
   INCREASE_INGREDIENTS,
@@ -35,10 +34,6 @@ export interface IGetItemsError {
 export interface IGetViewedIngredient {
   readonly type: typeof GET_VIEWED_INGREDIENT;
   readonly item: ITypeIngredient;
-}
-
-export interface IDelViewedIngredient {
-  readonly type: typeof DEL_VIEWED_INGREDIENT;
 }
 
 export interface IAddIngredientConstructor {
@@ -78,7 +73,6 @@ export type TIngredientsActions =
   | IGetItemsSuccess
   | IGetItemsError
   | IGetViewedIngredient
-  | IDelViewedIngredient
   | IAddIngredientConstructor
   | IDelIngredientConstructor
   | IIncreaseIngredients
@@ -93,7 +87,7 @@ export const getViewedIngredient: AppThunk = (card: ITypeIngredient) => {
       item: card,
     });
   };
-}
+};
 
 export const getItems: AppThunk = () => {
   return function (dispatch: AppDispatch) {
@@ -121,4 +115,4 @@ export const getItems: AppThunk = () => {
         })
       );
   };
-}
+};

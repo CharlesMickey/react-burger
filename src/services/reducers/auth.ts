@@ -86,7 +86,10 @@ const initState: TInitState = {
   resetFailed: false,
 };
 
-export const authReducer = (state = initState, action: TAuthActions): TInitState => {
+export const authReducer = (
+  state = initState,
+  action: TAuthActions
+): TInitState => {
   switch (action.type) {
     case USER_UPDATE_REQUEST: {
       return { ...state, updateUserRequest: true };

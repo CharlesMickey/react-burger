@@ -9,7 +9,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function AppHeader() {
-  const { pathname }= useLocation();
+  const { pathname } = useLocation();
 
   return (
     <header className={styleHeader.header}>
@@ -29,9 +29,7 @@ function AppHeader() {
             className={`text text_type_main-default mr-2 pr-5  ${styleHeader.link}`}
             activeClassName={styleHeader.active_link}
           >
-            <ListIcon
-              type={pathname === '/feed' ? 'primary' : 'secondary'}
-            />
+            <ListIcon type={pathname === '/feed' ? 'primary' : 'secondary'} />
             <span className='ml-2 '>Лента заказов</span>
           </NavLink>
         </div>
@@ -44,7 +42,11 @@ function AppHeader() {
           activeClassName={styleHeader.active_link}
         >
           <ProfileIcon
-            type={pathname === '/profile' || pathname === '/profile/orders' ? 'primary' : 'secondary'}
+            type={
+              pathname === '/profile' || pathname === '/profile/orders'
+                ? 'primary'
+                : 'secondary'
+            }
           />
           <span className='ml-3'>Личный кабинет</span>
         </NavLink>

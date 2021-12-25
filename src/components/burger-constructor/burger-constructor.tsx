@@ -1,4 +1,5 @@
 import React, { useCallback, FC } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   Button,
   ConstructorElement,
@@ -11,7 +12,6 @@ import { useDrop } from 'react-dnd';
 import {
   ADD_INGREDIENT_CONSTRUCTOR,
   INCREASE_INGREDIENTS,
-  ORDER_DETAILS_OPEN,
 } from '../../services/actions';
 import { ingredientSelectors } from '../../services/selectors';
 import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
@@ -22,6 +22,7 @@ import { TIngredientWithUniqueId } from '../../utils/type-constants';
 
 const ConstructorBurger: FC = () => {
   const history = useHistory();
+  const location = useLocation();
   const { bun, ingredient } = useSelector(
     ingredientSelectors.ingredientsConstructor
   );
@@ -77,7 +78,12 @@ const ConstructorBurger: FC = () => {
         .concat(bun._id);
     }
     if (refreshToken) {
-      dispatch({ type: ORDER_DETAILS_OPEN });
+      history.push({
+        pathname: '/',
+        state: {
+          background: location,
+        },
+      });
       dispatch(getOrder(id));
     } else {
       history.push('/login');

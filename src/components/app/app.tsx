@@ -7,12 +7,11 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { CONSTANTS } from '../../utils/constants';
-import { useDispatch, useSelector } from '../../services/type/hooks';
-import { modalSelectors } from '../../services/selectors';
+import { useDispatch } from '../../services/type/hooks';
 import { getItems } from '../../services/actions/ingredients';
 import {
+  CLEAR_CONSTRUCTOR_INGREDIENTS,
   CLEAR_ORDER_NUMBER,
-  DEL_VIEWED_INGREDIENT,
 } from '../../services/actions';
 import { Login } from '../../pages/login/login';
 import { Register } from '../../pages/register/register';
@@ -28,12 +27,12 @@ function App() {
   const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
-  const orderModal: boolean = useSelector(modalSelectors.orderModalOpen);
 
-  const closeAllPopups = React.useCallback(() => {
-    dispatch({ type: DEL_VIEWED_INGREDIENT });
+  const closeOrderPopup = React.useCallback(() => {
+    dispatch({ type: CLEAR_CONSTRUCTOR_INGREDIENTS });
     dispatch({ type: CLEAR_ORDER_NUMBER });
-  }, [dispatch]);
+    history.goBack();
+  }, [dispatch, history]);
 
   const goBack = () => {
     history.goBack();
@@ -83,11 +82,6 @@ function App() {
           <Page404 />
         </Route>
       </Switch>
-      {orderModal && (
-        <Modal close={closeAllPopups} title={CONSTANTS.EMPTY_TITLE}>
-          <OrderDetails />
-        </Modal>
-      )}
       {background && (
         <>
           <Route path='/ingredients/:id' exact={true}>
@@ -103,6 +97,11 @@ function App() {
           <Route path='/feed/:id' exact={true}>
             <Modal close={goBack}>
               <Order />
+            </Modal>
+          </Route>
+          <Route path='/' exact={true}>
+            <Modal close={closeOrderPopup} title={CONSTANTS.EMPTY_TITLE}>
+              <OrderDetails />
             </Modal>
           </Route>
         </>

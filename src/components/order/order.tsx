@@ -1,4 +1,4 @@
-import { FC, memo, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import {
   WS_CONNECTION_CLOSED,
@@ -11,6 +11,7 @@ import { wsSelectors } from '../../services/selectors/wc-selectors';
 import { useDispatch, useSelector } from '../../services/type/hooks';
 import { CONSTANTS } from '../../utils/constants';
 import {
+  getOrderDate,
   getOrderIngredients,
   getOrderPrice,
   getOrderStatus,
@@ -31,7 +32,7 @@ export type TOrder = {
   createdAt: string;
   updatedAt: string;
 };
-const Order: FC<any> = () => {
+const Order = () => {
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
   const isProfile = !!useRouteMatch(CONSTANTS.PROFILE_ROUTE);
@@ -50,65 +51,77 @@ const Order: FC<any> = () => {
       );
     };
   }, [dispatch, isProfile]);
-
-
   const { orders } = useSelector(
     isProfile ? wsSelectors.wsDataAuth : wsSelectors.wsData
   );
 
-  const order = orders.find((i: TOrder) => i._id === id) as TOrder;
+  const wsConnected = useSelector(
+    isProfile ? wsSelectors.wsConnectedAuth : wsSelectors.wsConnected
+  );
 
-  const status = getOrderStatus(order.status, styleOrder);
+  const order = orders.find((i: TOrder) => i._id === id) as TOrder;
+  const timeOrder = getOrderDate(order);
+
   const allIngredients: ITypeIngredient[] = useSelector(
     ingredientSelectors.allIngredients
   );
-  const numberOfIngredients = getQuantityIngredients(order.ingredients);
 
-  const orderIngredients = getOrderIngredients(
-    Object.keys(numberOfIngredients),
-    allIngredients
-  );
+  if (order && wsConnected) {
+    const numberOfIngredients = getQuantityIngredients(order.ingredients);
 
-  const quantity: Array<number> = Object.values(numberOfIngredients);
+    const orderIngredients = getOrderIngredients(
+      Object.keys(numberOfIngredients),
+      allIngredients
+    );
 
-  const price = getOrderPrice(
-    getOrderIngredients(order.ingredients, allIngredients)
-  );
+    const quantity: Array<number> = Object.values(numberOfIngredients);
 
-  return (
-    <section className={styleOrder.section}>
-      <span
-        className={`text text_type_digits-default mb-10 ${styleOrder.orderNumber}`}
-      >
-        #{order.number}
-      </span>
-      <h3 className='text text_type_main-medium mb-3'>{order.name}</h3>
-      <span
-        className={`text text_type_main-default mb-8 ${status.colorStatus}`}
-      >
-        {status.nameStatus}
-      </span>
-      <p className='text text_type_main-medium mb-4'>
-        {CONSTANTS.ORDER.STRUCTURE}
-      </p>
-      <ul className={styleOrder.list}>
-        {orderIngredients.map((ingredient: ITypeIngredient, index: number) => {
-          return (
-            <li key={index}>
-              <OrderIngredient
-                ingredient={ingredient}
-                quantity={quantity[index]}
-              />
-            </li>
-          );
-        })}
-      </ul>
-      <div className={styleOrder.totalPrice}>
-        <OrderTime time={order.createdAt}/>
-        <OrderPrice price={price} />
-      </div>
-    </section>
-  );
+    const price = getOrderPrice(
+      getOrderIngredients(order.ingredients, allIngredients)
+    );
+    const status = getOrderStatus(order.status, styleOrder);
+    const render = () => {
+      return (
+        <section className={styleOrder.section}>
+          <span
+            className={`text text_type_digits-default mb-10 ${styleOrder.orderNumber}`}
+          >
+            #{order.number}
+          </span>
+          <h3 className='text text_type_main-medium mb-3'>{order.name}</h3>
+          <span
+            className={`text text_type_main-default mb-8 ${status.colorStatus}`}
+          >
+            {status.nameStatus}
+          </span>
+          <p className='text text_type_main-medium mb-4'>
+            {CONSTANTS.ORDER.STRUCTURE}
+          </p>
+          <ul className={styleOrder.list}>
+            {orderIngredients.map(
+              (ingredient: ITypeIngredient, index: number) => {
+                return (
+                  <li key={index}>
+                    <OrderIngredient
+                      ingredient={ingredient}
+                      quantity={quantity[index]}
+                    />
+                  </li>
+                );
+              }
+            )}
+          </ul>
+          <div className={styleOrder.totalPrice}>
+            <OrderTime time={timeOrder} />
+            <OrderPrice price={price} />
+          </div>
+        </section>
+      );
+    };
+    return render();
+  } else {
+    return null;
+  }
 };
 
 export default memo(Order);

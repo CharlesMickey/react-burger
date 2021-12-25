@@ -4,7 +4,7 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleProfileForm from './profile-user-form.module.css';
-import { useDispatch, useSelector }  from '../../services/type/hooks';
+import { useDispatch, useSelector } from '../../services/type/hooks';
 import { userSelectors } from '../../services/selectors';
 import { updateUserProfile } from '../../services/actions/auth';
 
@@ -29,7 +29,7 @@ export const ProfileUserForm = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: SyntheticEvent) => {
-    const target = e.target as HTMLInputElement
+    const target = e.target as HTMLInputElement;
     const name = target.name;
     const value = target.value;
     setInputValue({ ...inputValue, [name]: value });

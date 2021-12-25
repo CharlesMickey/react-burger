@@ -54,7 +54,7 @@ export const ProfileNavigation: FC = () => {
           В этом разделе вы можете изменить свои персональные данные{' '}
         </span>
       )}
-       {pathname === '/profile/orders' && (
+      {pathname === '/profile/orders' && (
         <span className={`text text_type_main-default text_color_inactive`}>
           В этом разделе вы можете просмотреть свою историю заказов{' '}
         </span>

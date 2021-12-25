@@ -17,7 +17,3 @@ export const ingredientSelectors = {
   allIngredients: (store: RootState) => store.ingredients.allIngredients,
   orderNumber: (store: RootState) => store.order.orderNumber,
 };
-
-export const modalSelectors = {
-  orderModalOpen: (store: RootState) => store.order.orderModalOpen,
-};

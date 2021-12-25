@@ -4,6 +4,12 @@ export const WS_URL_OWNER = 'wss://norma.nomoreparties.space/orders';
 export const modalRoot = document.getElementById('react-modals');
 
 export const CONSTANTS = {
+  DAYS: {
+    DAY_US: 86400000,
+    TODAY: 'Сегодня,',
+    YESTERDAY: 'Вчера,',
+    FEW_DAYS: 'дня(ей) назад,',
+  },
   EMPTY_TITLE: '',
   TITLE: ' Добавить ингредиенты',
   TITLE_PAGE: 'Детали ингредиента',

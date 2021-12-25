@@ -5,6 +5,7 @@ import {
 } from '../../services/actions';
 import { wsSelectors } from '../../services/selectors/wc-selectors';
 import { useDispatch, useSelector } from '../../services/type/hooks';
+import { TOrder } from '../../services/type/socket';
 import OrderCardIngredients from '../order-card-ingredients/order-card-ingredients';
 import styleOrdersHistory from './orders-history.module.css';
 
@@ -17,19 +18,18 @@ function OrdersHistory() {
     };
   }, [dispatch]);
 
-  const {orders} = useSelector(wsSelectors.wsDataAuth);
-  
+  const { orders } = useSelector(wsSelectors.wsDataAuth);
+
   return (
     <section className={styleOrdersHistory.section}>
       <ul className={styleOrdersHistory.list}>
-        {orders.reverse().map((order: any) => {
+        {orders.reverse().map((order: TOrder) => {
           return (
             <li key={order._id}>
               <OrderCardIngredients
                 number={order.number}
                 name={order.name}
                 ingredients={order.ingredients}
-                createdAt={order.createdAt}
                 status={order.status}
                 order={order}
               />

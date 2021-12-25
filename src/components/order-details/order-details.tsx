@@ -9,7 +9,10 @@ const OrderDetails: FC = () => {
   React.useEffect(() => {
     let timer: number;
     if (counter > 0) {
-      timer = window.setTimeout(() => setCounter((counter) => counter - 1), 1000);
+      timer = window.setTimeout(
+        () => setCounter((counter) => counter - 1),
+        1000
+      );
     }
 
     return () => {
@@ -18,7 +21,9 @@ const OrderDetails: FC = () => {
       }
     };
   }, [counter]);
+
   const orderNumber = useSelector(ingredientSelectors.orderNumber);
+
   return (
     <section className={`pr-15 pb-15 pl-15 ${styleOrderDetails.section}`}>
       {counter > 0 && (
@@ -36,7 +41,7 @@ const OrderDetails: FC = () => {
         </h3>
       )}
       <p className='mt-8 text text_type_main-medium'>
-        {orderNumber ? 'идентификатор заказа' : 'до приготовления заказ'}
+        {orderNumber ? 'идентификатор заказа' : 'до приготовления заказа'}
       </p>
       <img className='mt-15 mb-15' src={done} alt='Заказ готовится' />
       <p className='mb-2 text text_type_main-default'>
@@ -45,7 +50,9 @@ const OrderDetails: FC = () => {
       <span
         className={` text text_type_main-default ${styleOrderDetails.spanColor}`}
       >
-         {orderNumber ? 'Пройдите в зону выдачи заказов' : 'Дождитесь готовности на орбитальной станции'}
+        {orderNumber
+          ? 'Пройдите в зону выдачи заказов'
+          : 'Дождитесь готовности на орбитальной станции'}
       </span>
     </section>
   );

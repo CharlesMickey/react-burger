@@ -21,5 +21,3 @@ export type TUserDataWithToken = TUserData & {
   accessToken: string;
   refreshToken: string;
 };
-
-

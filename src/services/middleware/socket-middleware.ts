@@ -38,6 +38,10 @@ export const socketMiddleware =
           dispatch({ type: onClose, payload: event });
         };
 
+        if (type === onClose) {
+          socket.close();
+        }
+
         if (type === wsSendMessage) {
           const message = token ? { ...payload, token: token } : { ...payload };
           socket.send(JSON.stringify(message));

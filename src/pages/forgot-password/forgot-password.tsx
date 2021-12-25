@@ -16,7 +16,7 @@ export const ForgotPassword = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const refreshToken = localStorage.refreshToken;
-  const handleChange = (e: {target: HTMLInputElement}) => {
+  const handleChange = (e: { target: HTMLInputElement }) => {
     const target = e.target;
     const name = target.name;
     const value = target.value;

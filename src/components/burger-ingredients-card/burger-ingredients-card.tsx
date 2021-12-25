@@ -1,7 +1,5 @@
 import React, { FC, memo } from 'react';
-import {
-  Counter,
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleBurgerIngredientsCard from './burger-ingredients-card.module.css';
 import { QUANTITY_BUNS } from '../../utils/constants';
 import { getViewedIngredient } from '../../services/actions/ingredients';

@@ -20,10 +20,6 @@ function FeedPage() {
 
   const wsData = useSelector(wsSelectors.wsData);
 
-  // console.log(
-  //   (new Date(wsData.orders[0]?.createdAt).getTimezoneOffset() * -1) / 60
-  // );
-
   return (
     <main className={styleFeed.main}>
       <OrderIngredients orders={wsData.orders} />

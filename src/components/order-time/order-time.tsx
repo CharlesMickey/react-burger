@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 type TOrderTime = {
-  time: string;
+  time: string | undefined;
 };
 
 const OrderTime: FC<TOrderTime> = ({ time }) => {

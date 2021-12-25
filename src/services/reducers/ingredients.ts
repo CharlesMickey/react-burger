@@ -5,7 +5,6 @@ import {
   GET_ITEMS_SUCCESS,
   GET_ITEMS_ERROR,
   GET_VIEWED_INGREDIENT,
-  DEL_VIEWED_INGREDIENT,
   ADD_INGREDIENT_CONSTRUCTOR,
   DEL_INGREDIENT_CONSTRUCTOR,
   INCREASE_INGREDIENTS,
@@ -22,7 +21,6 @@ type TInitialIngredientState = {
   allIngredients: ITypeIngredient[];
   itemsRequest: boolean;
   itemsFailed: boolean;
-  ingredientModalOpen: boolean;
   viewedIngredient: ITypeIngredient | null;
   ingredientsConstructor: {
     bun: TIngredientWithUniqueId | null;
@@ -35,7 +33,6 @@ const initialIngredientState: TInitialIngredientState = {
   allIngredients: [],
   itemsRequest: false,
   itemsFailed: false,
-  ingredientModalOpen: false,
   viewedIngredient: null,
   ingredientsConstructor: {
     bun: null,
@@ -69,10 +66,6 @@ export const ingredientReducer = (
 
     case GET_VIEWED_INGREDIENT: {
       return { ...state, viewedIngredient: action.item };
-    }
-
-    case DEL_VIEWED_INGREDIENT: {
-      return { ...state, viewedIngredient: null, ingredientModalOpen: false };
     }
 
     case ADD_INGREDIENT_CONSTRUCTOR: {

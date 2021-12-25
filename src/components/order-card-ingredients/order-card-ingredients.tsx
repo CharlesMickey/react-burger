@@ -1,9 +1,9 @@
 import React, { memo, FC } from 'react';
 import styleOrderCardIngredients from './order-card-ingredients.module.css';
-// import { CONSTANTS } from '../../utils/constants';
 import { useSelector } from '../../services/type/hooks';
 import { ingredientSelectors } from '../../services/selectors';
 import {
+  getOrderDate,
   getOrderIngredients,
   getOrderPrice,
   getOrderStatus,
@@ -12,11 +12,19 @@ import { ITypeIngredient } from '../../utils/type-constants';
 import OrderTime from '../order-time/order-time';
 import OrderPrice from '../order-price/order-price';
 import { Link, useLocation } from 'react-router-dom';
+import { TOrder } from '../../services/type/socket';
 
-const OrderCardIngredients: FC<any> = ({
+type TOrderCardIngredients = {
+  name: string;
+  number: number;
+  ingredients: Array<string>;
+  status?: string;
+  order: TOrder;
+};
+
+const OrderCardIngredients: FC<TOrderCardIngredients> = ({
   name,
   number,
-  createdAt,
   ingredients,
   status,
   order,
@@ -35,12 +43,15 @@ const OrderCardIngredients: FC<any> = ({
   ).slice(0, 6);
   const countIngredients = ingredients.length - 6;
 
-  const orderStatus =
-    status && getOrderStatus(status, styleOrderCardIngredients);
+  const orderStatus = status
+    ? getOrderStatus(status, styleOrderCardIngredients)
+    : null;
 
   const price = getOrderPrice(
     getOrderIngredients(order.ingredients, allIngredients)
   );
+
+  const timeOrder = getOrderDate(order);
 
   return (
     <Link
@@ -50,15 +61,15 @@ const OrderCardIngredients: FC<any> = ({
       <section className={styleOrderCardIngredients.section}>
         <div className={styleOrderCardIngredients.orderTime}>
           <span className='text text_type_digits-default'>{`#${number}`}</span>
-          <OrderTime time={createdAt} />
+          <OrderTime time={timeOrder} />
         </div>
         <div className='mb-6'>
           <h3 className='text text_type_main-medium'>{name}</h3>
           {status && (
             <p
-              className={`text text_type_main-default mt-2 ${orderStatus.colorStatus}`}
+              className={`text text_type_main-default mt-2 ${orderStatus?.colorStatus}`}
             >
-              {orderStatus.nameStatus}
+              {orderStatus?.nameStatus}
             </p>
           )}
         </div>

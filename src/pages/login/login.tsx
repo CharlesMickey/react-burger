@@ -7,7 +7,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleLogin from './login.module.css';
 import { authorize } from '../../services/actions/auth';
-import { useDispatch, useSelector }  from '../../services/type/hooks';
+import { useDispatch, useSelector } from '../../services/type/hooks';
 import { userSelectors } from '../../services/selectors';
 import { CONSTANTS } from '../../utils/constants';
 

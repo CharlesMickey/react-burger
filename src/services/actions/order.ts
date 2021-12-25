@@ -7,7 +7,6 @@ import {
   GET_ORDER_SUCCESS,
   CLEAR_CONSTRUCTOR_INGREDIENTS,
   CLEAR_ORDER_NUMBER,
-  ORDER_DETAILS_OPEN,
 } from '.';
 import { getOrderOfNumber } from '../../utils/api';
 
@@ -24,9 +23,6 @@ export interface IGetOrderErrorSuccess {
   readonly orderData: TOrderData;
 }
 
-export interface IOrderDetailsOpen {
-  readonly type: typeof ORDER_DETAILS_OPEN;
-}
 export interface IClearOrderNumber {
   readonly type: typeof CLEAR_ORDER_NUMBER;
 }
@@ -36,10 +32,9 @@ export type TOrderActions =
   | IGetOrderRequest
   | IGetOrderErrorSuccess
   | IClearConstructorIngredient
-  | IClearOrderNumber
-  | IOrderDetailsOpen;
+  | IClearOrderNumber;
 
-export const  getOrder: AppThunk = (listId: string[]) => {
+export const getOrder: AppThunk = (listId: string[]) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_ORDER_REQUEST,
@@ -66,4 +61,4 @@ export const  getOrder: AppThunk = (listId: string[]) => {
         })
       );
   };
-}
+};

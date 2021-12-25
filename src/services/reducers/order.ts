@@ -3,7 +3,6 @@ import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
   CLEAR_ORDER_NUMBER,
-  ORDER_DETAILS_OPEN,
 } from '../actions';
 import { TOrderActions } from '../actions/order';
 
@@ -12,7 +11,6 @@ type TInitialOrderState = {
   orderNumber: number | null;
   orderRequest: boolean;
   orderFailed: boolean;
-  orderModalOpen: boolean;
 };
 
 const initialOrderState: TInitialOrderState = {
@@ -20,7 +18,6 @@ const initialOrderState: TInitialOrderState = {
   orderNumber: null,
   orderRequest: false,
   orderFailed: false,
-  orderModalOpen: false,
 };
 
 export const orderReducer = (
@@ -53,12 +50,7 @@ export const orderReducer = (
         orderNumber: null,
         orderRequest: false,
         orderFailed: false,
-        orderModalOpen: false,
       };
-    }
-
-    case ORDER_DETAILS_OPEN: {
-      return { ...state, orderModalOpen: true };
     }
 
     default:
