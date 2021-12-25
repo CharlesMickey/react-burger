@@ -21,6 +21,7 @@ import { ITypeIngredient } from '../../utils/type-constants';
 import OrderIngredient from '../order-ingredient/order-ingredient';
 import OrderPrice from '../order-price/order-price';
 import OrderTime from '../order-time/order-time';
+import Preloader from '../Preloader/Preloader';
 import styleOrder from './order.module.css';
 
 export type TOrder = {
@@ -120,7 +121,7 @@ const Order = () => {
     };
     return render();
   } else {
-    return null;
+    return <Preloader />;
   }
 };
 
