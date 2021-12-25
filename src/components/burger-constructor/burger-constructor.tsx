@@ -1,4 +1,4 @@
-import React, { useCallback, FC, useEffect } from 'react';
+import React, { useCallback, FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Button,
@@ -95,8 +95,6 @@ const ConstructorBurger: FC = () => {
       history.push('/login');
     }
   }
-
-  console.log(orderRequest);
 
   return (
     <section className={styleConstructor.section}>

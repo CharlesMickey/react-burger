@@ -7,8 +7,9 @@ import { FC } from 'react';
 import { TModal } from './type';
 
 const Modal: FC<TModal> = ({ close, title, children }) => {
+  console.log(children )
   return (
-    modalRoot &&
+    modalRoot && 
     ReactDOM.createPortal(
       <ModalOverlay closeAllPopups={close}>
         <div
