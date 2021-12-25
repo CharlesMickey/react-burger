@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import done from '../../images/done.png';
 import styleOrderDetails from './order-details.module.css';
-import { useSelector } from 'react-redux';
 import { ingredientSelectors } from '../../services/selectors';
+import { useSelector } from '../../services/type/hooks';
 
 const OrderDetails: FC = () => {
   const [counter, setCounter] = React.useState(15);
@@ -41,7 +41,7 @@ const OrderDetails: FC = () => {
         </h3>
       )}
       <p className='mt-8 text text_type_main-medium'>
-        {orderNumber ? 'идентификатор заказа' : 'до приготовления заказа'}
+        {orderNumber ? 'идентификатор заказа' : 'до готовности заказа'}
       </p>
       <img className='mt-15 mb-15' src={done} alt='Заказ готовится' />
       <p className='mb-2 text text_type_main-default'>

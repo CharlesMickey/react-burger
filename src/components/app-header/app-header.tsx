@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import styleHeader from './app-header.module.css';
 import {
   Logo,
@@ -34,7 +34,9 @@ function AppHeader() {
           </NavLink>
         </div>
         <div className={styleHeader.logo}>
-          <Logo />
+          <Link to={'/'}>
+            <Logo />
+          </Link>
         </div>
         <NavLink
           to='/profile'

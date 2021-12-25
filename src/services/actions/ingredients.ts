@@ -97,8 +97,6 @@ export const getItems: AppThunk = () => {
     getData()
       .then((res) => {
         if (res && res.success) {
-          !localStorage.ingredients &&
-            localStorage.setItem('ingredients', JSON.stringify(res.data));
           dispatch({
             type: GET_ITEMS_SUCCESS,
             items: res.data,

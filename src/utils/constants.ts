@@ -8,7 +8,7 @@ export const CONSTANTS = {
     DAY_US: 86400000,
     TODAY: 'Сегодня,',
     YESTERDAY: 'Вчера,',
-    FEW_DAYS: 'дня(ей) назад,',
+    FEW_DAYS: 'дня(ей) назад,'
   },
   EMPTY_TITLE: '',
   TITLE: ' Добавить ингредиенты',
