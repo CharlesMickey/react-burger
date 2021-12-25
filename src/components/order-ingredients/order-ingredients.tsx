@@ -1,27 +1,16 @@
-import React, { memo, useEffect } from 'react';
+import React, { FC, memo } from 'react';
 import styleOrderIngredients from './order-ingredients.module.css';
 import { CONSTANTS } from '../../utils/constants';
 import OrderCardIngredients from '../order-card-ingredients/order-card-ingredients';
-import {
-  WS_CONNECTION_CLOSED,
-  WS_CONNECTION_START,
-} from '../../services/actions';
-import { wsSelectors } from '../../services/selectors/wc-selectors';
-import { useDispatch, useSelector } from '../../services/type/hooks';
+import { TOrder } from '../../services/type/socket';
 
-const OrderIngredients = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START });
-    return () => {
-      dispatch({ type: WS_CONNECTION_CLOSED });
-    };
-  }, [dispatch]);
+type TOrders = {
+  orders: TOrder[]
+}
 
-  const  { orders } = useSelector(wsSelectors.wsData);
-console.log(new Date(orders[0]?.createdAt).getTimezoneOffset() * -1 / 60)
+const OrderIngredients: FC<TOrders> = ({orders}) => {
   return (
-    <section className={styleOrderIngredients.section}>
+    orders && <section className={styleOrderIngredients.section}>
       <h2 className='text text_type_main-large'>
         {CONSTANTS.ORDER_INGREDIENTS.TITLE}
       </h2>

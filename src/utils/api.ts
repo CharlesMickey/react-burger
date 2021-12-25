@@ -27,7 +27,10 @@ export const getData = async () => {
 
 export const getOrderOfNumber = async (ingredients: string[]) => {
   const res = await fetch(`${BASE_URL}/orders`, {
-    headers,
+    headers: {
+      ...headers,
+      Authorization: `Bearer ${getCookie('token')}`,
+    },
     method: 'POST',
     body: JSON.stringify({ ingredients }),
   });

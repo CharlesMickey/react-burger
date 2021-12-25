@@ -1,8 +1,17 @@
-import React, { memo } from 'react';
+import React, { FC, memo } from 'react';
 import style from './orders-board.module.css';
 import { CONSTANTS } from '../../utils/constants';
+import { TWSData } from '../../services/type/socket';
+import { getOrderNumbers } from '../../utils/function';
 
-const OrdersBoard = () => {
+type TOrders = {
+  data: TWSData;
+};
+
+const OrdersBoard: FC<TOrders> = ({ data }) => {
+  const { orders } = data;
+  const { done, pending } = getOrderNumbers(orders);
+
   return (
     <section className={style.section}>
       <div className={style.boardContainer}>
@@ -11,7 +20,7 @@ const OrdersBoard = () => {
             {CONSTANTS.ORDER_BOARD.READY}
           </h3>
           <ul className={style.list}>
-            {arrNum.map((item, index) => {
+            {done.map((item: number, index: number) => {
               return (
                 <li
                   key={index}
@@ -28,7 +37,7 @@ const OrdersBoard = () => {
             {CONSTANTS.ORDER_BOARD.PREPARING}
           </h3>
           <ul className={style.list}>
-            {arrGot.map((item, index) => {
+            {pending.map((item: number, index: number) => {
               return (
                 <li key={index} className={`text text_type_digits-default`}>
                   {item}
@@ -43,7 +52,7 @@ const OrdersBoard = () => {
           {CONSTANTS.ORDER_BOARD.ALL_TIME}
         </h3>
         <span className={`text text_type_digits-large ${style.numberOrder}`}>
-          28 752
+          {data.total}
         </span>
       </div>
       <div>
@@ -51,7 +60,7 @@ const OrdersBoard = () => {
           {CONSTANTS.ORDER_BOARD.TODAY}
         </h3>
         <span className={`text text_type_digits-large ${style.numberOrder}`}>
-          134
+          {data.totalToday}
         </span>
       </div>
     </section>
@@ -59,11 +68,3 @@ const OrdersBoard = () => {
 };
 
 export default memo(OrdersBoard);
-
-export const arrNum: number[] = [
-  9723, 9568, 5846, 5874, 9856, 4521, 9852, 6587, 1426, 9723, 9568, 5846, 5874,
-  9856, 4521, 9852, 6587, 1426, 9723, 9568, 5846, 5874, 9856, 4521, 9852, 6587,
-  1426,
-];
-
-export const arrGot: number[] = [9723, 9568, 5846, 5874];

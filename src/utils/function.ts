@@ -1,3 +1,4 @@
+import { TOrder } from '../services/type/socket';
 import { ITypeIngredient } from './type-constants';
 
 type TSetCookie = {
@@ -94,6 +95,18 @@ export const getOrderPrice = (ingredients: ITypeIngredient[]) => {
     (acc: number, curr: ITypeIngredient) =>
       curr.type === 'bun' ? 2 * curr.price + acc : acc + curr.price,
     0
+  );
+};
+
+export const getOrderNumbers = (orders: TOrder[]) => {
+  return orders.slice(0, 35).reduce(
+    (acc: any, curr: TOrder) => {
+       curr.status === 'done'
+        ? acc.done.push(curr.number)
+        : acc.pending.push(curr.number);
+        return acc
+    },
+    { done: [], pending: [] }
   );
 };
 
