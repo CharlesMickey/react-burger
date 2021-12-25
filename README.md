@@ -6,10 +6,14 @@
 - * `API`
 - * `Redux`
 - * `TypeScript`
+- 
 
 * `CSS`
 * `Flexbox`
 * `Transition`
+* `Node.js`
+* `Git`
+* `WebSocket`
 
 
 
