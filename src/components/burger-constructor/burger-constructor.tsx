@@ -1,4 +1,4 @@
-import React, { useCallback, FC } from 'react';
+import React, { useCallback, FC, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Button,
@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from '../../services/type/hooks';
 import { useDrop } from 'react-dnd';
 import {
   ADD_INGREDIENT_CONSTRUCTOR,
+  CLEAR_ORDER_NUMBER,
+  GET_ORDER_REQUEST,
   INCREASE_INGREDIENTS,
 } from '../../services/actions';
 import { ingredientSelectors } from '../../services/selectors';
@@ -26,6 +28,7 @@ const ConstructorBurger: FC = () => {
   const { bun, ingredient } = useSelector(
     ingredientSelectors.ingredientsConstructor
   );
+  const orderRequest = useSelector(ingredientSelectors.orderRequest);
   const refreshToken = localStorage.refreshToken;
   const price = useSelector(ingredientSelectors.price);
   const dispatch = useDispatch();
@@ -33,6 +36,7 @@ const ConstructorBurger: FC = () => {
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'ingredient-menu',
     drop: (item: TIngredientWithUniqueId) => {
+      dispatch({ type: GET_ORDER_REQUEST });
       const itemWithId = { ...item, uniqueId: Math.random() };
       dispatch({
         type: ADD_INGREDIENT_CONSTRUCTOR,
@@ -69,6 +73,7 @@ const ConstructorBurger: FC = () => {
   );
 
   function handleClick() {
+    dispatch({ type: GET_ORDER_REQUEST });
     let id: string[] = [];
     if (bun !== null) {
       id = ingredient
@@ -85,10 +90,13 @@ const ConstructorBurger: FC = () => {
         },
       });
       dispatch(getOrder(id));
+      dispatch({ type: CLEAR_ORDER_NUMBER });
     } else {
       history.push('/login');
     }
   }
+
+  console.log(orderRequest);
 
   return (
     <section className={styleConstructor.section}>
@@ -138,7 +146,12 @@ const ConstructorBurger: FC = () => {
             <span className='mr-2 text text_type_digits-medium'>{price}</span>
             <CurrencyIcon type='primary' />
           </div>
-          <Button onClick={handleClick} type='primary' size='large'>
+          <Button
+            disabled={!orderRequest}
+            onClick={handleClick}
+            type='primary'
+            size='large'
+          >
             Оформить заказ
           </Button>
         </div>

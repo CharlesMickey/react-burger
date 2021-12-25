@@ -29,7 +29,7 @@ export const orderReducer = (
       return {
         ...state,
         orderRequest: true,
-      };
+      }; 
     }
     case GET_ORDER_SUCCESS: {
       return {

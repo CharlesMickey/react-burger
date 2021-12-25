@@ -9,10 +9,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { CONSTANTS } from '../../utils/constants';
 import { useDispatch } from '../../services/type/hooks';
 import { getItems } from '../../services/actions/ingredients';
-import {
-  CLEAR_CONSTRUCTOR_INGREDIENTS,
-  CLEAR_ORDER_NUMBER,
-} from '../../services/actions';
+import { CLEAR_ORDER_NUMBER } from '../../services/actions';
 import { Login } from '../../pages/login/login';
 import { Register } from '../../pages/register/register';
 import { ForgotPassword } from '../../pages/forgot-password/forgot-password';
@@ -29,7 +26,6 @@ function App() {
   const dispatch = useDispatch();
 
   const closeOrderPopup = React.useCallback(() => {
-    dispatch({ type: CLEAR_CONSTRUCTOR_INGREDIENTS });
     dispatch({ type: CLEAR_ORDER_NUMBER });
     history.goBack();
   }, [dispatch, history]);

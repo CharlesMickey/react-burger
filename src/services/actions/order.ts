@@ -23,6 +23,7 @@ export interface IGetOrderErrorSuccess {
   readonly orderData: TOrderData;
 }
 
+
 export interface IClearOrderNumber {
   readonly type: typeof CLEAR_ORDER_NUMBER;
 }
@@ -32,9 +33,9 @@ export type TOrderActions =
   | IGetOrderRequest
   | IGetOrderErrorSuccess
   | IClearConstructorIngredient
-  | IClearOrderNumber;
+  | IClearOrderNumber
 
-export const getOrder: AppThunk = (listId: string[]) => {
+export const  getOrder: AppThunk = (listId: string[]) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_ORDER_REQUEST,
@@ -61,4 +62,4 @@ export const getOrder: AppThunk = (listId: string[]) => {
         })
       );
   };
-};
+}

@@ -16,4 +16,5 @@ export const ingredientSelectors = {
   viewedIngredient: (store: RootState) => store.ingredients.viewedIngredient,
   allIngredients: (store: RootState) => store.ingredients.allIngredients,
   orderNumber: (store: RootState) => store.order.orderNumber,
+  orderRequest: (store: RootState) => store.order.orderRequest,
 };

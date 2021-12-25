@@ -51,7 +51,7 @@ const OrderDetails: FC = () => {
         className={` text text_type_main-default ${styleOrderDetails.spanColor}`}
       >
         {orderNumber
-          ? 'Пройдите в зону выдачи заказов'
+          ? 'Пожалуйста, пройдите в зону выдачи заказов '
           : 'Дождитесь готовности на орбитальной станции'}
       </span>
     </section>
