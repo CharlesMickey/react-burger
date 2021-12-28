@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/type/hooks';
 import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { logout } from '../../services/actions/auth';
 import styleProfileNavigation from './profile-navigation.module.css';
@@ -52,6 +52,11 @@ export const ProfileNavigation: FC = () => {
       {pathname === '/profile' && (
         <span className={`text text_type_main-default text_color_inactive`}>
           В этом разделе вы можете изменить свои персональные данные{' '}
+        </span>
+      )}
+      {pathname === '/profile/orders' && (
+        <span className={`text text_type_main-default text_color_inactive`}>
+          В этом разделе вы можете просмотреть свою историю заказов{' '}
         </span>
       )}
     </div>

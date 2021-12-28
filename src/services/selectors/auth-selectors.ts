@@ -1,3 +1,5 @@
+import { RootState } from '../type';
+
 export const userSelectors = {
-  authData: (store: any) => store.auth,
+  authData: (store: RootState) => store.auth,
 };

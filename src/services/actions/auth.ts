@@ -1,3 +1,6 @@
+import { AppThunk, AppDispatch } from './../type/index';
+import { TUserData, TUserDataWithToken } from './../type/data';
+import { TFuncVoid, TNewPasswordApi } from './../../utils/type-constants';
 import {
   FORGOT_PASSWORD_REQUEST,
   FORGOT_PASSWORD_SUCCESS,
@@ -36,8 +39,133 @@ import {
 } from '../../utils/api';
 import { getTokens, signOut } from '../../utils/function';
 
-export const logout = (goLogin) => {
-  return function (dispatch) {
+export interface IForgotPasswordRequest {
+  readonly type: typeof FORGOT_PASSWORD_REQUEST;
+}
+export interface IForgotPasswordSuccess {
+  readonly type: typeof FORGOT_PASSWORD_SUCCESS;
+}
+
+export interface IForgotPasswordError {
+  readonly type: typeof FORGOT_PASSWORD_ERROR;
+}
+
+export interface IResetPasswordRequest {
+  readonly type: typeof RESET_PASSWORD_REQUEST;
+}
+
+export interface IResetPasswordSuccess {
+  readonly type: typeof RESET_PASSWORD_SUCCESS;
+}
+
+export interface IResetPasswordError {
+  readonly type: typeof RESET_PASSWORD_ERROR;
+}
+
+export interface ILoginRequest {
+  readonly type: typeof LOGIN_REQUEST;
+}
+
+export interface ILoginSuccess {
+  readonly type: typeof LOGIN_SUCCESS;
+  readonly data: TUserDataWithToken;
+}
+
+export interface ILoginError {
+  readonly type: typeof LOGIN_ERROR;
+}
+
+export interface IRegisterRequest {
+  readonly type: typeof REGISTER_REQUEST;
+}
+
+export interface IRegisterSuccess {
+  readonly type: typeof REGISTER_SUCCESS;
+  readonly data: TUserDataWithToken;
+}
+
+export interface IRegisterError {
+  readonly type: typeof REGISTER_ERROR;
+}
+
+export interface ILogoutRequest {
+  readonly type: typeof LOGOUT_REQUEST;
+}
+
+export interface ILogoutSuccess {
+  readonly type: typeof LOGOUT_SUCCESS;
+}
+
+export interface ILogoutError {
+  readonly type: typeof LOGOUT_ERROR;
+}
+
+export interface ITokenRequest {
+  readonly type: typeof TOKEN_REQUEST;
+}
+
+export interface ITokenSuccess {
+  readonly type: typeof TOKEN_SUCCESS;
+}
+
+export interface ITokenError {
+  readonly type: typeof TOKEN_ERROR;
+}
+
+export interface IUserUpdateRequest {
+  readonly type: typeof USER_UPDATE_REQUEST;
+}
+
+export interface IUserUpdateSuccess {
+  readonly type: typeof USER_UPDATE_SUCCESS;
+  readonly data: TUserData;
+}
+
+export interface IUserUpdateError {
+  readonly type: typeof USER_UPDATE_ERROR;
+}
+
+export interface IUserRequest {
+  readonly type: typeof USER_REQUEST;
+}
+
+export interface IUserSuccess {
+  readonly type: typeof USER_SUCCESS;
+  readonly data: TUserData;
+}
+
+export interface IUserError {
+  readonly type: typeof USER_ERROR;
+}
+
+export type TAuthActions =
+  | IForgotPasswordRequest
+  | IForgotPasswordSuccess
+  | IForgotPasswordError
+  | IResetPasswordRequest
+  | IResetPasswordSuccess
+  | IResetPasswordError
+  | ILoginRequest
+  | ILoginSuccess
+  | ILoginError
+  | IRegisterRequest
+  | IRegisterSuccess
+  | IRegisterError
+  | ILogoutRequest
+  | ILogoutSuccess
+  | ILogoutError
+  | ITokenRequest
+  | ITokenSuccess
+  | ITokenError
+  | IUserUpdateRequest
+  | IUserUpdateSuccess
+  | IUserUpdateError
+  | IUserRequest
+  | IUserSuccess
+  | IUserError;
+
+export const logout: AppThunk = (goLogin: TFuncVoid) => {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: LOGOUT_REQUEST });
     logOut()
       .then((res) => {
@@ -56,7 +184,7 @@ export const logout = (goLogin) => {
   };
 };
 
-export const getNewAccessToken = () => {
+export const getNewAccessToken: AppThunk = () => {
   return function (dispatch) {
     dispatch({ type: TOKEN_REQUEST });
     getNewToken()
@@ -69,7 +197,11 @@ export const getNewAccessToken = () => {
         }
       })
       .catch((err) => {
-        if (err.message === 'Token is invalid') {
+        if (
+          err.message === 'jwt expired' ||
+          err.message === 'Token is invalid' ||
+          err.message === 'jwt malformed'
+        ) {
           dispatch(getNewAccessToken());
         } else console.log(err, err.message);
         signOut();
@@ -78,7 +210,15 @@ export const getNewAccessToken = () => {
   };
 };
 
-export const updateUserProfile = ({ name, email, password }) => {
+export const updateUserProfile: AppThunk = ({
+  name,
+  email,
+  password,
+}: {
+  name: string;
+  email: string;
+  password: string;
+}) => {
   return function (dispatch) {
     dispatch({ type: USER_UPDATE_REQUEST });
     updateUserInfo({ name, email, password })
@@ -92,7 +232,8 @@ export const updateUserProfile = ({ name, email, password }) => {
       .catch((err) => {
         if (
           err.message === 'jwt expired' ||
-          err.message === 'Token is invalid'
+          err.message === 'Token is invalid' ||
+          err.message === 'jwt malformed'
         ) {
           dispatch(getNewAccessToken());
           dispatch(updateUserProfile({ name, email, password }));
@@ -103,7 +244,7 @@ export const updateUserProfile = ({ name, email, password }) => {
   };
 };
 
-export const getUserProfile = () => {
+export const getUserProfile: AppThunk = () => {
   return function (dispatch) {
     dispatch({ type: USER_REQUEST });
 
@@ -118,7 +259,8 @@ export const getUserProfile = () => {
       .catch((err) => {
         if (
           err.message === 'jwt expired' ||
-          err.message === 'Token is invalid'
+          err.message === 'Token is invalid' ||
+          err.message === 'jwt malformed'
         ) {
           dispatch(getNewAccessToken());
           dispatch(getUserProfile());
@@ -128,10 +270,18 @@ export const getUserProfile = () => {
   };
 };
 
-export const registerAction = (name, email, password) => {
-  return function (dispatch) {
+export const registerAction: AppThunk = ({
+  name,
+  email,
+  password,
+}: {
+  name: string;
+  email: string;
+  password: string;
+}) => {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: REGISTER_REQUEST });
-    register(name, email, password)
+    register({ name, email, password })
       .then((res) => {
         getTokens(res);
         if (res && res.success) {
@@ -147,10 +297,16 @@ export const registerAction = (name, email, password) => {
   };
 };
 
-export const authorize = (email, password) => {
-  return function (dispatch) {
+export const authorize: AppThunk = ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) => {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: LOGIN_REQUEST });
-    login(email, password)
+    login({ email, password })
       .then((res) => {
         getTokens(res);
         if (res && res.success) {
@@ -166,8 +322,11 @@ export const authorize = (email, password) => {
   };
 };
 
-export const forgotPassword = (email, goResetPassword) => {
-  return function (dispatch) {
+export const forgotPassword: AppThunk = (
+  email: string,
+  goResetPassword: TFuncVoid
+) => {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: FORGOT_PASSWORD_REQUEST });
     getCodeChangePassword(email)
       .then((res) => {
@@ -185,9 +344,11 @@ export const forgotPassword = (email, goResetPassword) => {
   };
 };
 
-export const savePassword = (data, goMainPage) => {
-  console.log(data, goMainPage);
-  return function (dispatch) {
+export const savePassword: AppThunk = (
+  data: TNewPasswordApi,
+  goMainPage: TFuncVoid
+) => {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: RESET_PASSWORD_REQUEST });
     saveNewPassword(data)
       .then((res) => {

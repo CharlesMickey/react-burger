@@ -7,13 +7,9 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { CONSTANTS } from '../../utils/constants';
-import { useDispatch, useSelector } from 'react-redux';
-import { modalSelectors } from '../../services/selectors';
+import { useDispatch } from '../../services/type/hooks';
 import { getItems } from '../../services/actions/ingredients';
-import {
-  CLEAR_ORDER_NUMBER,
-  DEL_VIEWED_INGREDIENT,
-} from '../../services/actions';
+import { CLEAR_ORDER_NUMBER } from '../../services/actions';
 import { Login } from '../../pages/login/login';
 import { Register } from '../../pages/register/register';
 import { ForgotPassword } from '../../pages/forgot-password/forgot-password';
@@ -21,17 +17,18 @@ import { ResetPassword } from '../../pages/reset-password/reset-password';
 import { Profile } from '../../pages/profile/profile';
 import ProtectedRoute from '../protected-route/protected-route';
 import { Page404 } from '../../pages/404/page-404';
+import FeedPage from '../../pages/feed-page/feed-page';
+import Order from '../order/order';
 
 function App() {
   const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
-  const orderModal: boolean = useSelector(modalSelectors.orderModalOpen);
 
-  const closeAllPopups = React.useCallback(() => {
-    dispatch({ type: DEL_VIEWED_INGREDIENT });
+  const closeOrderPopup = React.useCallback(() => {
     dispatch({ type: CLEAR_ORDER_NUMBER });
-  }, [dispatch]);
+    history.goBack();
+  }, [dispatch, history]);
 
   const goBack = () => {
     history.goBack();
@@ -62,6 +59,15 @@ function App() {
         <Route path='/' exact={true}>
           <MainPage />
         </Route>
+        <Route path='/feed' exact={true}>
+          <FeedPage />
+        </Route>
+        <Route path='/feed/:id' exact={true}>
+          <Order />
+        </Route>
+        <ProtectedRoute path='/profile/orders/:id' exact={true}>
+          <Order />
+        </ProtectedRoute>
         <ProtectedRoute path='/profile' exact={false}>
           <Profile />
         </ProtectedRoute>
@@ -72,17 +78,29 @@ function App() {
           <Page404 />
         </Route>
       </Switch>
-      {orderModal && (
-        <Modal close={closeAllPopups} title={CONSTANTS.EMPTY_TITLE}>
-          <OrderDetails />
-        </Modal>
-      )}
       {background && (
-        <Route path='/ingredients/:id' exact={true}>
-          <Modal close={goBack} title={CONSTANTS.TITLE}>
-            <IngredientDetails />
-          </Modal>
-        </Route>
+        <>
+          <Route path='/ingredients/:id' exact={true}>
+            <Modal close={goBack} title={CONSTANTS.TITLE}>
+              <IngredientDetails />
+            </Modal>
+          </Route>
+          <ProtectedRoute path='/profile/orders/:id' exact={true}>
+            <Modal close={goBack}>
+              <Order />
+            </Modal>
+          </ProtectedRoute>
+          <Route path='/feed/:id' exact={true}>
+            <Modal close={goBack}>
+              <Order />
+            </Modal>
+          </Route>
+          <Route path='/' exact={true}>
+            <Modal close={closeOrderPopup} title={CONSTANTS.EMPTY_TITLE}>
+              <OrderDetails />
+            </Modal>
+          </Route>
+        </>
       )}
     </div>
   );

@@ -1,9 +1,10 @@
+import { TIngredientsCounter } from './../type/data';
+import { TIngredientsActions } from './../actions/ingredients';
 import {
   GET_ITEMS_REQUEST,
   GET_ITEMS_SUCCESS,
   GET_ITEMS_ERROR,
   GET_VIEWED_INGREDIENT,
-  DEL_VIEWED_INGREDIENT,
   ADD_INGREDIENT_CONSTRUCTOR,
   DEL_INGREDIENT_CONSTRUCTOR,
   INCREASE_INGREDIENTS,
@@ -11,11 +12,27 @@ import {
   DRAG_CONSTRUCTOR_INGREDIENT,
   CLEAR_CONSTRUCTOR_INGREDIENTS,
 } from '../actions';
-const initialIngredientState = {
+import {
+  ITypeIngredient,
+  TIngredientWithUniqueId,
+} from '../../utils/type-constants';
+
+type TInitialIngredientState = {
+  allIngredients: ITypeIngredient[];
+  itemsRequest: boolean;
+  itemsFailed: boolean;
+  viewedIngredient: ITypeIngredient | null;
+  ingredientsConstructor: {
+    bun: TIngredientWithUniqueId | null;
+    ingredient: TIngredientWithUniqueId[];
+    counter: TIngredientsCounter;
+  };
+};
+
+const initialIngredientState: TInitialIngredientState = {
   allIngredients: [],
   itemsRequest: false,
   itemsFailed: false,
-
   viewedIngredient: null,
   ingredientsConstructor: {
     bun: null,
@@ -24,7 +41,10 @@ const initialIngredientState = {
   },
 };
 
-export const ingredientReducer = (state = initialIngredientState, action) => {
+export const ingredientReducer = (
+  state = initialIngredientState,
+  action: TIngredientsActions
+): TInitialIngredientState => {
   switch (action.type) {
     case GET_ITEMS_REQUEST: {
       return {
@@ -46,10 +66,6 @@ export const ingredientReducer = (state = initialIngredientState, action) => {
 
     case GET_VIEWED_INGREDIENT: {
       return { ...state, viewedIngredient: action.item };
-    }
-
-    case DEL_VIEWED_INGREDIENT: {
-      return { ...state, viewedIngredient: null, ingredientModalOpen: false };
     }
 
     case ADD_INGREDIENT_CONSTRUCTOR: {

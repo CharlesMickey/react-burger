@@ -3,27 +3,35 @@ import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
   CLEAR_ORDER_NUMBER,
-  ORDER_DETAILS_OPEN,
 } from '../actions';
+import { TOrderActions } from '../actions/order';
 
-const initialOrderState = {
+type TInitialOrderState = {
+  orderName: string | null;
+  orderNumber: number | null;
+  orderRequest: boolean;
+  orderFailed: boolean;
+};
+
+const initialOrderState: TInitialOrderState = {
   orderName: null,
   orderNumber: null,
   orderRequest: false,
   orderFailed: false,
-  orderModalOpen: false,
 };
 
-export const orderReducer = (state = initialOrderState, action) => {
+export const orderReducer = (
+  state = initialOrderState,
+  action: TOrderActions
+): TInitialOrderState => {
   switch (action.type) {
     case GET_ORDER_REQUEST: {
       return {
         ...state,
         orderRequest: true,
-      };
+      }; 
     }
     case GET_ORDER_SUCCESS: {
-      console.log(action.orderData)
       return {
         ...state,
         orderFailed: false,
@@ -37,11 +45,12 @@ export const orderReducer = (state = initialOrderState, action) => {
     }
 
     case CLEAR_ORDER_NUMBER: {
-      return { state, orderModalOpen: false };
-    }
-
-    case ORDER_DETAILS_OPEN: {
-      return { ...state, orderModalOpen: true };
+      return {
+        orderName: null,
+        orderNumber: null,
+        orderRequest: false,
+        orderFailed: false,
+      };
     }
 
     default:

@@ -1,0 +1,28 @@
+.section {
+  max-width: 860px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 756px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(47, 47, 55, 1);
+  height: 492px;
+  margin-bottom: 52px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(133, 133, 173, 1);
+  border: 3px solid rgba(133, 133, 173, 1);
+  min-height: 150px;
+}

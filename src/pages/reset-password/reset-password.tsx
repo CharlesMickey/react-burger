@@ -7,7 +7,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleReset from './reset-password.module.css';
 import { savePassword } from '../../services/actions/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector }  from '../../services/type/hooks';
 import { userSelectors } from '../../services/selectors';
 import { CONSTANTS } from '../../utils/constants';
 
