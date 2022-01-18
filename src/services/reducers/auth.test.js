@@ -1,30 +1,5 @@
 import { authReducer } from './auth';
-import {
-  FORGOT_PASSWORD_REQUEST,
-  FORGOT_PASSWORD_SUCCESS,
-  FORGOT_PASSWORD_ERROR,
-  RESET_PASSWORD_REQUEST,
-  RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_ERROR,
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_ERROR,
-  REGISTER_REQUEST,
-  REGISTER_SUCCESS,
-  REGISTER_ERROR,
-  LOGOUT_REQUEST,
-  LOGOUT_SUCCESS,
-  LOGOUT_ERROR,
-  TOKEN_REQUEST,
-  TOKEN_SUCCESS,
-  TOKEN_ERROR,
-  USER_UPDATE_REQUEST,
-  USER_UPDATE_SUCCESS,
-  USER_UPDATE_ERROR,
-  USER_REQUEST,
-  USER_SUCCESS,
-  USER_ERROR,
-} from '../actions';
+import * as types from '../actions';
 
 const initState = {
   name: '',
@@ -58,7 +33,7 @@ const initState = {
 
 test('authReducer', () => {
   let state;
-  state = authReducer(initState, { type: LOGIN_REQUEST });
+  state = authReducer(initState, { type: types.LOGIN_REQUEST });
   expect(state).toEqual({
     ...initState,
     name: '',
@@ -66,7 +41,7 @@ test('authReducer', () => {
     loginRequest: true,
   });
   state = authReducer(initState, {
-    type: LOGIN_SUCCESS,
+    type: types.LOGIN_SUCCESS,
     data: {
       user: { email: 'test@test.dr', name: 'test' },
     },
@@ -79,7 +54,7 @@ test('authReducer', () => {
     loginFailed: false,
   });
   state = authReducer(initState, {
-    type: LOGIN_ERROR,
+    type: types.LOGIN_ERROR,
   });
   expect(state).toEqual({
     ...initState,
@@ -87,13 +62,13 @@ test('authReducer', () => {
     loginFailed: true,
   });
 
-  state = authReducer(initState, { type: REGISTER_REQUEST });
+  state = authReducer(initState, { type: types.REGISTER_REQUEST });
   expect(state).toEqual({
     ...initState,
     registerRequest: true,
   });
   state = authReducer(initState, {
-    type: REGISTER_SUCCESS,
+    type: types.REGISTER_SUCCESS,
     data: {
       user: { email: 'test@test.dr', name: 'test' },
     },
@@ -106,7 +81,7 @@ test('authReducer', () => {
     registerFailed: false,
   });
   state = authReducer(initState, {
-    type: REGISTER_ERROR,
+    type: types.REGISTER_ERROR,
   });
   expect(state).toEqual({
     ...initState,
@@ -114,14 +89,14 @@ test('authReducer', () => {
     registerFailed: true,
   });
 
-  state = authReducer(initState, { type: FORGOT_PASSWORD_REQUEST });
+  state = authReducer(initState, { type: types.FORGOT_PASSWORD_REQUEST });
   expect(state).toEqual({
     ...initState,
     forgotRequest: true,
     isResetPassword: false,
   });
   state = authReducer(initState, {
-    type: FORGOT_PASSWORD_SUCCESS,
+    type: types.FORGOT_PASSWORD_SUCCESS,
   });
   expect(state).toEqual({
     ...initState,
@@ -130,7 +105,7 @@ test('authReducer', () => {
     forgotFailed: false,
   });
   state = authReducer(initState, {
-    type: FORGOT_PASSWORD_ERROR,
+    type: types.FORGOT_PASSWORD_ERROR,
   });
   expect(state).toEqual({
     ...initState,
@@ -139,13 +114,13 @@ test('authReducer', () => {
     forgotFailed: true,
   });
 
-  state = authReducer(initState, { type: RESET_PASSWORD_REQUEST });
+  state = authReducer(initState, { type: types.RESET_PASSWORD_REQUEST });
   expect(state).toEqual({
     ...initState,
     resetRequest: true,
   });
   state = authReducer(initState, {
-    type: RESET_PASSWORD_SUCCESS,
+    type: types.RESET_PASSWORD_SUCCESS,
   });
   expect(state).toEqual({
     ...initState,
@@ -153,7 +128,7 @@ test('authReducer', () => {
     resetFailed: false,
   });
   state = authReducer(initState, {
-    type: RESET_PASSWORD_ERROR,
+    type: types.RESET_PASSWORD_ERROR,
   });
   expect(state).toEqual({
     ...initState,
@@ -161,17 +136,17 @@ test('authReducer', () => {
     resetFailed: true,
   });
 
-  state = authReducer(initState, { type: LOGOUT_REQUEST });
+  state = authReducer(initState, { type: types.LOGOUT_REQUEST });
   expect(state).toEqual({
     ...initState,
     registerRequest: true,
   });
   state = authReducer(initState, {
-    type: LOGOUT_SUCCESS,
+    type: types.LOGOUT_SUCCESS,
   });
   expect(state).toEqual(initState);
   state = authReducer(initState, {
-    type: LOGOUT_ERROR,
+    type: types.LOGOUT_ERROR,
   });
   expect(state).toEqual({
     ...initState,
@@ -179,13 +154,13 @@ test('authReducer', () => {
     logoutFailed: true,
   });
 
-  state = authReducer(initState, { type: TOKEN_REQUEST });
+  state = authReducer(initState, { type: types.TOKEN_REQUEST });
   expect(state).toEqual({
     ...initState,
     tokenRequest: true,
   });
   state = authReducer(initState, {
-    type: TOKEN_SUCCESS,
+    type: types.TOKEN_SUCCESS,
   });
   expect(state).toEqual({
     ...initState,
@@ -194,7 +169,7 @@ test('authReducer', () => {
     tokenFailed: false,
   });
   state = authReducer(initState, {
-    type: TOKEN_ERROR,
+    type: types.TOKEN_ERROR,
   });
   expect(state).toEqual({
     ...initState,
@@ -203,13 +178,13 @@ test('authReducer', () => {
     tokenFailed: true,
   });
 
-  state = authReducer(initState, { type: USER_UPDATE_REQUEST });
+  state = authReducer(initState, { type: types.USER_UPDATE_REQUEST });
   expect(state).toEqual({
     ...initState,
     updateUserRequest: true,
   });
   state = authReducer(initState, {
-    type: USER_UPDATE_SUCCESS,
+    type: types.USER_UPDATE_SUCCESS,
     data: {
       user: { email: 'test@test.dr', name: 'test' },
     },
@@ -222,7 +197,7 @@ test('authReducer', () => {
     updateUserFailed: false,
   });
   state = authReducer(initState, {
-    type: USER_UPDATE_ERROR,
+    type: types.USER_UPDATE_ERROR,
   });
   expect(state).toEqual({
     ...initState,
@@ -230,13 +205,13 @@ test('authReducer', () => {
     updateUserFailed: true,
   });
 
-  state = authReducer(initState, { type: USER_REQUEST });
+  state = authReducer(initState, { type: types.USER_REQUEST });
   expect(state).toEqual({
     ...initState,
     userRequest: true,
   });
   state = authReducer(initState, {
-    type: USER_SUCCESS,
+    type: types.USER_SUCCESS,
     data: {
       user: { email: 'test@test.dr', name: 'test' },
     },
@@ -249,7 +224,7 @@ test('authReducer', () => {
     userFailed: false,
   });
   state = authReducer(initState, {
-    type: USER_ERROR,
+    type: types.USER_ERROR,
   });
   expect(state).toEqual({
     ...initState,
