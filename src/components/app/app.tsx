@@ -95,7 +95,7 @@ function App() {
               <Order />
             </Modal>
           </Route>
-          <Route path='/' exact={true}>
+          <Route path='/order-modal' exact={true}>
             <Modal close={closeOrderPopup} title={CONSTANTS.EMPTY_TITLE}>
               <OrderDetails />
             </Modal>
