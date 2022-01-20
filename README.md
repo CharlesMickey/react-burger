@@ -1,5 +1,9 @@
 # Проект: Космо-Бургерная на React.
 
+## Ссылка на gh-page:
+[React-burger](https://charlesmickey.github.io/react-burger/) 
+
+
 ## Языки/инструменты
 * `JS`
 - * `React`
@@ -40,8 +44,7 @@ $ npm run test
 ### Автор:
 *Чухненко Артур (CharlesMickey.ru@yandex.com)*
 
-### Ссылка на gh-page:
-[React-burger](https://charlesmickey.github.io/react-burger/). 
+
 
 
 
