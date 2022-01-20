@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import done from '../../images/done.png';
+import doneImg from '../../images/svg/done.svg';
 import styleOrderDetails from './order-details.module.css';
 import { ingredientSelectors } from '../../services/selectors';
 import { useSelector } from '../../services/type/hooks';
@@ -43,7 +43,7 @@ const OrderDetails: FC = () => {
       <p className='mt-8 text text_type_main-medium'>
         {orderNumber ? 'идентификатор заказа' : 'до готовности заказа'}
       </p>
-      <img className='mt-15 mb-15' src={done} alt='Заказ готовится' />
+      <img src={doneImg}  className='mt-15 mb-15' alt='Заказ готовится' />
       <p className='mb-2 text text_type_main-default'>
         {orderNumber ? 'Ваш заказ готов' : 'Ваш заказ начали готовить'}
       </p>
