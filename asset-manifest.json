@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "./static/css/main.8bdb4ff0.chunk.css",
-    "main.js": "./static/js/main.4a2a367f.chunk.js",
-    "main.js.map": "./static/js/main.4a2a367f.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.8bd4ccd8.js",
-    "runtime-main.js.map": "./static/js/runtime-main.8bd4ccd8.js.map",
-    "static/css/2.b366584d.chunk.css": "./static/css/2.b366584d.chunk.css",
-    "static/js/2.4cadf494.chunk.js": "./static/js/2.4cadf494.chunk.js",
-    "static/js/2.4cadf494.chunk.js.map": "./static/js/2.4cadf494.chunk.js.map",
-    "static/js/3.b0ee968b.chunk.js": "./static/js/3.b0ee968b.chunk.js",
-    "static/js/3.b0ee968b.chunk.js.map": "./static/js/3.b0ee968b.chunk.js.map",
-    "index.html": "./index.html",
-    "static/css/2.b366584d.chunk.css.map": "./static/css/2.b366584d.chunk.css.map",
-    "static/css/main.8bdb4ff0.chunk.css.map": "./static/css/main.8bdb4ff0.chunk.css.map",
-    "static/js/2.4cadf494.chunk.js.LICENSE.txt": "./static/js/2.4cadf494.chunk.js.LICENSE.txt",
-    "static/media/fonts.css": "./static/media/iceland.77ad7fc2.woff",
-    "static/media/done.498a3c13.svg": "./static/media/done.498a3c13.svg",
-    "static/media/logo.537177ec.svg": "./static/media/logo.537177ec.svg"
+    "main.css": "/react-burger/static/css/main.8bdb4ff0.chunk.css",
+    "main.js": "/react-burger/static/js/main.da92cd42.chunk.js",
+    "main.js.map": "/react-burger/static/js/main.da92cd42.chunk.js.map",
+    "runtime-main.js": "/react-burger/static/js/runtime-main.44af861c.js",
+    "runtime-main.js.map": "/react-burger/static/js/runtime-main.44af861c.js.map",
+    "static/css/2.a10f77ef.chunk.css": "/react-burger/static/css/2.a10f77ef.chunk.css",
+    "static/js/2.4cadf494.chunk.js": "/react-burger/static/js/2.4cadf494.chunk.js",
+    "static/js/2.4cadf494.chunk.js.map": "/react-burger/static/js/2.4cadf494.chunk.js.map",
+    "static/js/3.b0ee968b.chunk.js": "/react-burger/static/js/3.b0ee968b.chunk.js",
+    "static/js/3.b0ee968b.chunk.js.map": "/react-burger/static/js/3.b0ee968b.chunk.js.map",
+    "index.html": "/react-burger/index.html",
+    "static/css/2.a10f77ef.chunk.css.map": "/react-burger/static/css/2.a10f77ef.chunk.css.map",
+    "static/css/main.8bdb4ff0.chunk.css.map": "/react-burger/static/css/main.8bdb4ff0.chunk.css.map",
+    "static/js/2.4cadf494.chunk.js.LICENSE.txt": "/react-burger/static/js/2.4cadf494.chunk.js.LICENSE.txt",
+    "static/media/fonts.css": "/react-burger/static/media/iceland.77ad7fc2.woff",
+    "static/media/done.498a3c13.svg": "/react-burger/static/media/done.498a3c13.svg",
+    "static/media/logo.537177ec.svg": "/react-burger/static/media/logo.537177ec.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.8bd4ccd8.js",
-    "static/css/2.b366584d.chunk.css",
+    "static/js/runtime-main.44af861c.js",
+    "static/css/2.a10f77ef.chunk.css",
     "static/js/2.4cadf494.chunk.js",
     "static/css/main.8bdb4ff0.chunk.css",
-    "static/js/main.4a2a367f.chunk.js"
+    "static/js/main.da92cd42.chunk.js"
   ]
 }
