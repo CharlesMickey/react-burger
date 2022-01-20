@@ -31,204 +31,336 @@ const initState = {
   resetFailed: false,
 };
 
-test('authReducer', () => {
-  let state;
-  state = authReducer(initState, { type: types.LOGIN_REQUEST });
-  expect(state).toEqual({
-    ...initState,
-    name: '',
-    email: '',
-    loginRequest: true,
-  });
-  state = authReducer(initState, {
-    type: types.LOGIN_SUCCESS,
-    data: {
-      user: { email: 'test@test.dr', name: 'test' },
-    },
-  });
-  expect(state).toEqual({
-    ...initState,
-    name: 'test',
-    email: 'test@test.dr',
-    loginRequest: false,
-    loginFailed: false,
-  });
-  state = authReducer(initState, {
-    type: types.LOGIN_ERROR,
-  });
-  expect(state).toEqual({
-    ...initState,
-    loginRequest: false,
-    loginFailed: true,
+describe('authReducer', () => {
+  it('should return the initial state', () => {
+    expect(authReducer(undefined, {})).toEqual(initState);
   });
 
-  state = authReducer(initState, { type: types.REGISTER_REQUEST });
-  expect(state).toEqual({
-    ...initState,
-    registerRequest: true,
-  });
-  state = authReducer(initState, {
-    type: types.REGISTER_SUCCESS,
-    data: {
-      user: { email: 'test@test.dr', name: 'test' },
-    },
-  });
-  expect(state).toEqual({
-    ...initState,
-    name: 'test',
-    email: 'test@test.dr',
-    registerRequest: false,
-    registerFailed: false,
-  });
-  state = authReducer(initState, {
-    type: types.REGISTER_ERROR,
-  });
-  expect(state).toEqual({
-    ...initState,
-    registerRequest: false,
-    registerFailed: true,
+  it('should handle LOGIN_REQUEST', () => {
+    expect(
+      authReducer(initState, {
+        type: types.LOGIN_REQUEST,
+      })
+    ).toEqual(
+      expect.objectContaining({
+        name: '',
+        email: '',
+        loginRequest: true,
+      })
+    );
   });
 
-  state = authReducer(initState, { type: types.FORGOT_PASSWORD_REQUEST });
-  expect(state).toEqual({
-    ...initState,
-    forgotRequest: true,
-    isResetPassword: false,
-  });
-  state = authReducer(initState, {
-    type: types.FORGOT_PASSWORD_SUCCESS,
-  });
-  expect(state).toEqual({
-    ...initState,
-    forgotRequest: false,
-    isResetPassword: true,
-    forgotFailed: false,
-  });
-  state = authReducer(initState, {
-    type: types.FORGOT_PASSWORD_ERROR,
-  });
-  expect(state).toEqual({
-    ...initState,
-    forgotRequest: false,
-    isResetPassword: false,
-    forgotFailed: true,
+  it('should handle LOGIN_SUCCESS', () => {
+    expect(
+      authReducer(initState, {
+        type: types.LOGIN_SUCCESS,
+        data: {
+          user: { email: 'test@test.dr', name: 'test' },
+        },
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        name: 'test',
+        email: 'test@test.dr',
+        loginRequest: false,
+        loginFailed: false,
+      })
+    );
   });
 
-  state = authReducer(initState, { type: types.RESET_PASSWORD_REQUEST });
-  expect(state).toEqual({
-    ...initState,
-    resetRequest: true,
-  });
-  state = authReducer(initState, {
-    type: types.RESET_PASSWORD_SUCCESS,
-  });
-  expect(state).toEqual({
-    ...initState,
-    resetRequest: false,
-    resetFailed: false,
-  });
-  state = authReducer(initState, {
-    type: types.RESET_PASSWORD_ERROR,
-  });
-  expect(state).toEqual({
-    ...initState,
-    resetRequest: false,
-    resetFailed: true,
+  it('should handle LOGIN_ERROR', () => {
+    expect(
+      authReducer(initState, {
+        type: types.LOGIN_ERROR,
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        loginRequest: false,
+        loginFailed: true,
+      })
+    );
   });
 
-  state = authReducer(initState, { type: types.LOGOUT_REQUEST });
-  expect(state).toEqual({
-    ...initState,
-    registerRequest: true,
-  });
-  state = authReducer(initState, {
-    type: types.LOGOUT_SUCCESS,
-  });
-  expect(state).toEqual(initState);
-  state = authReducer(initState, {
-    type: types.LOGOUT_ERROR,
-  });
-  expect(state).toEqual({
-    ...initState,
-    logoutRequest: false,
-    logoutFailed: true,
+  it('should handle REGISTER_REQUEST', () => {
+    expect(
+      authReducer(initState, {
+        type: types.REGISTER_REQUEST,
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        registerRequest: true,
+      })
+    );
   });
 
-  state = authReducer(initState, { type: types.TOKEN_REQUEST });
-  expect(state).toEqual({
-    ...initState,
-    tokenRequest: true,
-  });
-  state = authReducer(initState, {
-    type: types.TOKEN_SUCCESS,
-  });
-  expect(state).toEqual({
-    ...initState,
-    tokenUpdate: true,
-    tokenRequest: false,
-    tokenFailed: false,
-  });
-  state = authReducer(initState, {
-    type: types.TOKEN_ERROR,
-  });
-  expect(state).toEqual({
-    ...initState,
-    tokenRequest: false,
-    tokenUpdate: false,
-    tokenFailed: true,
+  it('should handle REGISTER_SUCCESS', () => {
+    expect(
+      authReducer(initState, {
+        type: types.REGISTER_SUCCESS,
+        data: {
+          user: { email: 'test@test.dr', name: 'test' },
+        },
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        name: 'test',
+        email: 'test@test.dr',
+        registerRequest: false,
+        registerFailed: false,
+      })
+    );
   });
 
-  state = authReducer(initState, { type: types.USER_UPDATE_REQUEST });
-  expect(state).toEqual({
-    ...initState,
-    updateUserRequest: true,
-  });
-  state = authReducer(initState, {
-    type: types.USER_UPDATE_SUCCESS,
-    data: {
-      user: { email: 'test@test.dr', name: 'test' },
-    },
-  });
-  expect(state).toEqual({
-    ...initState,
-    name: 'test',
-    email: 'test@test.dr',
-    updateUserRequest: false,
-    updateUserFailed: false,
-  });
-  state = authReducer(initState, {
-    type: types.USER_UPDATE_ERROR,
-  });
-  expect(state).toEqual({
-    ...initState,
-    updateUserRequest: false,
-    updateUserFailed: true,
+  it('should handle REGISTER_ERROR', () => {
+    expect(
+      authReducer(initState, {
+        type: types.REGISTER_ERROR,
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        registerRequest: false,
+        registerFailed: true,
+      })
+    );
   });
 
-  state = authReducer(initState, { type: types.USER_REQUEST });
-  expect(state).toEqual({
-    ...initState,
-    userRequest: true,
+  it('should handle FORGOT_PASSWORD_REQUEST', () => {
+    expect(
+      authReducer(initState, { type: types.FORGOT_PASSWORD_REQUEST })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        forgotRequest: true,
+        isResetPassword: false,
+      })
+    );
   });
-  state = authReducer(initState, {
-    type: types.USER_SUCCESS,
-    data: {
-      user: { email: 'test@test.dr', name: 'test' },
-    },
+
+  it('should handle FORGOT_PASSWORD_SUCCESS', () => {
+    expect(
+      authReducer(initState, {
+        type: types.FORGOT_PASSWORD_SUCCESS,
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        forgotRequest: false,
+        isResetPassword: true,
+        forgotFailed: false,
+      })
+    );
   });
-  expect(state).toEqual({
-    ...initState,
-    name: 'test',
-    email: 'test@test.dr',
-    userRequest: false,
-    userFailed: false,
+
+  it('should handle FORGOT_PASSWORD_ERROR', () => {
+    expect(
+      authReducer(initState, {
+        type: types.FORGOT_PASSWORD_ERROR,
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        forgotRequest: false,
+        isResetPassword: false,
+        forgotFailed: true,
+      })
+    );
   });
-  state = authReducer(initState, {
-    type: types.USER_ERROR,
+
+  it('should handle RESET_PASSWORD_REQUEST', () => {
+    expect(
+      authReducer(initState, { type: types.RESET_PASSWORD_REQUEST })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        resetRequest: true,
+      })
+    );
   });
-  expect(state).toEqual({
-    ...initState,
-    userRequest: false,
-    userFailed: true,
+
+  it('should handle RESET_PASSWORD_SUCCESS', () => {
+    expect(
+      authReducer(initState, {
+        type: types.RESET_PASSWORD_SUCCESS,
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        resetRequest: false,
+        resetFailed: false,
+      })
+    );
+  });
+
+  it('should handle RESET_PASSWORD_ERROR', () => {
+    expect(
+      authReducer(initState, {
+        type: types.RESET_PASSWORD_ERROR,
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        resetRequest: false,
+        resetFailed: true,
+      })
+    );
+  });
+
+  it('should handle LOGOUT_REQUEST', () => {
+    expect(authReducer(initState, { type: types.LOGOUT_REQUEST })).toEqual(
+      expect.objectContaining({
+        ...initState,
+        registerRequest: true,
+      })
+    );
+  });
+
+  it('should handle LOGOUT_SUCCESS', () => {
+    expect(
+      authReducer(initState, {
+        type: types.LOGOUT_SUCCESS,
+      })
+    ).toEqual(expect.objectContaining(initState));
+  });
+
+  it('should handle LOGOUT_ERROR', () => {
+    expect(
+      authReducer(initState, {
+        type: types.LOGOUT_ERROR,
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        logoutRequest: false,
+        logoutFailed: true,
+      })
+    );
+  });
+
+  it('should handle TOKEN_REQUEST', () => {
+    expect(authReducer(initState, { type: types.TOKEN_REQUEST })).toEqual(
+      expect.objectContaining({
+        ...initState,
+        tokenRequest: true,
+      })
+    );
+  });
+
+  it('should handle TOKEN_SUCCESS', () => {
+    expect(
+      authReducer(initState, {
+        type: types.TOKEN_SUCCESS,
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        tokenUpdate: true,
+        tokenRequest: false,
+        tokenFailed: false,
+      })
+    );
+  });
+
+  it('should handle TOKEN_ERROR', () => {
+    expect(
+      authReducer(initState, {
+        type: types.TOKEN_ERROR,
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        tokenRequest: false,
+        tokenUpdate: false,
+        tokenFailed: true,
+      })
+    );
+  });
+
+  it('should handle USER_UPDATE_REQUEST', () => {
+    expect(authReducer(initState, { type: types.USER_UPDATE_REQUEST })).toEqual(
+      expect.objectContaining({
+        ...initState,
+        updateUserRequest: true,
+      })
+    );
+  });
+
+  it('should handle USER_UPDATE_SUCCESS', () => {
+    expect(
+      authReducer(initState, {
+        type: types.USER_UPDATE_SUCCESS,
+        data: {
+          user: { email: 'test@test.dr', name: 'test' },
+        },
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        name: 'test',
+        email: 'test@test.dr',
+        updateUserRequest: false,
+        updateUserFailed: false,
+      })
+    );
+  });
+
+  it('should handle USER_UPDATE_ERROR', () => {
+    expect(
+      authReducer(initState, {
+        type: types.USER_UPDATE_ERROR,
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        updateUserRequest: false,
+        updateUserFailed: true,
+      })
+    );
+  });
+
+  it('should handle USER_REQUEST', () => {
+    expect(authReducer(initState, { type: types.USER_REQUEST })).toEqual(
+      expect.objectContaining({
+        ...initState,
+        userRequest: true,
+      })
+    );
+  });
+
+  it('should handle USER_SUCCESS', () => {
+    expect(
+      authReducer(initState, {
+        type: types.USER_SUCCESS,
+        data: {
+          user: { email: 'test@test.dr', name: 'test' },
+        },
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        name: 'test',
+        email: 'test@test.dr',
+        userRequest: false,
+        userFailed: false,
+      })
+    );
+  });
+
+  it('should handle USER_ERROR', () => {
+    expect(
+      authReducer(initState, {
+        type: types.USER_ERROR,
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initState,
+        userRequest: false,
+        userFailed: true,
+      })
+    );
   });
 });

@@ -29,6 +29,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --fix --ext .js,.jsx .",
+    "cypress": "cypress open cache clear",
     "cypress:open": "./node_modules/.bin/cypress open",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"

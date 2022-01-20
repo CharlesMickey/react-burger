@@ -8,37 +8,57 @@ const initialOrderState = {
   orderFailed: false,
 };
 
-test('orderReducer', () => {
-  let state;
-  state = orderReducer(initialOrderState, { type: types.GET_ORDER_REQUEST });
-  expect(state).toEqual({
-    ...initialOrderState,
-    orderRequest: true,
+describe('orderReducer', () => {
+  it('should return the initial state', () => {
+    expect(orderReducer(undefined, {})).toEqual(initialOrderState);
   });
-  state = orderReducer(initialOrderState, {
-    type: types.GET_ORDER_SUCCESS,
-    orderData: {
-      success: true,
-      name: 'Флюоресцентный бургер',
-      order: {
-        name: 'Флюоресцентный бургер',
-        number: 1,
-      },
-    },
+
+  it('should handle GET_ORDER_REQUEST', () => {
+    expect(
+      orderReducer(initialOrderState, { type: types.GET_ORDER_REQUEST })
+    ).toEqual(
+      expect.objectContaining({
+        ...initialOrderState,
+        orderRequest: true,
+      })
+    );
   });
-  expect(state).toEqual({
-    ...initialOrderState,
-    orderName: 'Флюоресцентный бургер',
-    orderNumber: 1,
-    orderRequest: false,
-    orderFailed: false,
+
+  it('should handle GET_ORDER_SUCCESS', () => {
+    expect(
+      orderReducer(initialOrderState, {
+        type: types.GET_ORDER_SUCCESS,
+        orderData: {
+          success: true,
+          name: 'Флюоресцентный бургер',
+          order: {
+            name: 'Флюоресцентный бургер',
+            number: 1,
+          },
+        },
+      })
+    ).toEqual(
+      expect.objectContaining({
+        ...initialOrderState,
+        orderName: 'Флюоресцентный бургер',
+        orderNumber: 1,
+        orderRequest: false,
+        orderFailed: false,
+      })
+    );
   });
-  state = orderReducer(initialOrderState, { type: types.CLEAR_ORDER_NUMBER });
-  expect(state).toEqual({
-    ...initialOrderState,
-    orderName: null,
-    orderNumber: null,
-    orderRequest: false,
-    orderFailed: false,
+
+  it('should handle CLEAR_ORDER_NUMBER', () => {
+    expect(
+      orderReducer(initialOrderState, { type: types.CLEAR_ORDER_NUMBER })
+    ).toEqual(
+      expect.objectContaining({
+        ...initialOrderState,
+        orderName: null,
+        orderNumber: null,
+        orderRequest: false,
+        orderFailed: false,
+      })
+    );
   });
 });
