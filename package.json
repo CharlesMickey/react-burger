@@ -2,7 +2,7 @@
   "name": "react-burger",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://charlesmickey.github.io/react-burger/",
+  "homepage": "./",
   "typescript.suggest.autoImports": false,
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
@@ -29,6 +29,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --fix --ext .js,.jsx .",
+    "cypress:open": "./node_modules/.bin/cypress open",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
