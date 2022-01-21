@@ -1,6 +1,3 @@
-import { closeModal } from './close-modal';
-import { p } from './making an order + DnD.spec';
-
 describe('the modal window of the ingredient with all the data opens/closes correctly', function () {
   before(function () {
     cy.visit('http://localhost:3000');
@@ -17,5 +14,8 @@ describe('the modal window of the ingredient with all the data opens/closes corr
     cy.get('@modal').contains('85');
   });
 
-  closeModal();
+  it('close the modal window', function () {
+    cy.get('[class^=modal_closeIcon__]').click();
+    cy.get('[class^=modal]').should('not.exist');
+  });
 });

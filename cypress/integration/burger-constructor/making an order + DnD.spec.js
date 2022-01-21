@@ -1,5 +1,3 @@
-import { closeModal } from './close-modal';
-
 describe('checking the correct operation of DnD and placing orders', function () {
   before(function () {
     cy.visit('http://localhost:3000');
@@ -37,5 +35,8 @@ describe('checking the correct operation of DnD and placing orders', function ()
     cy.get('@modal').contains('Дождитесь готовности на орбитальной станции');
   });
 
-  closeModal();
+  it('close the modal window', function () {
+    cy.get('[class^=modal_closeIcon__]').click();
+    cy.get('[class^=modal]').should('not.exist');
+  });
 });
