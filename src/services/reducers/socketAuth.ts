@@ -14,13 +14,13 @@ type TInitialSocketState = {
   error?: PayloadAction;
 };
 
-const iInitialSocketState: TInitialSocketState = {
+const initialSocketState: TInitialSocketState = {
   wsConnected: false,
   data: { success: false, orders: [], total: 0, totalToday: 0 },
 };
 
 export const wsReducerAuth = (
-  state = iInitialSocketState,
+  state = initialSocketState,
   action: TWSActionsAuth
 ): TInitialSocketState => {
   switch (action.type) {

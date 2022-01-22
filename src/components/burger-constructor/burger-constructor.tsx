@@ -84,7 +84,7 @@ const ConstructorBurger: FC = () => {
     }
     if (refreshToken) {
       history.push({
-        pathname: '/',
+        pathname: '/order-modal',
         state: {
           background: location,
         },

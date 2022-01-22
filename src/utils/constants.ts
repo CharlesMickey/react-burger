@@ -11,7 +11,7 @@ export const CONSTANTS = {
     FEW_DAYS: 'дня(ей) назад,'
   },
   EMPTY_TITLE: '',
-  TITLE: ' Добавить ингредиенты',
+  TITLE: 'Детали ингредиента',
   TITLE_PAGE: 'Детали ингредиента',
   PROFILE_ROUTE: '/profile',
   ORDER: {

@@ -1,34 +1,53 @@
 # Проект: Космо-Бургерная на React.
 
+## Ссылка на gh-page:
+[React-burger](https://charlesmickey.github.io/react-burger/) 
+
+
 ## Языки/инструменты
 * `JS`
 - * `React`
-- * `API`
 - * `Redux`
 - * `TypeScript`
-- 
 
-* `CSS`
-* `Flexbox`
-* `Transition`
+
+
+* `HTML5`
+* `CSS3`
+* `API`
 * `Node.js`
 * `Git`
 * `WebSocket`
+* `Cypress`
 
 
 
-### Для локального запуска: `npm start`
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Запуск приложения
+Скачать или склонировать репозиторий
+```sh
+# установка зависимостей
+$ npm install
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# запуск сервера на localhost:3000
+$ npm run start
+
+# сборка в продакшн
+$ npm run build
+
+# запуск тестирования приложения (Cypress)
+$ npm run cypress:open
+
+# запуск тестирования приложения
+$ npm run test
+```
 
 ### Автор:
 *Чухненко Артур (CharlesMickey.ru@yandex.com)*
 
 ### Ссылка на gh-page:
 [React-burger](https://charlesmickey.github.io/react-burger/). 
+
+
 
 https://user-images.githubusercontent.com/50279935/147393423-f92d70e9-9b2d-41cc-84af-f91052676bad.mp4
 
