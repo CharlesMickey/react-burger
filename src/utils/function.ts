@@ -100,7 +100,7 @@ export const getOrderPrice = (ingredients: ITypeIngredient[]) => {
 };
 
 export const getOrderNumbers = (orders: TOrder[]) => {
-  return orders.slice(0, 35).reduce(
+  return orders.slice(0, 30).reduce(
     (acc: { done: number[]; pending: number[] }, curr: TOrder) => {
       curr.status === 'done'
         ? acc.done.push(curr.number)
