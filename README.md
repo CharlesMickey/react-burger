@@ -17,6 +17,7 @@
 * `API`
 * `Node.js`
 * `Git`
+* `DnD`
 * `WebSocket`
 * `Cypress`
 
