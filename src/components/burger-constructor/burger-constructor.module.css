@@ -13,6 +13,11 @@
   gap: 16px;
 }
 
+.description {
+  text-align: center;
+  margin: 20px auto;
+}
+
 .list {
   list-style-type: none;
   min-height: 300px;

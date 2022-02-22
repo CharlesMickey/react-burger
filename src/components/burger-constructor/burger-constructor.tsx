@@ -103,6 +103,14 @@ const ConstructorBurger: FC = () => {
         style={{ backgroundColor }}
         className={styleConstructor.constructorElement}
       >
+        {bun === null && (
+          <p
+            className={` text text_type_main-default ${styleConstructor.description}`}
+          >
+            Чтобы сделать заказ<br/>
+            Перетащите сюда булку и ингредиенты
+          </p>
+        )}
         {bun && (
           <ConstructorElement
             type='top'
