@@ -8,5 +8,6 @@
 @media only screen and (max-width: 1160px) {
   .main {
     flex-direction: column;
+    align-items: center;
   }
 }
