@@ -43,7 +43,8 @@ $ npm run test
 ```
 
 ### Автор:
-*Чухненко Артур (CharlesMickey.ru@yandex.com)*
+*Чухненко Артур 
+(CharlesMickey.ru@yandex.com)*
 
 
 
